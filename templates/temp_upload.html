@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+{% block content %}
+  <title>UPLOAD</title>
+   <meta charset="utf-8">
+  <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css">
+  <script src="/vendor/jquery/jquery.js"></script>
+  <script src="/vendor/jquery/jquery-ui.js"></script>
+{% if langue %}{% else %}{% endif %}
+<h1 class="title">{% if langue %}Upload new File{% else %}Télécharger fichiers{% endif %}</h1>
+<div class="form_upload">
+    
+    <form method="post" enctype="multipart/form-data" action="/save/fichiers">
+    <input type=file name="file[]" multiple="">
+    <input type=submit value="{% if langue %}Upload{% else %}Télécharger{% endif %}">
+    </form>
+</div>
+<br>
+<br> 
+<div class="liste_photo">
+   <div class="row row_media"> 
+    {% for p in photos %}
+    <div class="medias_display col-xs-3">
+    		<div><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
+    		<hr>
+    		<div><a href="/images/{{ p.media }}" target="_blank"><img src="/images/{{p.media}}" alt="{{p.media}}" class="img-responsive img-thumbnail" style="height: 227.5px;"></a></div>
+ 			<div><label>{{p.media}}</label></div>
+  			<div><label>{{p.date}}</label></div>
+  			<hr>
+ 			<div><a href="/delete/{{ p.media }}">{% if langue %}Delete{% else %}Effacer{% endif %}</a></div>			
+    </div>	
+    {% if loop.index is divisibleby 4 %} </div><div class="row row_media">{% endif %}							
+	{% endfor %}
+	</div>
+</div>
+
+
+
+
+{% endblock %}

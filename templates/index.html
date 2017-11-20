@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% if langue %}
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-us" xml:lang="en-us">
+{% else %}
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+{% endif %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Projet_Metro_CMS</title>
+    <script src="/vendor/jquery/jquery.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/jquery/jquery-ui.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/langue.js"></script>
+    <script src="/js/menu.js"></script>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+        <nav class="navbar navbar-default menu_float">
+          <div class="container-fluide">
+                       <div class="navbar-header">
+   
+                                  <ul>
+                                      <li class="menu"></li>
+                                        <li><a class="active home" href="/"><img src="/img/2000px-Felipe_icon_User.svg.png" height="42" width="42"></a></li>
+                                    <li id="login"></li>
+                                    <li id="menu_cat" value=""></li>
+                                    <li id="changer"><button id="button_langue" onclick="Changer_Langue()" value="{% if langue %}Français{% else %}Anglais{% endif %}">{% if langue %}Français{% else %}Anglais{% endif %}</button></li>
+                                  </ul>    
+                        </div>
+                        <div class="recherche">
+                        <form action="/recherche" method="post">
+                                    <input type="recherche" name="recherche">
+                                    <input type=submit value=&#128269;>
+                                    </form>
+                        </div>
+              </div>
+            </nav>    
+            <br>
+            <br>
+             <br>
+            <br>
+            <br>
+            <br>
+<div class="container-fluid">
+
+{% block content %}{% endblock %}
+
+</div>
+
+<footer class="text-center" style="padding-top: 20px;">Projet Metro CMS <a href="http://www.github.com"><img src="/img/GitHub-Mark-120px-plus.png" height="42" width="42"></a></footer>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+{% block content %}
+  <title>UPLOAD</title>
+   <meta charset="utf-8">
+  <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css">
+  <script src="/vendor/jquery/jquery.js"></script>
+  <script src="/vendor/jquery/jquery-ui.js"></script>
+
+
+<div class="form_upload">
+    <h1 class="title">Admin liste</h1>
+
+ <table class="table table-hover table-responsive liste_articles">
+    <thead>
+    	<tr>
+        <th>Numéro</th>
+        <th>URL</th>
+        <th>titre_1</th>
+    	<th>titre_2</th>
+    	<th>date</th>
+    	<th>auteur</th>
+    	<th>categorie_1</th>
+    	<th>categorie_2</th>
+    	<th>photo</th>
+    	<th>effacer</th>
+    	<th>mise à jour</th>
+    	</tr>
+    	</thead>
+    	 {% if not articles %}
+
+    	 <tr>
+
+    	<td style="text-align: center;" COLSPAN="10"><h2>aucun photo</h2></td>
+    	</tr>
+    	 {% else %}
+				{% for a in articles %}
+				<tr>
+                    <td>{{a.unique }}</td>
+    				<td>{{a.url}}</td>
+    				<td>{{a.titre_fr}}</td>
+    				<td>{{a.titre_ang }}</td>
+    				<td>{{a.datepub}}</td>
+    				<td>{{a.auteur }}</td>
+    				<td>{{a.cat_fr }}</td>
+    				<td>{{a.cat_ang }}</td>
+    				<td>{{a.photo}}</td>
+    				<td><a href="/delete/article/{{ a.unique }}">effacer</a></td>
+    				<td><a href="/save/miseajour/{{ a.unique }}">mise à jour</a></td>
+    			</tr>
+    			{% endfor %}
+    	{% endif %}
+    </table>
+
+
+
+
+{% endblock %}

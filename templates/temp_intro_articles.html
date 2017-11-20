@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% block content %}
+
+
+
+
+<h1 class="title">{{title}}</h1>
+
+{% if side_panel %}
+			<div class="row">
+			<div class="col-md-9">
+{% endif %}
+				<div class="article_list">
+{% if articles %}
+{% for p in articles %} 
+<a href="/article/{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr}}{% endif%}/{{p.url}}" class="link">
+ 	<div class="row row_media intro_articles">
+			<div class="col-md-6 center header_article"><img src="/images/{{p.photo}}" class="img-responsive center-block"></div>
+			<div class="col-md-6 text_black">
+					<div class="row title_article">
+						<div class="col-xs-9"><h2>{% if langue %}{{ p.titre_ang }} {% else %}{{ p.titre_fr }}{% endif%}</h2></div>
+						<div class="col-xs-3" style="text-align: -webkit-right;padding-top: 20px;padding-left: 0px;"><h4>{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr }}{% endif%}</h4></div>
+					</div>
+					<div class="row">
+					<div class="col-xs-6"><h6>{% if langue %}by : {% else %}par :{% endif%} {{p.auteur}}</h6></div>
+					<div class="col-xs-6" style="text-align: -webkit-right;"><h6>date: {{ p.datepub }}</h6></div>
+					</div>
+					<div class="text"><p class="text_article">{% if langue %}{{ p.texte_ang | striptags }} {% else %}{{ p.texte_fr | striptags}}{% endif%}</p></div>
+					<div>{% if langue %}tag: {{ p.tag }} {% else %} etiquettes: {{ p.etiquettes }}{% endif%}</div>
+			</div>
+</div>
+</a>
+
+{% endfor %} 
+{% else %}
+<h2 class="title center">{% if langue %} No Result{% else %}Aucun résultat{% endif%}</h2>
+{% endif%}
+</div>
+{% if side_panel%}
+			</div>
+			<div class="col-md-3"></div>
+</div>
+{% endif %}
+
+
+
+
+
+{% endblock %}

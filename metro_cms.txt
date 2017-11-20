@@ -1,0 +1,9 @@
+CMS simple en python
+Je travail sur le ce projet à temps perdu.
+Le CMS serait adapté pour des blogs simples bilingues.
+Pour le moment je travail la page de création d'article.
+
+
+
+render_template('temp_creat_article.html', articles=article,
+                               erreur_data=erreur_data, photos=photos,categories=categories,update='update')

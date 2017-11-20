@@ -1,0 +1,160 @@
+{% extends "index.html" %}
+{% block content %}
+  <title>{% if update %}Mise à jour{% else %}New article{% endif%}</title>
+   <meta charset="utf-8">
+  <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css">
+  <script src="/vendor/jquery/jquery.js"></script>
+  <script src="/vendor/jquery/jquery-ui.js"></script>
+  <script src="/vendor/ckeditor/ckeditor.js"></script>
+  <script src="/js/cms.js"></script>
+<script src="/js/francais.js"></script>
+<script src="/js/anglais.js"></script>
+
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>
+  <h1 class="mobile title">Nouvel article</h1>
+
+<form action= {% if update %}"/save/miseajour"{% else %}"/save/nouveau"{% endif%}method="POST">
+<DIV class="mobile row row_media">
+		<DIV class="mobile row">
+			<DIV>
+			<div class="mobile form-group col-md-4">
+			<label id="lblurl lblgroup">URL: {% if erreur_data %}<div class="mobile erreur">{{erreur_data.URL}}</div>{% endif %}</label>
+			<input type="text" name="URL" value="{% if articles %}{{articles.url}}{% endif %}" id="URL" class="mobile form-control mobile"></DIV>
+			</div>
+                    
+		<DIV>
+		<div class="mobile form-group col-md-4">
+		<label id="lblauteur lblgroup">Auteur: {% if erreur_data %}<div class="mobile erreur mobile">{{erreur_data.auteur}}</div>{% endif %}</label>
+		<input type="text" name="auteur" value="{% if articles %}{{articles.auteur}}{% endif %}" id="auteur" class="mobile form-control"></DIV>
+		
+                    </div>
+		<DIV>
+		<div class="mobile form-group col-md-4">
+		<label id="lbldate lblgroup">date de publication:{% if erreur_data %}<div class="mobile erreur">{{erreur_data.datepub}}</div>{% endif %}</label>
+		<input type="text" name="datepublication" id="datepublication" value="{% if articles %}{{articles.datepub}}{% endif %}" class="mobile form-control" required placeholder="AAAA-MM-JJ"></DIV>
+                    </div>
+		</DIV>
+ 
+					<div id="tabs">
+				  <ul>
+ 				   <li><a href="#tabs-1"><label id="lblfr lblgroup">Français{% if erreur_data %}
+                    <div class="mobile erreur">{{erreur_data.texte_fr}}</div>
+                    {% endif %}</label></a></li>
+  				  <li><a href="#tabs-2"><label id="lblang lblgroup">Anglais{% if erreur_data %}
+                    <div class="mobile erreur">{{erreur_data.texte_ang}}</div>
+                    {% endif %} </label></a></li>
+  				</ul>
+ 				 <div id="tabs-1">
+ 				 <div class="mobile form-group">
+  				<label id="lbltitrefr lblgroup">Titre français: {% if erreur_data %}
+                    <div class="mobile erreur">{{erreur_data.titre_fr}}</div>
+                    {% endif %}</label>
+  				<input type="text" name="titre_fr" value="{% if articles %}{{articles.titre_fr}}{% endif %}" id="titre_fr" class="mobile form-control">
+  				
+                </div>
+						<textarea type="text" name="editor_fr" id="editor_fr" class="mobile form-group textarea">{% if articles %}{{articles.texte_fr}}{% endif %}</textarea>
+						
+                    <div class="mobile form-group">
+                    <label id="lbltagfr lblgroup">Étiquettes:</label>
+ 			 <input type="text" name="etiquettes" value="{% if articles %}{{articles.etiquettes}}{% endif %}" id="etiquettes" class="mobile form-control">
+ 			 </div>
+				</div>
+  				<div id="tabs-2">
+  				<div class="mobile form-group">
+  				<label id="lbltitreang lblgroup">Titre anglais: {% if erreur_data %}
+                    <div class="mobile erreur">{{erreur_data.titre_ang}}</div>
+                    {% endif %}</label>
+ 			 <input type="text" name="titre_ang" value="{% if articles %}{{articles.titre_ang}}{% endif %}" id="titre_ang" class="mobile form-control mobile">
+ 			 
+                </div>
+ 				<textarea type="text" name="editor_ang" id="editor_ang" class="mobile form-group textarea">{% if articles %}{{ articles.texte_ang}}{% endif %}</textarea>
+			
+			
+            <div class="mobile form-group">
+            <label id="lbltagang lblgroup">Tag:</label>
+ 			 <input type="text" name="tag" value="{% if articles %}{{articles.tag}}{% endif %}" id="tag" class="mobile form-control">
+ 			</div>
+			</div>
+
+				</div>
+<div class="mobile row">				
+<div class="mobile form-group col-md-6">
+ 				<label id="lblcategorie lblgroup">Catégoie:</label>
+ 				<select name="categorie" id="categorie" class="mobile form-control" {% if articles %}value="{{articles.categorie}}"{% endif %}>
+                {% if update %}{% else %}<option disable selected value>Choisir une catégorie</option>{% endif %}
+ 				{% for c in categories %}
+ 				<option value="{{c.id}}">{{c.menu_cat_fr}}</option>
+ 				{% endfor%}
+ 				</select></div>
+ 				
+ 				
+ <div class="mobile form-group col-md-6">
+ <label id="lblphoto lblgroup">photo de l'en-tête</label>				
+ <input type="text" name="photo" placeholder="photo" id="photo" class="mobile form-control" value="{% if articles %}{{ articles.photo}}{% endif %}">
+	</div>
+</div>
+
+
+
+<div class="mobile class="mobile btn-group"">
+  <input type=reset value='Reset' type="button" class="mobile btn btn-primary">
+  {% if update %}
+ <input type=submit value='Mise à Jour' type="button" class="mobile btn btn-primary">	 
+  {% else %}
+  <input type=submit value='Sauvegarder' type="button" class="mobile btn btn-primary">
+  {% endif%}			
+<input type="hidden" name='id' value="{% if articles %}{{articles.unique}}{% endif %}">
+ </div>
+ 
+ 			
+</DIV>
+ 
+
+</form>
+
+
+<script>
+  initEditAng();
+</script>
+
+  <script>
+  initEditFran();
+</script>
+
+ <table class="mobile table table-hover table-responsive liste_articles">
+    <thead>
+    	<tr>
+        <th>Numéro</th>
+        <th>aperçu</th>
+    	<th>Nom Photo</th>
+    	<th>date</th>
+    	<th>code html</th>
+    	</tr>
+    	</thead>
+    	 {% if not photos %}
+
+    	 <tr>
+    	<td style="text-align: center; "COLSPAN="5"><h2>aucune photo</h2></td>
+    	</tr>
+    	 {% else %}
+				{% for p in photos %}
+				<tr>
+                    <td>{{ p.id }}</td>
+    				<td><a href="/images/{{ p.media }}"><img src="/images/{{p.media}}" alt="{{p.media}}" class="mobile img-responsive img-thumbnail" style="height: 100px;"><a></td>
+    				<td>{{p.media}}</td>
+    				<td>{{ p.date }}</td>
+    				<td>&lt;img src="/images/{{p.media}}" alt="{{p.media}}" class="mobile img-responsive img-thumbnail" style="height: 227.5px;"&gt;</td>
+    			</tr>
+    			{% endfor %}
+    	{% endif %}
+    </table>
+
+
+
+
+
+{% endblock %}
