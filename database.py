@@ -34,6 +34,16 @@ class Categories:
         self.menu_cat_ang = menu_cat_ang
         self.date = date
 
+class Comments:
+    def __init__(self, id, id_user, id_article, comments, date, approved, signal):
+        self.id = id
+        self.id_user = id_user
+        self.id_article = id_article
+        self.comments = comments
+        self.date = date
+        self.approved = approved
+        self.signal = signal
+
 class Database:
     def __init__(self):
         self.connection = None
@@ -424,4 +434,21 @@ class Database:
         connection = self.get_connection()
         cursor = connection.cursor()
         cursor.execute(("insert into INTERACTION(id_user, action, os, browser, ip_adresse, date) values(?, ?, ?, ?, ?, ?)"), (id_user, action, os, browser, ip_adresse, datetime.now(), ))
+        connection.commit()
+
+    def get_comments(self, id_article):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from comments where id_article = ? order by date desc"),(id_article, ))
+        comments = []
+        for row in cursor:
+            tempdate=row[4][:10]
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            comments.append(c)
+        return comments
+
+    def save_comments(self,id_user,id_article,comment):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("insert into COMMENTS(id_user, id_article, comment, date) values(?, ?, ?, ?)"), (id_user, id_article, comment, datetime.now(), ))
         connection.commit()

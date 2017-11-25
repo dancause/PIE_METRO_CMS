@@ -49,11 +49,11 @@ def get_db():
 @app.route('/')
 def start_page():
     Log('log')
-    photos = get_db().liste_medias()
+    articles=get_db().select_liste()
     if verifierLangue() == 'FR':
-        return render_template('temp_upload.html',photos=photos)
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles')
     else:
-        return render_template('temp_upload.html',photos=photos,langue=1)
+        return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1)
 
 @app.route('/liste')
 def intro():
@@ -186,10 +186,11 @@ def delete_article(id_article):
 @app.route('/article/<categorie>/<url_article>', methods=['POST','GET'])
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
+    comments=get_db().get_comments(article.unique)
     if verifierLangue() == 'FR':
-        return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie)
+        return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
     else:
-        return render_template('temp_article.html',articles=article,title='Category : '+categorie, langue=1)
+        return render_template('temp_article.html',articles=article,title='Category : '+categorie, langue=1,comments=comments)
 
 @app.route('/categorie/<id_categorie>', methods=['POST','GET'])
 def afficher_article_categorie(id_categorie):
@@ -210,11 +211,20 @@ def afficher_article_auteur(id_auteur):
 @app.route('/menu_cat', methods=['POST','GET'])
 def menu_categories():
     menu_cat = get_db().liste_categories()
-    print 'cookie :'+verifierLangue()
     if verifierLangue() == 'FR':
         return render_template('menu_categories.html',menu_cat=menu_cat)
     else:
         return render_template('menu_categories.html',menu_cat=menu_cat,langue=1)
+
+@app.route('/comments', methods=['POST','GET'])
+def comments():
+    if request.method =="POST":
+        content = request.json
+        print content['id_article']
+        print content['comment']
+        get_db().save_comments('admin',content['id_article'],content['comment'])
+        comments=get_db().get_comments(content['id_article'])
+    return render_template('comments.html',comments=comments)
 
 def allowed_file(filename):
     return '.' in filename and \

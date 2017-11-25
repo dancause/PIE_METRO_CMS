@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block content %}
 
-
+ <script src="/js/comments.js"></script>
 
 {% if side_panel %}
 			<div class="row">
@@ -26,20 +26,34 @@
 </div>
 </div>
 <br>
-<br>
-<br>
-<br>
 
-<div>
+<div class="form">
+	<input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
 	<div>
 		<div>
-		<textarea id="comments"></textarea>
+		<textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea>
 		</div>
 		<div>
-		<button type="submit" value="POST" id="POST">POST</button>
+		<button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();">POST</button>
 		</div>
 	</div>
 </div>
+
+
+{% if comments %}
+<div id="add_comment" name="add_comment">
+{% for c in comments %}
+	<div>{{ c.id_user }}</div>
+		<div> <p>{{c.comments}}</p></div>
+		<div>{{c.date}}</div>
+		<hr>
+{% endfor %}
+{% else %}
+	<div id="add_comment" name="add_comment"><label>{% if langue %} No Comments {% else %} Aucun Commentaire {% endif %}</label></div>
+<hr>
+</div>
+{% endif %}
+
 
 {% if side_panel%}
 </div>
