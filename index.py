@@ -220,11 +220,24 @@ def menu_categories():
 def comments():
     if request.method =="POST":
         content = request.json
-        print content['id_article']
-        print content['comment']
         get_db().save_comments('admin',content['id_article'],content['comment'])
         comments=get_db().get_comments(content['id_article'])
     return render_template('comments.html',comments=comments)
+
+@app.route('/valider/comments', methods=['POST','GET'])
+def validate_comments():
+    comments=get_db().get_all_comments()
+    return render_template('temps_admin_comment.html',comments=comments)
+
+@app.route('/valider/comments/<id_comments>', methods=['POST','GET'])
+def check_comments(id_comments):
+    get_db().comments_validated(id_comments)
+    return '',200
+
+@app.route('/valider/signaler/comments/<id_comments>', methods=['POST','GET'])
+def signal_comments(id_comments):
+    get_db().comments_validated_signaled(id_comments)
+    return '',200
 
 def allowed_file(filename):
     return '.' in filename and \

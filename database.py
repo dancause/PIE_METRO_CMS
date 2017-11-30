@@ -70,17 +70,17 @@ class Database:
         cursor.execute("""select * from article, categories where article.categorie = categories.id and article.datepub <=(select date('now'))order by article.datepub""")
         listes = []
         for row in cursor:
-            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[13],row[14])
+            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18])
             listes.append(p)
         return listes
 
     def all_liste(self):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("""select * from article,categories where article.categorie= categories.id order by datepub desc""")
+        cursor.execute("""select * from article,categories where article.categorie = categories.id order by datepub desc""")
         listes = []
         for row in cursor:
-            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[13],row[14])
+            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18])
             listes.append(p)
         return listes
 
@@ -89,7 +89,7 @@ class Database:
         cursor = connection.cursor()
         cursor.execute(("""select * from article, categories where article.categorie= categories.id and article.id = ?"""), (id, ))
         row = cursor.fetchone()
-        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[13],row[14])
+        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18])
         return p
 
     def get_url_article(self,url):
@@ -97,7 +97,7 @@ class Database:
         cursor = connection.cursor()
         cursor.execute(("""select * from article, categories where article.categorie= categories.id and article.url = ?"""), (url, ))
         row = cursor.fetchone()
-        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[13],row[14])
+        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18])
         return p
 
     def get_categorie_article(self,id_categorie):
@@ -106,7 +106,7 @@ class Database:
         cursor.execute(("""select * from article,categories where article.categorie=categories.id and (categories.menu_cat_fr like ? or categories.menu_cat_ang like ?) order by datepub desc"""),(id_categorie, id_categorie, ))
         listes = []
         for row in cursor:
-            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[13],row[14])
+            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18])
             listes.append(p)
         return listes
 
@@ -450,5 +450,39 @@ class Database:
     def save_comments(self,id_user,id_article,comment):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("insert into COMMENTS(id_user, id_article, comment, date) values(?, ?, ?, ?)"), (id_user, id_article, comment, datetime.now(), ))
+        cursor.execute(("insert into COMMENTS(id_user, id_article, comment, date, approved, signal) values(?, ?, ?, ?, ?, ? )"), (id_user, id_article, comment, datetime.now(),"false","false" ))
+        connection.commit()
+
+    def get_all_comments(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from comments"))
+        comments = []
+        for row in cursor:
+            tempdate=row[4][:10]
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            comments.append(c)
+        return comments
+
+    def get_valid_comments(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from comments where approved like ?"),("true", ))
+        comments = []
+        for row in cursor:
+            tempdate=row[4][:10]
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            comments.append(c)
+        return comments
+
+    def comments_validated(self,id_comment):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("update comments set approved = ? where id = ? "),("true", id_comment, ))
+        connection.commit()
+
+    def comments_validated_signaled(self,id_comment):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("update comments set signal = ? where id = ? "),("true", id_comment, ))
         connection.commit()

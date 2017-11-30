@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+{% block content %}
+  <title>UPLOAD</title>
+   <meta charset="utf-8">
+
+
+
+<div class="form_upload">
+    <h1 class="title">Admin liste</h1>
+
+ <table class="table table-hover table-responsive liste_articles">
+    <thead>
+    	<tr>
+        <th>Numéro</th>
+        <th>usager</th>
+        <th>article</th>
+    	<th>comment</th>
+    	<th>date</th>
+    	<th>validate</th>
+    	<th>categorie_1</th>
+    	</tr>
+    	</thead>
+    	 {% if not comments %}
+
+    	 <tr>
+
+    	<td style="text-align: center;" COLSPAN="7"><h2>aucun commentaire</h2></td>
+    	</tr>
+    	 {% else %}
+				{% for c in comments %}
+				<tr id="{{c.id}}" {% if c.approved=="true" %}style="display: none;"{% else %}{% endif %}>
+                    <td>{{c.id}}</td>
+    				<td>{{c.id_user}}</td>
+    				<td>{{c.id_article}}</td>
+    				<td>{{c.comments }}</td>
+    				<td>{{c.date}}</td>
+    				<td><input type="checkbox" id="checkbox_validate_{{c.id}}" name="xxx" onclick="validat_comment({{c.id}});" {% if c.approved=="true" %}checked{% else %}{% endif %}/></td>
+    				<td><input type="checkbox" id="checkbox_signale_{{c.id}}" name="xxx" onclick="signal_comment({{c.id}});"/></td>
+    			</tr>
+    			{% endfor %}
+    	{% endif %}
+    </table>
+
+
+  <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css">
+  <script src="/vendor/jquery/jquery.js"></script>
+  <script src="/vendor/jquery/jquery-ui.js"></script>
+  <script src="/js/comments.js"></script>
+
+{% endblock %}

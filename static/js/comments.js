@@ -30,8 +30,41 @@ if(document.getElementById('comment').value != ""){
 }
 
 function vider_comments(){
+    document.getElementById('comment').value = "";
+}
 
-document.getElementById('comment').value = "";
 
+function hidden(index_comment){
+    var TR_LIGNE = document.getElementById(index_comment);
+    if (TR_LIGNE.style.display === "none") {
+            TR_LIGNE.style.display = "block";
+        } else {
+            TR_LIGNE.style.display = "none";
+        }
+}
+
+function alert_comment(index_comment){
+    var TR_LIGNE = document.getElementById(index_comment);
+    if (TR_LIGNE.style.backgroundColor === "red") {
+            TR_LIGNE.style.backgroundColor = "";
+        } else {
+            TR_LIGNE.style.backgroundColor='red';
+        }
+        document.getElementById("checkbox_validate_"+index_comment).disabled = true;
+}
+
+function validat_comment( index_comment){
+    var TR_LIGNE = document.getElementById(index_comment);
+    hidden(index_comment);
+    var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/valider/comments/'+index_comment, true);
+            xhr.send();
+}
+function signal_comment( index_comment){
+    var TR_LIGNE = document.getElementById(index_comment);
+    alert_comment(index_comment);
+    var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/valider/signaler/comments/'+index_comment, true);
+            xhr.send();
 }
 

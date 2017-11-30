@@ -43,9 +43,11 @@
 {% if comments %}
 <div id="add_comment" name="add_comment">
 {% for c in comments %}
-	<div>{{ c.id_user }}</div>
+	<div class="comments_add">
+		<div>{{ c.id_user }}</div>
 		<div> <p>{{c.comments}}</p></div>
 		<div>{{c.date}}</div>
+	</div>
 		<hr>
 {% endfor %}
 {% else %}
