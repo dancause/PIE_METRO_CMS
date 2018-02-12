@@ -202,11 +202,11 @@ def afficher_article_categorie(id_categorie):
 
 @app.route('/auteur/<id_auteur>', methods=['POST','GET'])
 def afficher_article_auteur(id_auteur):
-    articles=get_db().get_categorie_article(id_categorie)
+    articles=get_db().get_categorie_article(id_auteur)
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title=u'Catégorie : '+id_categorie)
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Catégorie : '+id_auteur)
     else:
-        return render_template('temp_intro_articles.html',articles=articles,title='Category : '+id_categorie, langue=1)
+        return render_template('temp_intro_articles.html',articles=articles,title='Category : '+id_auteur, langue=1)
 
 @app.route('/menu_cat', methods=['POST','GET'])
 def menu_categories():
@@ -238,6 +238,20 @@ def check_comments(id_comments):
 def signal_comments(id_comments):
     get_db().comments_validated_signaled(id_comments)
     return '',200
+
+@app.route('/recherche', methods=['POST','GET'])
+def search_term():
+    print "passe ici 1"
+    rechercher = request.form['recherche']
+    print "passe ici 2"
+    articles = get_db().select_recherche(rechercher)
+    print "passe ici 3"
+    if verifierLangue() == 'FR':
+        print "passe ici 4"
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Resultats de recherche',recherche=rechercher)
+    else:
+        print "passe ici 5"
+        return render_template('temp_intro_articles.html',articles=articles,title='Search Result', langue=1,recherche=rechercher)
 
 def allowed_file(filename):
     return '.' in filename and \

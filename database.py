@@ -110,6 +110,16 @@ class Database:
             listes.append(p)
         return listes
 
+    def get_categorie_article_auteur(self,id_auteur):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("""select * from article,categories where article.categorie=categories.id and (article.auteur like ?) order by datepub desc"""),(id_auteur, ))
+        listes = []
+        for row in cursor:
+            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18])
+            listes.append(p)
+        return listes
+
     def select_all(self):
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -140,14 +150,11 @@ class Database:
     def select_recherche(self, recherche):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("""select * from article where date_publication <=
-                        (select date('now')) and
-                        (titre like ? or paragraphe like ?)
-                        order by date_publication desc""",
-                       ("%"+recherche+"%", "%"+recherche+"%", ))
+        cursor.execute(( """select * from article,categories where article.categorie = categories.id and (article.texte_fr like ? or article.texte_ang like ? or article.titre_fr like ? or article.titre_ang like ? )order by datepub desc"""),("%"+recherche+"%", "%"+recherche+"%","%"+recherche+"%", "%"+recherche+"%",))
         listes = []
         for row in cursor:
-            p = Articles(row[0], row[1], row[5], row[3], row[4], row[2])
+            p = Articles(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10],
+                         row[11], row[17], row[18])
             listes.append(p)
         return listes
 
