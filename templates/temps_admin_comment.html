@@ -8,8 +8,11 @@
 <div class="form_upload">
     <h1 class="title">Admin liste</h1>
 
- <table class="table table-hover table-responsive liste_articles">
-    <thead>
+    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_valided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">valided</button>
+    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_signaled()" value="{% if langue %}Français{% else %}Anglais{% endif %}">signaled</button>
+
+ <table class="table table-hover table-responsive liste_articles" id="liste_comments">
+        <thead>
     	<tr>
         <th>Numéro</th>
         <th>usager</th>
@@ -17,7 +20,7 @@
     	<th>comment</th>
     	<th>date</th>
     	<th>validate</th>
-    	<th>categorie_1</th>
+    	<th>signal</th>
     	</tr>
     	</thead>
     	 {% if not comments %}

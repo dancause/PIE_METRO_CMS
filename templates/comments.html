@@ -1,11 +1,12 @@
-<div class="add_comment" id="add_comment">
+
 {% for c in comments %}
+<div>
+        <div>{{ c.id_user }}</div>
+        <div> <p>{{c.comments}}</p></div>
+        <div>{{c.date}}</div>
 </div>
-		<div>{{ c.id_user }}</div>
-		<div> <p>{{c.comments}}</p></div>
-		<div>{{c.date}}</div>
-		<hr>
+        <hr>
 {% endfor %}
-</div>
+
 
 

@@ -4,55 +4,54 @@
  <script src="/js/comments.js"></script>
 
 {% if side_panel %}
-			<div class="row">
-			<div class="col-md-9">
+            <div class="row">
+            <div class="col-md-9">
 {% endif %}
 <div class="article_list">
 <div class="row row_media intro_articles">
-	<div class="col-md-12">
-					<div class="row title_article">
-						<div class="col-xs-9"><h1>{% if langue %}{{ articles.titre_ang }} {% else %}{{ articles.titre_fr }}{% endif%}</h1></div>
-						<div class="col-xs-3" style="text-align: -webkit-right;padding-top: 20px;padding-left: 0px;"><h4>{% if langue %}{{ articles.cat_ang }} {% else %}{{ articles.cat_fr }}{% endif%}</h4></div>
-					</div>
-			<div class="col-md-12 center header_article"><img src="/images/{{articles.photo}}" class="img-responsive center-block article_image"></div>
-			
-					<div class="row">
-					<div class="col-xs-6"><h6>{% if langue %}by : {% else %}par :{% endif%} {{articles.auteur}}</h6></div>
-					<div class="col-xs-6" style="text-align: -webkit-right;"><h6>date: {{ articles.datepub }}</h6></div>
-					</div>
-					<div class="text"><p class="text">{% if langue %}{{ articles.texte_ang | safe }} {% else %}{{ articles.texte_fr | safe }}{% endif%}</pre></div>
-					<div>{% if langue %}tag: {{ articles.tag }} {% else %} etiquettes: {{ articles.etiquettes }}{% endif%}</div>
+    <div class="col-md-12">
+                    <div class="row title_article">
+                        <div class="col-xs-9"><h1>{% if langue %}{{ articles.titre_ang }} {% else %}{{ articles.titre_fr }}{% endif%}</h1></div>
+                        <div class="col-xs-3" style="text-align: -webkit-right;padding-top: 20px;padding-left: 0px;"><h4>{% if langue %}{{ articles.cat_ang }} {% else %}{{ articles.cat_fr }}{% endif%}</h4></div>
+                    </div>
+            <div class="col-md-12 center header_article"><img src="/images/{{articles.photo}}" class="img-responsive center-block article_image"></div>
+            
+                    <div class="row">
+                    <div class="col-xs-6"><h6>{% if langue %}by : {% else %}par :{% endif%} {{articles.auteur}}</h6></div>
+                    <div class="col-xs-6" style="text-align: -webkit-right;"><h6>date: {{ articles.datepub }}</h6></div>
+                    </div>
+                    <div class="text"><p class="text">{% if langue %}{{ articles.texte_ang | safe }} {% else %}{{ articles.texte_fr | safe }}{% endif%}</pre></div>
+                    <div>{% if langue %}tag: {{ articles.tag }} {% else %} etiquettes: {{ articles.etiquettes }}{% endif%}</div>
 </div>
 </div>
 </div>
 <br>
 
 <div class="form">
-	<input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
-	<div>
-		<div>
-		<textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea>
-		</div>
-		<div>
-		<button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();">POST</button>
-		</div>
-	</div>
+    <input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
+    <div>
+        <div>
+        <textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea>
+        </div>
+        <div>
+        <button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();">POST</button>
+        </div>
+    </div>
 </div>
 
 
 {% if comments %}
 <div id="add_comment" name="add_comment">
 {% for c in comments %}
-	<div class="comments_add">
-		<div>{{ c.id_user }}</div>
-		<div> <p>{{c.comments}}</p></div>
-		<div>{{c.date}}</div>
-	</div>
-		<hr>
+    <div>
+        <div>{{ c.id_user }}</div>
+        <div> <p>{{c.comments}}</p></div>
+        <div>{{c.date}}</div>
+    </div>
+        <hr>
 {% endfor %}
 {% else %}
-	<div id="add_comment" name="add_comment"><label>{% if langue %} No Comments {% else %} Aucun Commentaire {% endif %}</label></div>
-<hr>
+    <div id="add_comment" name="add_comment"><label>{% if langue %} No Comments {% else %} Aucun Commentaire {% endif %}</label></div>
 </div>
 {% endif %}
 
