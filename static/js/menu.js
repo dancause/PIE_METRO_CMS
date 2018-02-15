@@ -1,4 +1,6 @@
- $(document).ready(function(){ 
+ $(document).ready(function(){
+
+ 	setCookie('recherche','');
             
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
@@ -17,3 +19,13 @@ xhr.onreadystatechange = function() {
 xhr.open("GET", '/menu_cat', true);
 xhr.send();  	
 })
+
+
+
+
+ function setCookie(cname, value) {
+    var cvalue = escape(value)
+    document.cookie = cname + "=" + cvalue + "; path=/";
+}
+
+

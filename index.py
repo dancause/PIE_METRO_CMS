@@ -242,6 +242,7 @@ def signal_comments(id_comments):
 @app.route('/recherche', methods=['POST','GET'])
 def search_term():
     print "passe ici 1"
+    print request.form
     rechercher = request.form['recherche']
     print "passe ici 2"
     articles = get_db().select_recherche(rechercher)
@@ -326,3 +327,7 @@ def verifierLangue():
 def Log(action):
     id_user='admin'
     get_db().log_activity(id_user,action, request.user_agent.platform, request.user_agent.browser+" "+request.user_agent.version, request.environ['REMOTE_ADDR'])
+
+def kept_search(items):
+    search = request.cookies.('recherche')
+    
