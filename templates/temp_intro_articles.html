@@ -13,7 +13,7 @@
 				<div class="article_list">
 {% if articles %}
 {% for p in articles %} 
-<a href="/article/{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr}}{% endif%}/{{p.url}}" class="link">
+<a href="/article/{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr}}{% endif%}/{{p.url}}" class="link" style="text-decoration: none;">
  	<div class="row row_media intro_articles">
 			<div class="col-md-6 center header_article"><img src="/images/{{p.photo}}" class="img-responsive center-block"></div>
 			<div class="col-md-6 text_black">

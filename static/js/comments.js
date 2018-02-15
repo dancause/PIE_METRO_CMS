@@ -68,3 +68,6 @@ function signal_comment( index_comment){
             xhr.send();
 }
 
+function comments_valided(){}
+function comments_singaled(){}
+

@@ -1,0 +1,30 @@
+        <thead>
+    	<tr>
+        <th>Numéro</th>
+        <th>usager</th>
+        <th>article</th>
+    	<th>comment</th>
+    	<th>date</th>
+    	<th>validate</th>
+    	<th>signal</th>
+    	</tr>
+    	</thead>
+    	 {% if not comments %}
+
+    	 <tr>
+
+    	<td style="text-align: center;" COLSPAN="7"><h2>aucun commentaire</h2></td>
+    	</tr>
+    	 {% else %}
+				{% for c in comments %}
+				<tr id="{{c.id}}">
+                    <td>{{c.id}}</td>
+    				<td>{{c.id_user}}</td>
+    				<td>{{c.id_article}}</td>
+    				<td>{{c.comments }}</td>
+    				<td>{{c.date}}</td>
+    				<td><input type="checkbox" id="checkbox_validate_{{c.id}}" name="xxx" onclick="validat_comment({{c.id}});" {% if c.approved=="true" %}checked{% else %}{% endif %}/></td>
+    				<td><input type="checkbox" id="checkbox_signale_{{c.id}}" name="xxx" onclick="signal_comment({{c.id}});" {% if c.signal=="true" %}checked{% else %}{% endif %}/></td>
+    			</tr>
+    			{% endfor %}
+    	{% endif %}
