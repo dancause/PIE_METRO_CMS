@@ -241,18 +241,22 @@ def signal_comments(id_comments):
 
 @app.route('/recherche', methods=['POST','GET'])
 def search_term():
-    print "passe ici 1"
-    print request.form
-    rechercher = request.form['recherche']
-    print "passe ici 2"
+    rechercher='vide'
+    if request.method =='POST':
+        rechercher = request.form['recherche']
+    else:
+        rechercher = request.cookies.get('recherche')
     articles = get_db().select_recherche(rechercher)
-    print "passe ici 3"
     if verifierLangue() == 'FR':
         print "passe ici 4"
-        return render_template('temp_intro_articles.html',articles=articles,title=u'Resultats de recherche',recherche=rechercher)
+        resp = make_response(render_template('temp_intro_articles.html',articles=articles,title=u'Resultats de recherche',recherche=rechercher))
+        resp.set_cookie ('recherche',rechercher)
+        return resp
     else:
         print "passe ici 5"
-        return render_template('temp_intro_articles.html',articles=articles,title='Search Result', langue=1,recherche=rechercher)
+        resp = make_response(render_template('temp_intro_articles.html',articles=articles,title='Search Result', langue=1,recherche=rechercher))
+        resp.set_cookie ('recherche',rechercher)
+        return resp
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -328,6 +332,7 @@ def Log(action):
     id_user='admin'
     get_db().log_activity(id_user,action, request.user_agent.platform, request.user_agent.browser+" "+request.user_agent.version, request.environ['REMOTE_ADDR'])
 
-def kept_search(items):
-    search = request.cookies.('recherche')
-    
+def kept_search():
+    search = request.cookies.get('recherche')
+    return search
+
