@@ -47,10 +47,12 @@ function alert_comment(index_comment){
     var TR_LIGNE = document.getElementById(index_comment);
     if (TR_LIGNE.style.backgroundColor === "red") {
             TR_LIGNE.style.backgroundColor = "";
+            document.getElementById("checkbox_validate_"+index_comment).disabled = false;
         } else {
             TR_LIGNE.style.backgroundColor='red';
+            document.getElementById("checkbox_validate_"+index_comment).disabled = true;
         }
-        document.getElementById("checkbox_validate_"+index_comment).disabled = true;
+
 }
 
 function validat_comment( index_comment){

@@ -31,7 +31,7 @@
     	</tr>
     	 {% else %}
 				{% for c in comments %}
-				<tr id="{{c.id}}" {% if c.approved=="true" %}style="display: none;"{% else %}{% endif %}>
+				<tr id="{{c.id}}" name="{% if c.approved=="true" %}validated{% else %} unvalidated{% endif %} ">
                     <td>{{c.id}}</td>
     				<td>{{c.id_user}}</td>
     				<td>{{c.id_article}}</td>

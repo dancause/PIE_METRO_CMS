@@ -242,21 +242,18 @@ def signal_comments(id_comments):
 @app.route('/recherche', methods=['POST','GET'])
 def search_term():
     rechercher='vide'
+    resp=''
     if request.method =='POST':
         rechercher = request.form['recherche']
     else:
         rechercher = request.cookies.get('recherche')
     articles = get_db().select_recherche(rechercher)
     if verifierLangue() == 'FR':
-        print "passe ici 4"
         resp = make_response(render_template('temp_intro_articles.html',articles=articles,title=u'Resultats de recherche',recherche=rechercher))
-        resp.set_cookie ('recherche',rechercher)
-        return resp
     else:
-        print "passe ici 5"
         resp = make_response(render_template('temp_intro_articles.html',articles=articles,title='Search Result', langue=1,recherche=rechercher))
-        resp.set_cookie ('recherche',rechercher)
-        return resp
+    resp.set_cookie('recherche', rechercher)
+    return resp
 
 def allowed_file(filename):
     return '.' in filename and \
