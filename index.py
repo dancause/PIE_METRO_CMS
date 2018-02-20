@@ -255,6 +255,9 @@ def search_term():
     resp.set_cookie('recherche', rechercher)
     return resp
 
+@app.route('/gestion', methode=['POST','GET'])
+	return
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

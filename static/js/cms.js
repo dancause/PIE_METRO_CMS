@@ -5,3 +5,11 @@ $( function() {
     dateFormat: "yy-mm-dd"
     });
 } );
+
+
+
+
+ $(document).ready(function(){ 
+            
+  	
+})
