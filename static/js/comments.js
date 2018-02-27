@@ -57,11 +57,21 @@ function alert_comment(index_comment){
 
 function validat_comment( index_comment){
     var TR_LIGNE = document.getElementById(index_comment);
-    hidden(index_comment);
     var xhr = new XMLHttpRequest();
+    console.log('état de la case check  '+document.getElementById("checkbox_validate_"+index_comment).checked)
+    if(document.getElementById("checkbox_validate_"+index_comment).checked === true){
+           hidden(index_comment);
             xhr.open('POST', '/valider/comments/'+index_comment, true);
+             console.log('check')
             xhr.send();
+    }else if (document.getElementById("checkbox_validate_"+index_comment).checked === false) {
+            xhr.open('POST', '/unvalider/comments/'+index_comment, true);
+            console.log('uncheck')
+            xhr.send();
+    }
+
 }
+
 function signal_comment( index_comment){
     var TR_LIGNE = document.getElementById(index_comment);
     alert_comment(index_comment);
@@ -70,6 +80,25 @@ function signal_comment( index_comment){
             xhr.send();
 }
 
-function comments_valided(){}
+function comments_valided(){
+            var xhr = new XMLHttpRequest();
+            var add_comment = document.getElementById('liste_comments');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE)
+              {
+                      if (xhr.status === 200)
+                      {
+                      add_comment.innerHTML = xhr.responseText;
+                      }
+                      else
+                      {
+                      add_comment.innerHTML = ('Erreur avec le serveur / Server Error');
+                      }
+              }
+            };
+            xhr.open('GET', '/validated/comments', true);
+            xhr.send();
+
+}
 function comments_singaled(){}
 

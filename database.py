@@ -471,6 +471,17 @@ class Database:
             comments.append(c)
         return comments
 
+    def get_comments_unvalidated(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from comments where approved <> ?"), ("true",))
+        comments = []
+        for row in cursor:
+            tempdate=row[4][:10]
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            comments.append(c)
+        return comments
+
     def get_valid_comments(self):
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -486,6 +497,12 @@ class Database:
         connection = self.get_connection()
         cursor = connection.cursor()
         cursor.execute(("update comments set approved = ? where id = ? "),("true", id_comment, ))
+        connection.commit()
+
+    def comments_unvalidated(self,id_comment):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("update comments set approved = ? where id = ? "),("false", id_comment, ))
         connection.commit()
 
     def comments_validated_signaled(self,id_comment):

@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% block side_content %}
+<<<<<<< HEAD
     <div>
 
     <button id="button_langue" class="button_langue btn btn-light" onclick="comments_valided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">Creer Article</button>
@@ -11,7 +12,40 @@
 
     <button id="button_langue" class="button_langue btn btn-light" onclick="comments_valided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">Gérer Commentaires</button>
     <button id="button_langue" class="button_langue btn btn-light" onclick="comments_signaled()" value="{% if langue %}Français{% else %}Anglais{% endif %}">signaled</button>
+=======
 
 
-    </div>
+
+
+<form action="" methode="GET">
+ <input type=submit value="Creer Articles">
+</form>
+
+<form action="" methode="GET">
+ <input type=submit value="Creer Articles">
+</form>
+
+<form action="" methode="GET">
+ <input type=submit value="Creer Articles">
+</form>
+
+<form action="/save/fichiers" methode="GET">
+ <input type=submit value="Creer Articles">
+</form>
+
+<form action="/creer/article" methode="GET">
+ <input type=submit value="Creer Articles">
+</form>
+<form action="/gestion/articles" methode="GET">
+ <input type=submit value="Creer Articles">
+</form>
+
+<form action="/valider/comments" methode="GET">
+ <input type=submit value="Creer Articles">
+</form>
+
 {% endblock %}
+
+>>>>>>> origin/master
+
+
