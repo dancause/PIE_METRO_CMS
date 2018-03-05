@@ -49,10 +49,10 @@
 {% block content %}{% endblock %}
 
 
-{% if side_panel%}
+{% if side_panel %}
 </div>
 <div class="col-md-3">
-{% block side_content %}{% endblock %}
+{% include "temp_menu_admin.html" %}
 </div>
 </div>
 {% endif %}

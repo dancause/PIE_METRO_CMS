@@ -63,7 +63,7 @@ def intro():
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1)
 
-@app.route('/creer/article')
+@app.route('/gestion/creer/article')
 def create_article():
     photos = get_db().liste_medias()
     categories = get_db().liste_categories()
@@ -135,10 +135,10 @@ def save_update():
         get_db().update_article(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo)
     return redirect(url_for('loadupdate'))
 
-@app.route('/gestion/articles', methods=['POST','GET'])
+@app.route('/gestion/liste/articles', methods=['POST','GET'])
 def loadupdate():
     articles = get_db().all_liste()
-    return render_template('temp_listes_articles.html',articles=articles)
+    return render_template('temp_listes_articles.html',articles=articles,side_panel=1)
 
 @app.route('/save/fichiers', methods=['POST','GET'])
 def upload():
@@ -266,8 +266,9 @@ def search_term():
     resp.set_cookie('recherche', rechercher)
     return resp
 
-@app.route('/gestion', methode=['POST','GET'])
-	return
+@app.route('/gestion', methods=['POST','GET'])
+def gestion_admin():
+	return render_template('temp_menu_admin.html',side_panel=1)
 
 def allowed_file(filename):
     return '.' in filename and \
