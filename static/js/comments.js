@@ -81,6 +81,7 @@ function signal_comment( index_comment){
 }
 
 function comments_valided(){
+    console.log("comment signal");
             var xhr = new XMLHttpRequest();
             var add_comment = document.getElementById('liste_comments');
             xhr.onreadystatechange = function() {
@@ -100,5 +101,66 @@ function comments_valided(){
             xhr.send();
 
 }
-function comments_singaled(){}
 
+function comments_signaled(){
+  console.log("comment signal");
+   var xhr = new XMLHttpRequest();
+            var add_comment = document.getElementById('liste_comments');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE)
+              {
+                      if (xhr.status === 200)
+                      {
+                      add_comment.innerHTML = xhr.responseText;
+                      }
+                      else
+                      {
+                      add_comment.innerHTML = ('Erreur avec le serveur / Server Error');
+                      }
+              }
+            };
+            xhr.open('GET', '/signaled/comments', true);
+            xhr.send();
+}
+
+function all_comments(){
+  console.log("comment signal");
+   var xhr = new XMLHttpRequest();
+            var add_comment = document.getElementById('liste_comments');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE)
+              {
+                      if (xhr.status === 200)
+                      {
+                      add_comment.innerHTML = xhr.responseText;
+                      }
+                      else
+                      {
+                      add_comment.innerHTML = ('Erreur avec le serveur / Server Error');
+                      }
+              }
+            };
+            xhr.open('GET', '/all/comments', true);
+            xhr.send();
+}
+
+function comments_unvalided(){
+  console.log("comment signal");
+   var xhr = new XMLHttpRequest();
+            var add_comment = document.getElementById('liste_comments');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE)
+              {
+                      if (xhr.status === 200)
+                      {
+                      add_comment.innerHTML = xhr.responseText;
+                      }
+                      else
+                      {
+                      add_comment.innerHTML = ('Erreur avec le serveur / Server Error');
+                      }
+              }
+            };
+            xhr.open('GET', '/unvalidated/comments', true);
+            xhr.send();
+}

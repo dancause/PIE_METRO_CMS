@@ -463,7 +463,7 @@ class Database:
     def get_all_comments(self):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("select * from comments"))
+        cursor.execute(("select * from comments order by date desc"))
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
@@ -474,7 +474,7 @@ class Database:
     def get_comments_unvalidated(self):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("select * from comments where approved <> ?"), ("true",))
+        cursor.execute(("select * from comments where approved = ? and signal = ? "), ("false","false",))
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
@@ -485,7 +485,18 @@ class Database:
     def get_valid_comments(self):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("select * from comments where approved like ?"),("true", ))
+        cursor.execute(("select * from comments where approved like ? and signal <> ? "),("true","true",  ))
+        comments = []
+        for row in cursor:
+            tempdate=row[4][:10]
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            comments.append(c)
+        return comments
+
+    def get_signaled_comments(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from comments where signal like ?"),("true", ))
         comments = []
         for row in cursor:
             tempdate=row[4][:10]

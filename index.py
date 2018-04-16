@@ -224,9 +224,8 @@ def comments():
         comments=get_db().get_comments(content['id_article'])
     return render_template('comments.html',comments=comments)
 
-@app.route('/comments/unvalidated', methods=['POST','GET'])
+@app.route('/admin/comments', methods=['POST','GET'])
 def validate_comments():
-
     comments=get_db().get_comments_unvalidated()
     return render_template('temps_admin_comment.html',comments=comments)
 
@@ -248,6 +247,21 @@ def signal_comments(id_comments):
 @app.route('/validated/comments', methods=['POST','GET'])
 def validated_comments():
     comments = get_db().get_valid_comments()
+    return render_template('liste_comments.html',comments=comments)
+
+@app.route('/unvalidated/comments', methods=['POST','GET'])
+def unvalidated_comments():
+    comments = get_db().get_comments_unvalidated()
+    return render_template('liste_comments.html',comments=comments)
+
+@app.route('/signaled/comments', methods=['POST','GET'])
+def singaled_comments():
+    comments = get_db().get_signaled_comments()
+    return render_template('liste_comments.html',comments=comments)
+
+@app.route('/all/comments', methods=['POST','GET'])
+def all_comments():
+    comments = get_db().get_all_comments()
     return render_template('liste_comments.html',comments=comments)
 
 @app.route('/recherche', methods=['POST','GET'])

@@ -24,9 +24,9 @@
     				<td>{{c.id_article}}</td>
     				<td>{{c.comments }}</td>
     				<td>{{c.date}}</td>
-    				<td><input type="checkbox" id="checkbox_validate_{{c.id}}" name="xxx" onclick="validat_comment({{c.id}});" {% if c.approved=="true" %}checked{% else %}{% endif %}/></td>
-    				<td><input type="checkbox" id="checkbox_signale_{{c.id}}" name="xxx" onclick="signal_comment({{c.id}});" {% if c.signal=="true" %}checked{% else %}{% endif %}/></td>
+    				<td><input type="checkbox" id="checkbox_validate_{{c.id}}" name="xxx" onclick="validat_comment({{c.id}});" {% if c.approved=="true" %}checked{% else %}{% endif %} {% if c.signal=="true" %}disabled {% else %}{% endif %}/></td>
+    				<td><input type="checkbox" id="checkbox_signale_{{c.id}}" name="xxx" onclick="signal_comment({{c.id}});" {% if c.signal=="true" %}checked{% else %}{% endif %} {% if c.approved=="true" %}disabled {% else %}{% endif %}/></td>
     			</tr>
     			{% endfor %}
     	{% endif %}
-</table>>
+</table>

@@ -8,8 +8,10 @@
 <div class="form_upload">
     <h1 class="title">Admin liste</h1>
 
-    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_valided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">valided</button>
-    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_signaled()" value="{% if langue %}Français{% else %}Anglais{% endif %}">signaled</button>
+     <button id="button_valided" class="button_langue btn btn-light" onclick="comments_unvalided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">unvalided</button>
+    <button id="button_valided" class="button_langue btn btn-light" onclick="comments_valided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">valided</button>
+    <button id="button_signaled" class="button_langue btn btn-light" onclick="comments_signaled()" value="{% if langue %}Français{% else %}Anglais{% endif %}">signaled</button>
+    <button id="button_valided" class="button_langue btn btn-light" onclick="all_comments()" value="{% if langue %}Français{% else %}Anglais{% endif %}">all</button>
 
  <table class="table table-hover table-responsive liste_articles" id="liste_comments">
         <thead>
@@ -37,8 +39,8 @@
     				<td>{{c.id_article}}</td>
     				<td>{{c.comments }}</td>
     				<td>{{c.date}}</td>
-    				<td><input type="checkbox" id="checkbox_validate_{{c.id}}" name="xxx" onclick="validat_comment({{c.id}});" {% if c.approved=="true" %}checked{% else %}{% endif %}/></td>
-    				<td><input type="checkbox" id="checkbox_signale_{{c.id}}" name="xxx" onclick="signal_comment({{c.id}});" {% if c.signal=="true" %}checked{% else %}{% endif %}/></td>
+    				<td><input type="checkbox" id="checkbox_validate_{{c.id}}" name="xxx" onclick="validat_comment({{c.id}});" {% if c.approved=="true" %}checked{% else %}{% endif %} {% if c.signal=="true" %}disabled {% else %}{% endif %}/></td>
+    				<td><input type="checkbox" id="checkbox_signale_{{c.id}}" name="xxx" onclick="signal_comment({{c.id}});" {% if c.signal=="true" %}checked{% else %}{% endif %} {% if c.approved=="true" %}disabled {% else %}{% endif %}/></td>
     			</tr>
     			{% endfor %}
     	{% endif %}
