@@ -284,6 +284,13 @@ def search_term():
 def gestion_admin():
 	return render_template('temp_menu_admin.html',side_panel=1)
 
+@app.route('/sidepanel/<type>', methods=['POST','GET'])
+def sidepanel(type):
+    if request.method == "GET":
+        return 0
+    else:
+        return 0
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

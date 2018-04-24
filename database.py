@@ -521,3 +521,16 @@ class Database:
         cursor = connection.cursor()
         cursor.execute(("update comments set signal = ? where id = ? "),("true", id_comment, ))
         connection.commit()
+
+    def last_5_articles(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from article order by datepub desc limit 5"))
+        comments = []
+        for row in cursor:
+            tempdate = row[4][:10]
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5], row[6])
+            comments.append(c)
+        return comments
+
+
