@@ -62,11 +62,11 @@ function validat_comment( index_comment){
     if(document.getElementById("checkbox_validate_"+index_comment).checked === true){
            hidden(index_comment);
             xhr.open('POST', '/valider/comments/'+index_comment, true);
-             console.log('check')
+             //console.log('check')
             xhr.send();
     }else if (document.getElementById("checkbox_validate_"+index_comment).checked === false) {
             xhr.open('POST', '/unvalider/comments/'+index_comment, true);
-            console.log('uncheck')
+            //console.log('uncheck')
             xhr.send();
     }
 

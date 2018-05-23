@@ -1,11 +1,11 @@
 
 function Changer_Langue(){
 	if(document.getElementById('button_langue').value=='Français'){
-			console.log(getCookie('langue'));
+			//console.log(getCookie('langue'));
 			setCookie('langue','FR');
 			window.location = getURL();
 	}else if(document.getElementById('button_langue').value=='Anglais'){
-	    	console.log(getCookie('langue'));
+	    	//console.log(getCookie('langue'));
 			setCookie('langue','ENG');
 			window.location = getURL(); 
 			}		

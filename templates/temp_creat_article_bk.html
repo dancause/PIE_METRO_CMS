@@ -9,7 +9,6 @@
 <script src="/js/cms.js"></script>
 <script src="/js/francais.js"></script>
 <script src="/js/anglais.js"></script>
-    <script src="/js/gallery_constructor.js"></script>
 
   <script>
   $( function() {
@@ -126,19 +125,32 @@
   initEditFran();
 </script>
 
-<div class="liste_photo">
-   <div class="row row_media">
-    {% for p in photos %}
-    <div class="medias_display col-xs-3">
-    		<div><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
-    		<hr>
-    		<div><a href="/images/{{ p.media }}" target="_blank"><img src="/images/{{p.media}}" alt="{{p.media}}" class="img-responsive img-thumbnail" style="height: 227.5px;" ></a></div>
- 			<div onclick="build_list({{p.id}})" ><label>{{p.id}}</label></div>
-    </div>
-    {% if loop.index is divisibleby 4 %} </div><div class="row row_media">{% endif %}
-	{% endfor %}
-	</div>
-</div>
+ <table class="mobile table table-hover table-responsive liste_articles">
+    <thead>
+    	<tr>
+        <th>Numéro</th>
+        <th>aperçu</th>
+    	<th>Nom Photo</th>
+    	<th>date</th>
+    	<th>code html</th>
+    	</tr>
+    	</thead>
+    	 {% if not photos %}
+
+    	 <tr>
+    	<td style="text-align: center; "COLSPAN="5"><h2>aucune photo</h2></td>
+    	</tr>
+    	 {% else %}
+             <tr>
+				{% for p in photos %}
+
+
+    				<td><a href="/images/{{ p.media }}"><img src="/images/{{p.media}}" alt="{{p.media}}" class="mobile img-responsive img-thumbnail" style="height: 100px;"><a></td>
+ 
+    			{% endfor %}
+             </tr>
+    	{% endif %}
+    </table>
 
 
 
