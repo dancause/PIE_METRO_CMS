@@ -1,22 +1,9 @@
 {% extends "index.html" %}
 {% block side_content %}
 
-    <div>
-
-    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_valided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">Creer Article</button>
-    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_signaled()" value="{% if langue %}Français{% else %}Anglais{% endif %}">liste Articles</button>
-
-    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_valided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">Importer Images</button>
-    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_signaled()" value="{% if langue %}Français{% else %}Anglais{% endif %}">liste Images</button>
 
 
-    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_valided()" value="{% if langue %}Français{% else %}Anglais{% endif %}">Gérer Commentaires</button>
-    <button id="button_langue" class="button_langue btn btn-light" onclick="comments_signaled()" value="{% if langue %}Français{% else %}Anglais{% endif %}">signaled</button>
-
-
-
-
-
+<div class="admin_button">
 <form action="/gestion/creer/article" method="GET">
  <input type=submit value="Creer Articles">
 </form>
@@ -43,6 +30,7 @@
 <form action="/valider/comments" methode="GET">
  <input type=submit value="Creer Articles">
 </form>
+</div>
 
 {% endblock %}
 

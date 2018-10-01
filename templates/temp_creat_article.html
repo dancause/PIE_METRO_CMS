@@ -101,7 +101,7 @@
 
 
 
-<div class="mobile class="mobile btn-group"">
+<div class="mobile btn-group">
   <input type=reset value='Reset' type="button" class="mobile btn btn-primary">
   {% if update %}
  <input type=submit value='Mise à Jour' type="button" class="mobile btn btn-primary">	 
@@ -126,14 +126,28 @@
   initEditFran();
 </script>
 
+    <div class ="form-group">
+    <div class="mobile btn-group">
+        <div class="mobile row">
+        <button type="button" class="mobile btn btn-primary">reset</button>
+     <button type="button" class="mobile btn btn-primary">create</button>
+        </div>
+        <div class="mobile row">
+        <textarea></textarea>
+        </div>
+    </div>
+
+    </div>
+
 <div class="liste_photo">
+
    <div class="row row_media">
     {% for p in photos %}
-    <div class="medias_display col-xs-3">
+    <div class="medias_display col-xs-3" id="photo_{{ p.id }}">
     		<div><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
     		<hr>
     		<div><a href="/images/{{ p.media }}" target="_blank"><img src="/images/{{p.media}}" alt="{{p.media}}" class="img-responsive img-thumbnail" style="height: 227.5px;" ></a></div>
- 			<div onclick="build_list({{p.id}})" ><label>{{p.id}}</label></div>
+ 			<div onclick="build_list('{{p.media}}',p.id)" ><label>{{p.media}}</label></div>
     </div>
     {% if loop.index is divisibleby 4 %} </div><div class="row row_media">{% endif %}
 	{% endfor %}

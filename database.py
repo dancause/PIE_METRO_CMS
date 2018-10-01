@@ -521,3 +521,11 @@ class Database:
         cursor = connection.cursor()
         cursor.execute(("update comments set signal = ? where id = ? "),("true", id_comment, ))
         connection.commit()
+
+    def get_categories(self, category):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select menu_cat_ang, menu_cat_fr where id = ? "), ("true", category,))
+        connection.commit()
+
+

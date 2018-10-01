@@ -35,27 +35,18 @@
             </nav>    
             <br>
             <br>
-             <br>
             <br>
             <br>
             <br>
+            <br>
+
 <div class="container-fluid">
 
-{% if side_panel %}
-            <div class="row">
-            <div class="col-md-9">
-{% endif %}
+
 
 {% block content %}{% endblock %}
 
 
-{% if side_panel %}
-</div>
-<div class="col-md-3">
-{% include "temp_menu_admin.html" %}
-</div>
-</div>
-{% endif %}
 
 </div>
 

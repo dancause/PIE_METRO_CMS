@@ -138,7 +138,7 @@ def save_update():
 @app.route('/gestion/liste/articles', methods=['POST','GET'])
 def loadupdate():
     articles = get_db().all_liste()
-    return render_template('temp_listes_articles.html',articles=articles,side_panel=1)
+    return render_template('temp_listes_articles.html',articles=articles)
 
 @app.route('/save/fichiers', methods=['POST','GET'])
 def upload():
@@ -282,7 +282,7 @@ def search_term():
 
 @app.route('/gestion', methods=['POST','GET'])
 def gestion_admin():
-	return render_template('temp_menu_admin.html',side_panel=1)
+	return render_template('temp_menu_admin.html')
 
 def allowed_file(filename):
     return '.' in filename and \

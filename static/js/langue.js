@@ -29,7 +29,7 @@ function getCookie(cname) {
 
 
 function deleteCoookie(cname) {
-    createCookie(cname,"",-1);
+    document.cookie = cname + "=" + "" + "; path=/"
 }
 
 
@@ -41,5 +41,12 @@ function setCookie(cname, value) {
 function getURL()
 {
 return document.location.pathname;
+
+}
+
+
+function build_gallery(){
+
+    list = getCookie('List_photo');
 
 }
