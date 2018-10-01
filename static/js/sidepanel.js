@@ -14,6 +14,6 @@ xhr.onreadystatechange = function() {
         	}
 	}  
 };
-xhr.open("GET", '/sidepanel', true);
+xhr.open("GET", '/sidepanel/', true);
 xhr.send();  	
 })
