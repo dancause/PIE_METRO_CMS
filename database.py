@@ -522,13 +522,13 @@ class Database:
         cursor.execute(("update comments set signal = ? where id = ? "),("true", id_comment, ))
         connection.commit()
 
-<<<<<<< HEAD
+
     def get_categories(self, category):
         connection = self.get_connection()
         cursor = connection.cursor()
         cursor.execute(("select menu_cat_ang, menu_cat_fr where id = ? "), ("true", category,))
         connection.commit()
-=======
+
     def last_5_articles(self):
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -539,6 +539,6 @@ class Database:
             c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5], row[6])
             comments.append(c)
         return comments
->>>>>>> origin/master
+
 
 
