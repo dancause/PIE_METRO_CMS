@@ -27,7 +27,7 @@ function build_list(id_photo,index){
 
 function validlist( photo_list , id_photo){
     if ( photo_list.indexOf(id_photo) == -1){
-        photo_list = photo_list + id_photo + ', ';
+        photo_list = photo_list + id_photo + ',';
     }
     return photo_list;
 }
@@ -63,10 +63,44 @@ function reset() {
 
 function create(){
 
-    var a = verif_cookie().split(", ");
+    var a = verif_cookie().split(",");
 
     for (i in a) {
+
    console.log( a[i]);
+   if (a[i] != ""){
+
+
+   }
+
+   var gallery;
+
+   '<div class="container">'
+   '<div class="row">'
+
+  '<div class=" col-xs-4"><img class="img-responsive img-rounded" src="img_chania.jpg" alt="Chania"  ></div>'
+
+  '</div>'
+'</div>'
+
 }
 
+}
+
+function clean(){
+    var cleancode;
+
+      var a = verif_cookie().split(",");
+
+    for (i in a) {
+
+   console.log( a[i]);
+   if (a[i] != ""){
+       cleancode=cleancode+a[i];
+
+        }
+
+    }
+
+return cleancode;
 }

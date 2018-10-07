@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="78e2dc53-584d-45ad-a7e9-67098d20c5f9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/cms_db.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/cms_db.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/gallery_constructor.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/gallery_constructor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/temp_creat_article.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/temp_creat_article.html" afterDir="false" />
     </list>
@@ -20,10 +17,13 @@
       <file leaf-file-name="temp_creat_article.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/temp_creat_article.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="146" column="82" selection-start-line="146" selection-start-column="69" selection-end-line="146" selection-end-column="82" />
+            <state relative-caret-position="327">
+              <caret line="149" column="45" lean-forward="true" selection-start-line="149" selection-start-column="45" selection-end-line="149" selection-end-column="45" />
               <folding>
                 <element signature="e#5803#5823#0#HTML" expanded="true" />
+                <element signature="e#6017#6049#0#HTML" expanded="true" />
+                <element signature="e#6041#6061#0#HTML" expanded="true" />
+                <element signature="e#6262#6295#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -46,8 +46,8 @@
       <file leaf-file-name="gallery_constructor.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/js/gallery_constructor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="1530">
+              <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -592,18 +592,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/temp_creat_article.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="146" column="82" selection-start-line="146" selection-start-column="69" selection-end-line="146" selection-end-column="82" />
+        <state relative-caret-position="327">
+          <caret line="149" column="45" lean-forward="true" selection-start-line="149" selection-start-column="45" selection-end-line="149" selection-end-column="45" />
           <folding>
             <element signature="e#5803#5823#0#HTML" expanded="true" />
+            <element signature="e#6017#6049#0#HTML" expanded="true" />
+            <element signature="e#6041#6061#0#HTML" expanded="true" />
+            <element signature="e#6262#6295#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/gallery_constructor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="1530">
+          <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
         </state>
       </provider>
     </entry>
