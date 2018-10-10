@@ -35,9 +35,10 @@ function validlist( photo_list , id_photo){
 
 function removephotolist(photo_list , id_photo){
 
-var res = photo_list.replace(id_photo, "");
+var res = photo_list.replace(id_photo+',', "");
 return res;
 }
+
 window.onload = function(){
     deleteCoookie('List_photo');
 };
@@ -64,43 +65,33 @@ function reset() {
 function create(){
 
     var a = verif_cookie().split(",");
+    var colonne = radiocheck('colonne');
+    var style = radiocheck('style');
+    console.log(colonne);
+    console.log(style);
+    var cols = 12 / colonne;
 
+    console.log(a.length);
+    var tempgall = "";
     for (i in a) {
 
-   console.log( a[i]);
+
    if (a[i] != ""){
 
-
+tempgall =tempgall +'<div class=" col-xs-'+cols+'"><img class="img-responsive '+style+'" src="'+a[i]+'" alt="'+a[i]+'"  ></div>';
    }
 
-   var gallery;
+   var gallery = '<div class="container">'+'<div class="row">'
 
-   '<div class="container">'
-   '<div class="row">'
+  +'<div class=" col-xs-'+cols+'"><a href="/images/'+a[i]+'" target="_blank"><img class="img-responsive '+style+'" src="/images/'+a[i]+'" alt="'+a[i]+'"  ></a></div>'
 
-  '<div class=" col-xs-4"><img class="img-responsive img-rounded" src="img_chania.jpg" alt="Chania"  ></div>'
-
-  '</div>'
-'</div>'
+  +'</div>'
++'</div>'
 
 }
-
+document.getElementById("gallery_html").value = tempgall;
 }
 
-function clean(){
-    var cleancode;
-
-      var a = verif_cookie().split(",");
-
-    for (i in a) {
-
-   console.log( a[i]);
-   if (a[i] != ""){
-       cleancode=cleancode+a[i];
-
-        }
-
-    }
-
-return cleancode;
+function radiocheck(rname) {
+    return document.querySelector('input[name='+rname +']:checked').value;
 }

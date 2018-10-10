@@ -173,10 +173,10 @@ def delete_media(filename):
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         get_db().delete_medias(filename)
         photos = get_db().liste_medias()
-        return redirect(url_for('start_page'))
+        return redirect(url_for('upload'))
     else:
         photos = get_db().liste_medias()
-        return redirect(url_for('start_page'))
+        return redirect(url_for('upload'))
 
 @app.route('/delete/article/<id_article>', methods=['POST','GET'])
 def delete_article(id_article):
