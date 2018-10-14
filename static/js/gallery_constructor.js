@@ -67,31 +67,58 @@ function create(){
     var a = verif_cookie().split(",");
     var colonne = radiocheck('colonne');
     var style = radiocheck('style');
+    var compteur=0;
     console.log(colonne);
     console.log(style);
     var cols = 12 / colonne;
+    var j=0;
 
     console.log(a.length);
     var tempgall = "";
+    var gallery = '<div class="">';
     for (i in a) {
 
 
-   if (a[i] != ""){
+        if (a[i] != "") {
 
-tempgall =tempgall +'<div class=" col-xs-'+cols+'"><img class="img-responsive '+style+'" src="'+a[i]+'" alt="'+a[i]+'"  ></div>';
-   }
+            gallery=gallery+'<div class="">';
 
-   var gallery = '<div class="container">'+'<div class="row">'
+        for(j=0; j<cols;j++){
+            if(compteur < a.length){
 
-  +'<div class=" col-xs-'+cols+'"><a href="/images/'+a[i]+'" target="_blank"><img class="img-responsive '+style+'" src="/images/'+a[i]+'" alt="'+a[i]+'"  ></a></div>'
+                            gallery = gallery +'<div class=" col-md-' + cols + '"><a href="/images/' + a[i] + '" target="_blank"><img class="img-responsive ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '"  ></a></div>';
+            compteur++;
+            }
 
-  +'</div>'
-+'</div>'
+        }
+            gallery = gallery + '</div>';
+
+    }
 
 }
-document.getElementById("gallery_html").value = tempgall;
+gallery=gallery+'</div>';
+document.getElementById("gallery_html").value = gallery;
 }
 
 function radiocheck(rname) {
     return document.querySelector('input[name='+rname +']:checked').value;
 }
+
+
+function photoentete(id_photo,index){
+
+ var element = document.getElementsByName("header_photo");
+    for (var i = 0; i<element.length; i++) {
+        if (element[i].style.visibility == "visible") {
+
+            element[i].style.visibility = "hidden";
+        }
+
+    }
+document.getElementById("photo").value = id_photo;
+document.getElementById("entete_"+index).style.visibility = "visible";
+console.log(document.getElementById("entete_"+index).style.visibility );
+
+}
+
+

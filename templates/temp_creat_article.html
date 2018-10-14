@@ -116,7 +116,7 @@
 </div>
 
 <div class=" col-xs-12">
-            <legend>Gallery HTML code</legend style="margin-bottom: 0px;">
+            <legend   style="margin-bottom: 0px;">Gallery HTML code</legend>
         <input style="width: 100%;" name='gallery_html' id="gallery_html"></input>
         </div>
 <input type="hidden" name='id' value="{% if articles %}{{articles.unique}}{% endif %}" style="width: 100%;" >
@@ -216,7 +216,10 @@
    <div class="row row_media">
     {% for p in photos %}
     <div class="medias_display col-xs-3" id="photo_{{ p.id }}" name="photo_gallery">
-    		<div><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
+        <div class="row " onclick="photoentete('{{p.media}}', {{ p.id }})">
+    		<div class="col-xs-6"><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
+        <div    name="header_photo" style="visibility: hidden;" class="col-xs-6" id="entete_{{ p.id }}"><label>Entête<label></div>
+        </div>
     		<hr>
     		<div>
                 <a href="/images/{{ p.media }}" target="_blank"><img src="/images/{{p.media}}" alt="{{p.media}}" class="img-responsive img-thumbnail" style="height: 227.5px;" ></a>

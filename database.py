@@ -61,7 +61,7 @@ class Database:
     def insert_article(self, url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data1):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("""insert into article(url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data1)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""),
+        cursor.execute(("""insert into article(url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data_1)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""),
                        (url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data1))
         connection.commit()
 
@@ -99,6 +99,8 @@ class Database:
         cursor.execute(("""select * from article, categories where article.categorie= categories.id and article.url = ?"""), (url, ))
         row = cursor.fetchone()
         p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12])
+        print row[12]
+        print p
         return p
 
     def get_categorie_article(self,id_categorie):
@@ -183,11 +185,11 @@ class Database:
         else:
             return article
 
-    def update_article(self, unique, url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo):
+    def update_article(self, unique, url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,data1):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("update article set url = ?,auteur = ?,datepub = ?,titre_fr = ?,titre_ang = ?,texte_fr = ?,texte_ang = ?,categorie = ?,etiquettes = ?,tag = ?,photo = ? where id=?",
-                       (url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,unique, ))
+        cursor.execute("update article set url = ?,auteur = ?,datepub = ?,titre_fr = ?,titre_ang = ?,texte_fr = ?,texte_ang = ?,categorie = ?,etiquettes = ?,tag = ?,photo = ?, data_1 = ? where id=?",
+                       (url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,unique,data1, ))
         connection.commit()
 
     def effacer_articles(self, unique):

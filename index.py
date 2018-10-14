@@ -85,7 +85,8 @@ def nouveau():
     photo = request.form['photo']
     texte_fr = request.form['editor_fr']
     texte_ang = request.form['editor_ang']
-    article = Articles('0',url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,"","")
+    gallery = request.form['gallery_html']
+    article = Articles('0',url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,"","",gallery)
     erreur_data = valider_acticle(article)
     if any(erreur_data):
         photos = get_db().liste_medias()
@@ -95,7 +96,7 @@ def nouveau():
     else:
         photos = get_db().liste_medias()
         categories = get_db().liste_categories()
-        get_db().insert_article(url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo)
+        get_db().insert_article(url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,gallery)
     return render_template('temp_creat_article.html', photos=photos,categories=categories)
 
 @app.route('/save/miseajour/<id_article>', methods=['POST','GET'])
@@ -124,7 +125,8 @@ def save_update():
     photo = request.form['photo']
     texte_fr = request.form['editor_fr']
     texte_ang = request.form['editor_ang']
-    article = Articles(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,"","")
+    gallery = request.form['gallery_html']
+    article = Articles(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,"","",gallery)
     erreur_data = valider_acticle(article)
     if any(erreur_data):
         photos = get_db().liste_medias()
@@ -132,7 +134,7 @@ def save_update():
         return render_template('temp_creat_article.html', articles=article,
                                erreur_data=erreur_data, photos=photos, update='update',categories=categories)
     else:
-        get_db().update_article(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo)
+        get_db().update_article(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,gallery)
     return redirect(url_for('loadupdate'))
 
 @app.route('/gestion/liste/articles', methods=['POST','GET'])
@@ -186,6 +188,7 @@ def delete_article(id_article):
 @app.route('/article/<categorie>/<url_article>', methods=['POST','GET'])
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
+    print article.data1
     comments=get_db().get_comments(article.unique)
     if verifierLangue() == 'FR':
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
