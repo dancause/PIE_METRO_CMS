@@ -67,7 +67,7 @@ function create(){
     var a = verif_cookie().split(",");
     var colonne = radiocheck('colonne');
     var style = radiocheck('style');
-    var compteur=0;
+    var compteur=1;
     console.log(colonne);
     console.log(style);
     var cols = 12 / colonne;
@@ -75,28 +75,22 @@ function create(){
 
     console.log(a.length);
     var tempgall = "";
-    var gallery = '<div class="">';
+    var gallery = '<div class="row ">';
+
     for (i in a) {
-
-
         if (a[i] != "") {
+                    gallery = gallery +'<div class=" gallery_ligne col-md-' + cols + '"><a href="/images/' + a[i] + '" target="_blank"><img class="img-responsive ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '"  ></a></div>';
+                            if(compteur < colonne){
 
-            gallery=gallery+'<div class="">';
-
-        for(j=0; j<cols;j++){
-            if(compteur < a.length){
-
-                            gallery = gallery +'<div class=" col-md-' + cols + '"><a href="/images/' + a[i] + '" target="_blank"><img class="img-responsive ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '"  ></a></div>';
-            compteur++;
-            }
-
+                                compteur++;
+                            } else{
+                                gallery = gallery +'</div><div class="row ">';
+                                compteur=1;
+                            }
         }
-            gallery = gallery + '</div>';
-
     }
+    gallery=gallery+'</div>';
 
-}
-gallery=gallery+'</div>';
 document.getElementById("gallery_html").value = gallery;
 }
 
@@ -120,5 +114,4 @@ document.getElementById("entete_"+index).style.visibility = "visible";
 console.log(document.getElementById("entete_"+index).style.visibility );
 
 }
-
 

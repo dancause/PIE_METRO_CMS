@@ -117,8 +117,15 @@
 
 <div class=" col-xs-12">
             <legend   style="margin-bottom: 0px;">Gallery HTML code</legend>
-        <input style="width: 100%;" name='gallery_html' id="gallery_html"></input>
+        <input style="width: 100%;" name='gallery_html' id="gallery_html" value="{{ articles.data1 }}"></input>
         </div>
+
+
+    <div>
+        <input type="checkbox" id="comments" name="comments"
+               value="comments" checked />
+        <label for="comments">comments activés</label>
+    </div>
 <input type="hidden" name='id' value="{% if articles %}{{articles.unique}}{% endif %}" style="width: 100%;" >
 <br>
  </div>

@@ -185,11 +185,11 @@ class Database:
         else:
             return article
 
-    def update_article(self, unique, url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,data1):
+    def update_article(self, unique, url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,data_1):
         connection = self.get_connection()
         cursor = connection.cursor()
         cursor.execute("update article set url = ?,auteur = ?,datepub = ?,titre_fr = ?,titre_ang = ?,texte_fr = ?,texte_ang = ?,categorie = ?,etiquettes = ?,tag = ?,photo = ?, data_1 = ? where id=?",
-                       (url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,unique,data1, ))
+                       (url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,data_1,unique, ))
         connection.commit()
 
     def effacer_articles(self, unique):

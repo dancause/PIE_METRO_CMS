@@ -18,7 +18,7 @@
                     <div class="col-xs-6" style="text-align: -webkit-right;"><h6>date: {{ articles.datepub }}</h6></div>
                     </div>
                     <div class="text"><p class="text">{% if langue %}{{ articles.texte_ang|safe }} {% else %}{{ articles.texte_fr|safe }}{% endif%}</p></div>
-                    <div class="col-xs-12"> gallery début {{ articles.data1|safe }} gallery fin</div>
+                    <div> {{ articles.data1|safe }} </div>
                     <div>{% if langue %}tag: {{ articles.tag }} {% else %} etiquettes: {{ articles.etiquettes }}{% endif%}</div>
 </div>
 </div>

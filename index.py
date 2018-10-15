@@ -126,6 +126,8 @@ def save_update():
     texte_fr = request.form['editor_fr']
     texte_ang = request.form['editor_ang']
     gallery = request.form['gallery_html']
+    comments = request.form['comments']
+    print comments
     article = Articles(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,"","",gallery)
     erreur_data = valider_acticle(article)
     if any(erreur_data):
@@ -188,7 +190,6 @@ def delete_article(id_article):
 @app.route('/article/<categorie>/<url_article>', methods=['POST','GET'])
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
-    print article.data1
     comments=get_db().get_comments(article.unique)
     if verifierLangue() == 'FR':
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
