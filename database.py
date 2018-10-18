@@ -4,7 +4,7 @@ import time
 
 
 class Articles:
-    def __init__(self, unique, url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo, cat_fr, cat_ang, data1):
+    def __init__(self, unique, url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo, cat_fr, cat_ang, data1, data2):
         self.unique = unique
         self.url = url
         self.auteur = auteur
@@ -20,6 +20,7 @@ class Articles:
         self.cat_fr = cat_fr
         self.cat_ang = cat_ang
         self.data1 = data1
+        self.data2 = data2
 
 class Medias:
     def __init__(self, id, creator, media, date):
@@ -58,11 +59,14 @@ class Database:
         if self.connection is not None:
             self.connection.close()
 
-    def insert_article(self, url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data1):
+    def insert_article(self, url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data1, data2):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("""insert into article(url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data_1)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""),
-                       (url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data1))
+        print "insert article"
+        print data2
+        print data1
+        print "insert article"
+        cursor.execute(("insert into article(url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data_1, data_2 ) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),(url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag,photo, data1, data2,))
         connection.commit()
 
     def select_liste(self):
@@ -71,7 +75,7 @@ class Database:
         cursor.execute("""select * from article, categories where article.categorie = categories.id and article.datepub <=(select date('now'))order by article.datepub""")
         listes = []
         for row in cursor:
-            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12])
+            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])
             listes.append(p)
         return listes
 
@@ -81,7 +85,7 @@ class Database:
         cursor.execute("""select * from article,categories where article.categorie = categories.id order by datepub desc""")
         listes = []
         for row in cursor:
-            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12])
+            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])
             listes.append(p)
         return listes
 
@@ -90,7 +94,7 @@ class Database:
         cursor = connection.cursor()
         cursor.execute(("""select * from article, categories where article.categorie= categories.id and article.id = ?"""), (id, ))
         row = cursor.fetchone()
-        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12])
+        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])
         return p
 
     def get_url_article(self,url):
@@ -98,9 +102,8 @@ class Database:
         cursor = connection.cursor()
         cursor.execute(("""select * from article, categories where article.categorie= categories.id and article.url = ?"""), (url, ))
         row = cursor.fetchone()
-        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12])
-        print row[12]
-        print p
+        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])
+        print row[13]
         return p
 
     def get_categorie_article(self,id_categorie):
@@ -109,7 +112,7 @@ class Database:
         cursor.execute(("""select * from article,categories where article.categorie=categories.id and (categories.menu_cat_fr like ? or categories.menu_cat_ang like ?) order by datepub desc"""),(id_categorie, id_categorie, ))
         listes = []
         for row in cursor:
-            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12])
+            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])
             listes.append(p)
         return listes
 
@@ -119,7 +122,7 @@ class Database:
         cursor.execute(("""select * from article,categories where article.categorie=categories.id and (article.auteur like ?) order by datepub desc"""),(id_auteur, ))
         listes = []
         for row in cursor:
-            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12])
+            p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])
             listes.append(p)
         return listes
 
@@ -157,7 +160,7 @@ class Database:
         listes = []
         for row in cursor:
             p = Articles(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10],
-                         row[11], row[17], row[18], row[12])
+                         row[11], row[17], row[18], row[12],row[13])
             listes.append(p)
         return listes
 
@@ -185,11 +188,11 @@ class Database:
         else:
             return article
 
-    def update_article(self, unique, url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,data_1):
+    def update_article(self, unique, url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,data_1, data2):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("update article set url = ?,auteur = ?,datepub = ?,titre_fr = ?,titre_ang = ?,texte_fr = ?,texte_ang = ?,categorie = ?,etiquettes = ?,tag = ?,photo = ?, data_1 = ? where id=?",
-                       (url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,data_1,unique, ))
+        cursor.execute("update article set url = ?,auteur = ?,datepub = ?,titre_fr = ?,titre_ang = ?,texte_fr = ?,texte_ang = ?,categorie = ?,etiquettes = ?,tag = ?,photo = ?, data_1 = ?,data_2 = ? where id=?",
+                       (url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,data_1, data2, unique, ))
         connection.commit()
 
     def effacer_articles(self, unique):

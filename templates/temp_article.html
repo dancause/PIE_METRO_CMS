@@ -24,6 +24,7 @@
 </div>
 </div>
 <br>
+{% if articles.data2 == 'true' %}
 
 <div class="form">
     <input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
@@ -36,7 +37,18 @@
         </div>
     </div>
 </div>
-
+{% else %}{{ articles.data2 }}
+<div class="form">
+    <div>
+        <div>
+        <textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} desactivated {% else %} désactivé{% endif %}" disabled style="background-color: gainsboro;"></textarea>
+        </div>
+        <div>
+        <button type="" value="" id="" onclick="" disabled>POST</button>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% if comments %}
 <div id="add_comment" name="add_comment">

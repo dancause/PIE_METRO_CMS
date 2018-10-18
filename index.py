@@ -71,7 +71,6 @@ def create_article():
 
 @app.route('/save/nouveau', methods=['POST','GET'])
 def nouveau():
-    auteur = request.form['auteur']
     url = request.form['URL']
     datepub = request.form['datepublication']
     tag = request.form['tag']
@@ -81,12 +80,16 @@ def nouveau():
     titre_ang = request.form['titre_ang']
     auteur = request.form['auteur']
     photo = request.form['photo']
-    auteur = request.form['auteur']
-    photo = request.form['photo']
     texte_fr = request.form['editor_fr']
     texte_ang = request.form['editor_ang']
     gallery = request.form['gallery_html']
-    article = Articles('0',url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,"","",gallery)
+    comments_on = request.form.get('comments_on')
+    print comments_on
+    if comments_on != 'true':
+        comments_on = 'false'
+    article = Articles("", url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie,
+                           etiquettes, tag, photo, "", "", gallery, comments_on)
+    print article
     erreur_data = valider_acticle(article)
     if any(erreur_data):
         photos = get_db().liste_medias()
@@ -96,7 +99,7 @@ def nouveau():
     else:
         photos = get_db().liste_medias()
         categories = get_db().liste_categories()
-        get_db().insert_article(url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,gallery)
+        get_db().insert_article(url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,gallery,comments_on)
     return render_template('temp_creat_article.html', photos=photos,categories=categories)
 
 @app.route('/save/miseajour/<id_article>', methods=['POST','GET'])
@@ -111,7 +114,6 @@ def afficher_update(id_article):
 @app.route('/save/miseajour', methods=['POST','GET'])
 def save_update():
     unique = request.form['id']
-    auteur = request.form['auteur']
     url = request.form['URL']
     datepub = request.form['datepublication']
     tag = request.form['tag']
@@ -121,14 +123,13 @@ def save_update():
     titre_ang = request.form['titre_ang']
     auteur = request.form['auteur']
     photo = request.form['photo']
-    auteur = request.form['auteur']
-    photo = request.form['photo']
     texte_fr = request.form['editor_fr']
     texte_ang = request.form['editor_ang']
     gallery = request.form['gallery_html']
-    comments = request.form['comments']
-    print comments
-    article = Articles(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,"","",gallery)
+    comments_on = request.form.get('comments_on')
+    if comments_on != 'true':
+        comments_on = 'false'
+    article = Articles(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,"","",gallery,comments_on)
     erreur_data = valider_acticle(article)
     if any(erreur_data):
         photos = get_db().liste_medias()
@@ -136,7 +137,7 @@ def save_update():
         return render_template('temp_creat_article.html', articles=article,
                                erreur_data=erreur_data, photos=photos, update='update',categories=categories)
     else:
-        get_db().update_article(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,gallery)
+        get_db().update_article(unique,url,auteur,datepub,titre_fr,titre_ang,texte_fr,texte_ang,categorie,etiquettes,tag,photo,gallery,comments_on)
     return redirect(url_for('loadupdate'))
 
 @app.route('/gestion/liste/articles', methods=['POST','GET'])
