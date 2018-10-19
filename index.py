@@ -55,6 +55,23 @@ def start_page():
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1)
 
+@app.route('/login', methods=['POST','GET'])
+def login_page():
+    return render_template('login.html')
+
+@app.route('/login/validation', methods=['POST','GET'])
+def login_validation():
+    username = request.form['username']
+    password = request.form['password']
+    hash = get_db().get_user_login_info('username')
+    print hash
+    print 'loginvalidation'
+    if hash == None:
+        print 'passe ici'
+        return render_template('login.html',error='wrong user/password')
+    print 'passe la'
+    return render_template('login.html')
+
 @app.route('/liste')
 def intro():
     articles=get_db().select_liste()
@@ -229,7 +246,7 @@ def comments():
         comments=get_db().get_comments(content['id_article'])
     return render_template('comments.html',comments=comments)
 
-@app.route('/admin/comments', methods=['POST','GET'])
+@app.route('/gestion/comments', methods=['POST','GET'])
 def validate_comments():
     comments=get_db().get_comments_unvalidated()
     return render_template('temps_admin_comment.html',comments=comments)

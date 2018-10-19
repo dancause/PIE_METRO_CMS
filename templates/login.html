@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>Login</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="UTF-8">
+        <link rel="SHORTCUT ICON" href="../">
+        <!-- CSS -->
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" type="text/css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" type="text/css"/>
+
+    </head>
+    <body>
+<div class="container-fluid">
+        <div id="">
+            <div id="">
+               
+                <div id=""></div>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4"><img src="/images/metro.jpg" class="mx-auto d-block img-fluid" alt="logo" style="    padding-top: 50px;">
+                <form name="login" class="tcenter" action="/login/validation" method="POST">
+                                            
+                <div class="control-group">
+                    <span sfuuid="1" class="edit">
+                        <input type="text" name="username" value="" placeholder="Nom d&#39;utilisateur" class="form-control" aria-label="username">
+                    </span>
+                </div>
+                                
+                <div class="control-group">
+                    <span sfuuid="2" class="edit">
+                        <input type="password" name="password" value="" placeholder="Mot de passe" aria-label="password" class="form-control">
+                    </span>
+                </div>
+                                {% if error %}
+                                <p class="help-block">
+                                    <strong>{{ error }}</strong>
+                                </p>
+                                {% endif %}
+                            
+                            <div class="login-footer">
+                                <span sfuuid="3" class="edit"><input type="submit" name="submit" class="form-control" value="Submit"/></span>
+                                <span sfuuid="4" class="edit"><input type="reset" name="cancel" class="form-control"/></span>
+                            </div>
+                </form>
+            </div>
+                <div class="col-4"></div>
+                    
+</div>
+                <div id="footer"></div>
+                <div id="drawers"></div>
+            </div>
+        </div>
+
+</div>
+    </body>
+</html>

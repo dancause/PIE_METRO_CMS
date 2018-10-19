@@ -23,6 +23,7 @@
     	<th>categorie_1</th>
     	<th>categorie_2</th>
     	<th>photo</th>
+            <th>commentaire</th>
     	<th>effacer</th>
     	<th>mise à jour</th>
     	</tr>
@@ -37,7 +38,7 @@
 				{% for a in articles %}
 				<tr>
                     <td>{{a.unique }}</td>
-    				<td>{{a.url}}</td>
+                    <td><a href="/article/{{a.cat_fr }}/{{ a.url }}">{{a.url}}</a></td>
     				<td>{{a.titre_fr}}</td>
     				<td>{{a.titre_ang }}</td>
     				<td>{{a.datepub}}</td>
@@ -45,6 +46,7 @@
     				<td>{{a.cat_fr }}</td>
     				<td>{{a.cat_ang }}</td>
     				<td>{{a.photo}}</td>
+                    <td>{{a.data2}}</td>
     				<td><a href="/delete/article/{{ a.unique }}">effacer</a></td>
     				<td><a href="/save/miseajour/{{ a.unique }}">mise à jour</a></td>
     			</tr>

@@ -22,6 +22,14 @@ class Articles:
         self.data1 = data1
         self.data2 = data2
 
+class Users:
+    def __init__(self, email, firstname, lastname, picture, status):
+        self.email = email
+        self.firstname = firstname
+        self.lastname = lastname
+        self.picture = picture
+        self.status = status
+
 class Medias:
     def __init__(self, id, creator, media, date):
         self.id = id
