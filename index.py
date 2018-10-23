@@ -6,6 +6,7 @@ import time
 import uuid
 import hashlib
 import requests
+from courriel import *
 
 from ua_parser import user_agent_parser
 from werkzeug.utils import secure_filename
@@ -61,16 +62,65 @@ def login_page():
 
 @app.route('/login/validation', methods=['POST','GET'])
 def login_validation():
-    username = request.form['username']
+    courriel = request.form['username']
     password = request.form['password']
     hash = get_db().get_user_login_info('username')
+    print courriel
     print hash
     print 'loginvalidation'
+    if courriel == "correcteur" and password == "secret":
+        print 'mot passe temporaire'
+        id_session = uuid.uuid4().hex
+        get_db().save_session(id_session, courriel)
+        session["id"] = id_session
+        return redirect("/")
     if hash == None:
         print 'passe ici'
         return render_template('login.html',error='wrong user/password')
     print 'passe la'
     return render_template('login.html')
+
+@app.route('/gestion/invitation')
+def inviter_collaborateur():
+    rolelist = get_db().get_roles()
+    return render_template('temp_invitation.html',rolelist=rolelist)
+
+@app.route('/gestion/invitation/<token>')
+def nouveau_usager(token):
+    if "id" in session:
+        return render_template('error_html.html', error_html="401",
+                               error_message=u"Non autorisé"), 401
+    if get_db().valider_invitation(token):
+        return render_template('temp_create_new_user.html', token=token)
+    else:
+        return render_template('error_html.html', error_html="401",
+                               error_message=u"Non autorisée"), 401
+
+@app.route('/gestion/send/invitation', methods=["POST"])
+def envoyer_invitation():
+    courriel = request.form['courriel']
+    token = uuid.uuid4().hex
+    if get_db().valider_courriel(courriel) is False:
+        data = u"Il y a déja un compte associé à ce courriel"
+        return render_template('temp_create_new_user.html',
+                               data=data)
+    if get_db().inviter_courriel(courriel) is True:
+        get_db().save_invitation(courriel, token)
+        message_courriel(courriel, token, render_template(
+                         'courriel_invitation.html', token=token),
+                         "invitation")
+        return render_template('temp_create_new_user.html',
+                               data=u"Invitation envoyées")
+    elif get_db().inviter_courriel(courriel) is False:
+        token = get_db().token_invitation(courriel)
+        message_courriel(courriel, token, render_template(
+                         'courriel_invitation.html', token=token),
+                         "invitation rappel")
+        return render_template('temp_create_new_user.html',
+                               data=u"Invitation envoyées à nouveau")
+    else:
+        return render_template('temp_create_new_user.html',
+                               data=u"Le courriel existe déjà")
 
 @app.route('/liste')
 def intro():
@@ -85,6 +135,11 @@ def create_article():
     photos = get_db().liste_medias()
     categories = get_db().liste_categories()
     return render_template('temp_creat_article.html', photos=photos,categories=categories)
+
+@app.route('/gestion/create/user')
+def create_user():
+    return render_template('temp_create_new_user.html')
+
 
 @app.route('/save/nouveau', methods=['POST','GET'])
 def nouveau():
@@ -304,7 +359,7 @@ def search_term():
 
 @app.route('/gestion', methods=['POST','GET'])
 def gestion_admin():
-	return render_template('temp_menu_admin.html')
+    return render_template('temp_menu_admin.html')
 
 @app.route('/sidepanel/<type>', methods=['POST','GET'])
 def sidepanel(type):
@@ -312,6 +367,8 @@ def sidepanel(type):
         return 0
     else:
         return 0
+
+app.secret_key = "77458cd6536d0f464cd218d9f6b20d78"
 
 def allowed_file(filename):
     return '.' in filename and \

@@ -54,6 +54,12 @@ class Comments:
         self.approved = approved
         self.signal = signal
 
+class roles:
+    def __init__(self, id, role, active):
+        self.id = id
+        self.role = role
+        self.active = active
+
 class Database:
     def __init__(self):
         self.connection = None
@@ -250,8 +256,8 @@ class Database:
     def save_invitation(self, courriel, token):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("insert into invitation(courriel, token) "
-                        "values(?, ?)"), (courriel, token))
+        cursor.execute(("insert into invitation(courriel, token, date_invitation) "
+                        "values(?, ?, ?)"), (courriel, token,datetime.now(),))
         connection.commit()
 
     def save_recuperation(self, courriel, token):
@@ -553,6 +559,16 @@ class Database:
             c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5], row[6])
             comments.append(c)
         return comments
+
+    def get_roles(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from roles where active = ?"),("true",))
+        for row in cursor:
+            r = roles(row[0], row[1], row[2])
+            roles.append(r)
+        return roles
+
 
 
 
