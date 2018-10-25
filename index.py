@@ -65,10 +65,7 @@ def login_page():
 def login_validation():
     courriel = request.form['username']
     password = request.form['password']
-    hash = get_db().get_user_login_info('username')
-    print courriel
-    print hash
-    print 'loginvalidation'
+    hash = get_db().get_user_login_info(courriel)
     if courriel == "correcteur" and password == "secret":
         print 'mot passe temporaire'
         id_session = uuid.uuid4().hex
@@ -79,7 +76,17 @@ def login_validation():
         print 'passe ici'
         return render_template('login.html',error='wrong user/password')
     print 'passe la'
-    return render_template('login.html')
+    salt = hash[0]
+    hashed_password = hashlib.sha512(password + salt).hexdigest()
+    if hashed_password == hash[1]:
+        # Accès autorisé
+        id_session = uuid.uuid4().hex
+        get_db().save_session(id_session, courriel)
+        session["id"] = id_session
+        return redirect("/")
+    else:
+        return redirect("/")
+
 
 @app.route('/gestion/invitation')
 def inviter_collaborateur():
@@ -137,14 +144,14 @@ def invitation():
     erreur_data = valider_donnees_usager(nom, courriel, motpasse, motpasse2)
     erreurs = valider_mot_passe(motpasse, motpasse2)
     if any(erreurs) or any(erreur_data):
-        return render_template('nouveau_usager.html',
+        return render_template('temp_create_new_user.html',
                                erreurs=erreurs, token=token, name=nom,
                                erreur_data=erreur_data, courriel=courriel)
     salt = uuid.uuid4().hex
     hash = hashlib.sha512(motpasse + salt).hexdigest()
     get_db().ajout_utilisateur(nom, courriel, salt, hash)
     get_db().delete_invitation(token)
-    return render_template('authentification.html',
+    return render_template('login.html',
                            message=u'Votre code usager a été créer')
 
 @app.route('/liste')
