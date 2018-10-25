@@ -7,6 +7,7 @@ import uuid
 import hashlib
 import requests
 from courriel import *
+from validation import *
 
 from ua_parser import user_agent_parser
 from werkzeug.utils import secure_filename
@@ -82,8 +83,9 @@ def login_validation():
 
 @app.route('/gestion/invitation')
 def inviter_collaborateur():
-    rolelist = get_db().get_roles()
-    return render_template('temp_invitation.html',rolelist=rolelist)
+    roles = get_db().get_roles()
+    print roles
+    return render_template('temp_invitation.html',roles=roles)
 
 @app.route('/gestion/invitation/<token>')
 def nouveau_usager(token):
@@ -99,28 +101,51 @@ def nouveau_usager(token):
 @app.route('/gestion/send/invitation', methods=["POST"])
 def envoyer_invitation():
     courriel = request.form['courriel']
+    role = request.form['role']
+    print role
+    print courriel
     token = uuid.uuid4().hex
     if get_db().valider_courriel(courriel) is False:
         data = u"Il y a déja un compte associé à ce courriel"
-        return render_template('temp_create_new_user.html',
+        return render_template('temp_invitation.html',
                                data=data)
     if get_db().inviter_courriel(courriel) is True:
-        get_db().save_invitation(courriel, token)
+        get_db().save_invitation(courriel, token, role)
         message_courriel(courriel, token, render_template(
                          'courriel_invitation.html', token=token),
                          "invitation")
-        return render_template('temp_create_new_user.html',
+        return render_template('temp_invitation.html',
                                data=u"Invitation envoyées")
     elif get_db().inviter_courriel(courriel) is False:
         token = get_db().token_invitation(courriel)
         message_courriel(courriel, token, render_template(
                          'courriel_invitation.html', token=token),
                          "invitation rappel")
-        return render_template('temp_create_new_user.html',
+        return render_template('temp_invitation.html',
                                data=u"Invitation envoyées à nouveau")
     else:
-        return render_template('temp_create_new_user.html',
+        return render_template('temp_invitation.html',
                                data=u"Le courriel existe déjà")
+
+@app.route('/gestion/create/user', methods=["POST"])
+def invitation():
+    nom = request.form["nom"]
+    courriel = request.form["courriel"]
+    motpasse = request.form["motpasse"]
+    motpasse2 = request.form["motpasse2"]
+    token = request.form["token"]
+    erreur_data = valider_donnees_usager(nom, courriel, motpasse, motpasse2)
+    erreurs = valider_mot_passe(motpasse, motpasse2)
+    if any(erreurs) or any(erreur_data):
+        return render_template('nouveau_usager.html',
+                               erreurs=erreurs, token=token, name=nom,
+                               erreur_data=erreur_data, courriel=courriel)
+    salt = uuid.uuid4().hex
+    hash = hashlib.sha512(motpasse + salt).hexdigest()
+    get_db().ajout_utilisateur(nom, courriel, salt, hash)
+    get_db().delete_invitation(token)
+    return render_template('authentification.html',
+                           message=u'Votre code usager a été créer')
 
 @app.route('/liste')
 def intro():

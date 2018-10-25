@@ -5,20 +5,22 @@
   <div>
   
 <form action="/gestion/send/invitation" method="post">
-				<div class="form-group">
+<div class="row">
+				<div class="form-group col-md-6">
                     <label for="courriel">courriel :</label>
                     <input  type="text" id="courriel" name="courriel" size="40" class="form-control" >
 				</div>
 
-            <div class="mobile form-group col-md-6">
+            <div class=" form-group col-md-6">
  				<label id="">TYPE:</label>
- 				<select name="categorie" id="categorie"  style="width: 100%;" class="mobile form-control" {% if articles %}value="{{articles.categorie}}"{% endif %}>
+ 				<select name="role" id="role"  style="width: 100%;" class="form-control">
                 {% if update %}{% else %}<option disable selected value>Choisir une catégorie</option>{% endif %}
- 				{% for c in categories %}
- 				<option value="{{c.id}}">{{c.menu_cat_fr}}</option>
- 				{% endfor%}
+ 				{% for r in roles %}
+ 				<option value="{{r.id}}">{{r.role}}</option>
+ 				{% endfor %}
  				</select>
             </div>
+</div>
 				{% if data %}
                     <div class="erreur">{{data}}</div>
                     {% endif %}             
