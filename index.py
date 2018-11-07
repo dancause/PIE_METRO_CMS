@@ -99,7 +99,9 @@ def nouveau_usager(token):
     if "id" in session:
         return render_template('error_html.html', error_html="401",
                                error_message=u"Non autorisé"), 401
-    if get_db().valider_invitation(token):
+    res = get_db().valider_invitation(token)
+    if res != None:
+        print res
         return render_template('temp_create_new_user.html', token=token)
     else:
         return render_template('error_html.html', error_html="401",
@@ -109,8 +111,6 @@ def nouveau_usager(token):
 def envoyer_invitation():
     courriel = request.form['courriel']
     role = request.form['role']
-    print role
-    print courriel
     token = uuid.uuid4().hex
     if get_db().valider_courriel(courriel) is False:
         data = u"Il y a déja un compte associé à ce courriel"
@@ -133,6 +133,19 @@ def envoyer_invitation():
     else:
         return render_template('temp_invitation.html',
                                data=u"Le courriel existe déjà")
+
+@app.route('/gestion/list/user', methods=["POST","GET"])
+def list_user():
+    users = get_db().list_all_user()
+    roles = get_db().get_roles()
+    return render_template('temp_manage_user.html', users=users, roles=roles)
+
+@app.route('/gestion/usager/update/<id_user>', methods=["POST","GET"])
+def update_user(id_user):
+    users = get_db().list_all_user()
+    roles = get_db().get_roles()
+    print roles
+    return render_template('temp_manage_user.html', users=users, roles=roles)
 
 @app.route('/gestion/create/user', methods=["POST"])
 def invitation():

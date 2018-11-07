@@ -23,11 +23,13 @@ class Articles:
         self.data2 = data2
 
 class Users:
-    def __init__(self, email, firstname, lastname, picture, status):
-        self.email = email
+    def __init__(self, id, firstname, lastname, email, role, picture, status):
+        self.id = id
         self.firstname = firstname
         self.lastname = lastname
+        self.email = email
         self.picture = picture
+        self.role = role
         self.status = status
 
 class Medias:
@@ -299,7 +301,7 @@ class Database:
         if data is None:
             return False
         else:
-            return True
+            return data
 
     def delete_invitation(self, token):
         connection = self.get_connection()
@@ -570,6 +572,19 @@ class Database:
             roles.append(r)
         return roles
 
+    def list_all_user(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from users"))
+        users = []
+        for row in cursor:
+            r = Users(row[0],"", row[1], row[2],row[6],row[7],row[8])
+            users.append(r)
+        return users
 
-
-
+    def update_user(self, id, firstname, lastname, email, role, picture, status):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute("update users set  nom = ?,courriel= ?,titre_ang = ?,texte_fr = ?,texte_ang = ?,categorie = ?,etiquettes = ?,tag = ?,photo = ?, data_1 = ?,data_2 = ? where id=?",
+                       (lastname, email, role, picture, status,id, ))
+        connection.commit()
