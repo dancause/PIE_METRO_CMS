@@ -1,0 +1,16 @@
+                    <td>{{user.id}}</td>
+                    <td><input name="picture_{{user.id}}" id="picture_{{ user.id }}" type="text" value="{{ user.picture}}"></td>
+    				<td><input name="nom_{{user.id}}" id="nom_{{ user.id }}" type="text" value="{{ user.nom }}"></td>
+    				<td><input name="courriel_{{user.id}}" id="courriel_{{ user.id }}" type="text" value="{{ user.courriel }}"></td>
+    				<td>
+
+                        <select name="role_{{user.id}}"  id="role_{{ user.id }}">
+                            {% for r in roles %}
+                            <option value="{{ r.id }}"   {% if r.id == role  %}selected{% else %}{% endif %}>{{ r.role }}</option>
+                            {% endfor%}
+                        </select>
+
+                    </td>
+    				<td><input name="actif_{{user.id}}" id="actif_{{ user.id }}" type="checkbox" {% if user.actif == True %}checked{% else %}{% endif %} value="True"></td>
+
+                    <td><input  type="submit" onclick="modify_user({{ user.id }});"></td>

@@ -585,6 +585,6 @@ class Database:
     def update_user(self, id, firstname, lastname, email, role, picture, status):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("update users set  nom = ?,courriel= ?,titre_ang = ?,texte_fr = ?,texte_ang = ?,categorie = ?,etiquettes = ?,tag = ?,photo = ?, data_1 = ?,data_2 = ? where id=?",
+        cursor.execute("update users set  nom = ?,courriel= ?,role = ?,picture = ?, active = ? where id=?",
                        (lastname, email, role, picture, status,id, ))
         connection.commit()

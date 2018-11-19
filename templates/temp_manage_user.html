@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
+        <script src="/js/gestion_usagers.js"></script>
 <div class="container-fluid">
 <table class="table table-hover table-responsive liste_articles" id="liste_comments">
         <thead>
@@ -21,23 +22,24 @@
     	</tr>
     	 {% else %}
 				{% for u in users %}
-				<tr id="{{u.id}}">
+				<tr id="usager_{{u.id}}">
                     <td>{{u.id}}</td>
-                    <td><input name="picture_{{u.id}}" type="text" value="{{ u.picture}}"></td>
-    				<td><input name="nom_{{u.id}}" type="text" value="{{ u.lastname }}"></td>
-    				<td><input name="courriel_{{u.id}}" type="text" value="{{ u.email }}"></td>
+                    <td><input name="picture_{{u.id}}" id="picture_{{ u.id }}" type="text" value="{{ u.picture}}"></td>
+    				<td><input name="nom_{{u.id}}" id="nom_{{ u.id }}" type="text" value="{{ u.lastname }}"></td>
+    				<td><input name="courriel_{{u.id}}" id="courriel_{{ u.id }}" type="text" value="{{ u.email }}"></td>
     				<td>
 
-                        <select name="role_{{u.id}}" id="role">
+                        <select name="role_{{u.id}}"  id="role_{{ u.id }}">
                             {% for r in roles %}
                             <option value="{{ r.id }}"   {% if r.id == u.role  %}selected{% else %}{% endif %}>{{ r.role }}</option>
                             {% endfor%}
                         </select>
 
                     </td>
-    				<td><input name="actif_{{u.id}}" type="checkbox" {% if u.status == 'yes' %}checked{% else %}{% endif %}></td>
+    				<td><input name="actif_{{u.id}}" id="actif_{{ u.id }}" type="checkbox" {% if u.status == 'true' %}checked{% else %}{% endif %}  value="true"></td>
 
-                    <td><input  type="submit"></td>
+                    <td><input  type="submit" onclick="modify_user({{ u.id }});"></td>
+
     			</tr>
     			{% endfor %}
     	{% endif %}
