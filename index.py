@@ -92,6 +92,22 @@ def demande_recuperation_motpasse():
     else:
         return render_template('new_password.html',
                                data=u"Le courriel n'existe pas")
+@app.route('/logout')
+@authentication_required
+def logout():
+    if "id" in session:
+        id_session = session["id"]
+        session.pop('id', None)
+        get_db().delete_session(id_session)
+    return redirect("/")
+
+
+@app.route('/affichage_login', methods=["GET"])
+def affichage_login():
+    if "id" in session:
+        return render_template('logout_tab.html')
+    else:
+        return render_template('login_tab.html')
 
 @app.route('/motpasseperdue/<id_token>')
 def motpasseperdue(id_token):
