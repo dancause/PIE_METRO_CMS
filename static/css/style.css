@@ -1,20 +1,20 @@
-ul {
+.a_menu:hover {
+background-color: lightgray;
+}
+
+.ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: inherit;
-    background-color: #333;
+    overflow: hidden;
+    background-color: #1234;
 }
 
-div .navbar-header{
-background-color: black;
-}
-
-li {
+.li {
     float: left;
 }
 
-li a {
+.li a {
     display: block;
     color: white;
     text-align: center;
@@ -22,8 +22,13 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
-    background-color: #111;
+.li:hover {
+    background-color: #222;
+}
+
+
+div .navbar-header{
+background-color: black;
 }
 
 .active {
