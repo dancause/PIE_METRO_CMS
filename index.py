@@ -62,22 +62,22 @@ def is_authenticated(session):
 
 @app.route('/')
 def start_page():
-    Log('log')
+    Log('star_page')
     articles=get_db().select_liste()
     if verifierLangue() == 'FR':
         return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles')
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1)
 
-@app.route('/login', methods=['POST','GET'])
-def login_page():
-    return render_template('login.html')
+@app.route('/Login', methods=['POST','GET'])
+def Login_page():
+    return render_template('Login.html')
 
-@app.route('/login/change/password', methods=['POST','GET'])
-def login_page_change_password():
+@app.route('/Login/change/password', methods=['POST','GET'])
+def Login_page_change_password():
     return render_template('new_password.html')
 
-@app.route('/login/demande/motpasse', methods=['POST'])
+@app.route('/Login/demande/motpasse', methods=['POST'])
 def demande_recuperation_motpasse():
     data = u"La demande de récupération a été envoyée"
     courriel = request.form['courriel']
@@ -92,9 +92,9 @@ def demande_recuperation_motpasse():
     else:
         return render_template('new_password.html',
                                data=u"Le courriel n'existe pas")
-@app.route('/logout')
+@app.route('/Logout')
 @authentication_required
-def logout():
+def Logout():
     if "id" in session:
         id_session = session["id"]
         session.pop('id', None)
@@ -102,12 +102,12 @@ def logout():
     return redirect("/")
 
 
-@app.route('/affichage_login', methods=["GET"])
-def affichage_login():
+@app.route('/affichage_Login', methods=["GET"])
+def affichage_Login():
     if "id" in session:
-        return render_template('logout_tab.html')
+        return render_template('Logout_tab.html')
     else:
-        return render_template('login_tab.html')
+        return render_template('Login_tab.html')
 
 @app.route('/motpasseperdue/<id_token>')
 def motpasseperdue(id_token):
@@ -151,21 +151,20 @@ def changer_mot_passe():
         return render_template('temp_changement_mot_passe.html',
                                data=u"Mot de passe changé")
 
-@app.route('/login/validation', methods=['POST','GET'])
-def login_validation():
+@app.route('/Login/validation', methods=['POST','GET'])
+def Login_validation():
     courriel = request.form['username']
     password = request.form['password']
-    hash = get_db().get_user_login_info(courriel)
+    hash = get_db().get_user_Login_info(courriel)
     if courriel == "correcteur" and password == "secret":
-        print 'mot passe temporaire'
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
         return redirect("/")
     print hash
     if hash == None or hash[0] == None:
-        print 'passe ici'
-        return render_template('login.html',error='wrong user/password')
+        Log('wrong password')
+        return render_template('Login.html',error='wrong user/password')
     print 'passe la'
     salt = hash[0]
     hashed_password = hashlib.sha512(password + salt).hexdigest()
@@ -174,9 +173,11 @@ def login_validation():
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
+        Log('acces grant')
         return redirect("/")
     else:
-        return render_template('login.html',error='wrong user/password')
+        Log('wrong password')
+        return render_template('Login.html',error='wrong user/password')
 
 
 @app.route('/gestion/invitation')
@@ -270,7 +271,7 @@ def invitation():
     hash = hashlib.sha512(motpasse + salt).hexdigest()
     get_db().ajout_utilisateur(nom, courriel, salt, hash)
     get_db().delete_invitation(token)
-    return render_template('login.html',
+    return render_template('Login.html',
                            message=u'Votre code usager a été créer')
 
 @app.route('/liste')
@@ -423,6 +424,7 @@ def delete_article(id_article):
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
     comments=get_db().get_comments(article.unique)
+    Log('article: '+article['titre_fr'])
     if verifierLangue() == 'FR':
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
     else:
@@ -430,6 +432,7 @@ def afficher_article(categorie,url_article):
 
 @app.route('/categorie/<id_categorie>', methods=['POST','GET'])
 def afficher_article_categorie(id_categorie):
+    Log('afficher categories: '+id_categorie)
     articles=get_db().get_categorie_article(id_categorie)
     if verifierLangue() == 'FR':
         return render_template('temp_intro_articles.html',articles=articles,title=id_categorie)
@@ -599,7 +602,7 @@ def valider_url_2(url,unique):
     return get_db().valider_url_2(url,unique)
 
 def enlever_accent(texte):
-    return unicodedata.normalized('NFKD', texte).encode('ASCII', 'ignore')
+    return unicodedata.normalized('NFKD', texte).encode('ASCII', 'ignore')  
 
 def valider_champs(champs):
     if not champs:
@@ -616,8 +619,17 @@ def verifierLangue():
     else:
         return langue
 
+def getUser():
+    if "id" in session:
+        id_session = session["id"]
+        user_name = get_db().get_User_Session(id_session)
+    else:
+        user_name = "invited"
+    return user_name
+
+
 def Log(action):
-    id_user='admin'
+    id_user=getUser()
     get_db().log_activity(id_user,action, request.user_agent.platform, request.user_agent.browser+" "+request.user_agent.version, request.environ['REMOTE_ADDR'])
 
 def kept_search():
