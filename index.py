@@ -69,15 +69,15 @@ def start_page():
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1)
 
-@app.route('/Login', methods=['POST','GET'])
-def Login_page():
-    return render_template('Login.html')
+@app.route('/login', methods=['POST','GET'])
+def login_page():
+    return render_template('login.html')
 
-@app.route('/Login/change/password', methods=['POST','GET'])
-def Login_page_change_password():
+@app.route('/login/change/password', methods=['POST','GET'])
+def login_page_change_password():
     return render_template('new_password.html')
 
-@app.route('/Login/demande/motpasse', methods=['POST'])
+@app.route('/login/demande/motpasse', methods=['POST'])
 def demande_recuperation_motpasse():
     data = u"La demande de récupération a été envoyée"
     courriel = request.form['courriel']
@@ -92,22 +92,23 @@ def demande_recuperation_motpasse():
     else:
         return render_template('new_password.html',
                                data=u"Le courriel n'existe pas")
-@app.route('/Logout')
+@app.route('/logout')
 @authentication_required
-def Logout():
+def logout():
     if "id" in session:
         id_session = session["id"]
         session.pop('id', None)
         get_db().delete_session(id_session)
+        Log('LOGOUT')
     return redirect("/")
 
 
-@app.route('/affichage_Login', methods=["GET"])
-def affichage_Login():
+@app.route('/affichage_login', methods=["GET"])
+def affichage_login():
     if "id" in session:
-        return render_template('Logout_tab.html')
+        return render_template('logout_tab.html')
     else:
-        return render_template('Login_tab.html')
+        return render_template('login_tab.html')
 
 @app.route('/motpasseperdue/<id_token>')
 def motpasseperdue(id_token):
@@ -151,20 +152,21 @@ def changer_mot_passe():
         return render_template('temp_changement_mot_passe.html',
                                data=u"Mot de passe changé")
 
-@app.route('/Login/validation', methods=['POST','GET'])
-def Login_validation():
+@app.route('/login/validation', methods=['POST','GET'])
+def login_validation():
     courriel = request.form['username']
     password = request.form['password']
-    hash = get_db().get_user_Login_info(courriel)
+    hash = get_db().get_user_login_info(courriel)
     if courriel == "correcteur" and password == "secret":
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
+        Log('acces grant')
         return redirect("/")
     print hash
     if hash == None or hash[0] == None:
         Log('wrong password')
-        return render_template('Login.html',error='wrong user/password')
+        return render_template('login.html',error='wrong user/password')
     print 'passe la'
     salt = hash[0]
     hashed_password = hashlib.sha512(password + salt).hexdigest()
@@ -177,7 +179,7 @@ def Login_validation():
         return redirect("/")
     else:
         Log('wrong password')
-        return render_template('Login.html',error='wrong user/password')
+        return render_template('login.html',error='wrong user/password')
 
 
 @app.route('/gestion/invitation')
@@ -271,7 +273,7 @@ def invitation():
     hash = hashlib.sha512(motpasse + salt).hexdigest()
     get_db().ajout_utilisateur(nom, courriel, salt, hash)
     get_db().delete_invitation(token)
-    return render_template('Login.html',
+    return render_template('login.html',
                            message=u'Votre code usager a été créer')
 
 @app.route('/liste')
@@ -424,7 +426,8 @@ def delete_article(id_article):
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
     comments=get_db().get_comments(article.unique)
-    Log('article: '+article['titre_fr'])
+    print 
+    Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
     else:
@@ -525,6 +528,7 @@ def search_term():
     else:
         resp = make_response(render_template('temp_intro_articles.html',articles=articles,title='Search Result', langue=1,recherche=rechercher))
     resp.set_cookie('recherche', rechercher)
+    Log('search: '+rechercher)
     return resp
 
 @app.route('/gestion', methods=['POST','GET'])
