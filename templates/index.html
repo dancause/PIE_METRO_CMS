@@ -21,6 +21,18 @@
 
                                     <div class ="recherche">
                                     <form action="/recherche" method="post">
+=======
+   
+                                  <ul class="ul">
+                                      <li class="menu li"></li>
+                                      <li class="li"><a class="active home" href="/"><img src="/img/2000px-Felipe_icon_User.svg.png" height="42" width="42"></a></li>
+                                      <li class="li" id="login"><a href="/login">Login</a></li>
+                                      <li class="li" id="menu_cat"></li>
+                                      <li class="li" id="changer"><button id="button_langue" class="button_langue btn btn-light" onclick="Changer_Langue()" value="{% if langue %}Français{% else %}Anglais{% endif %}">{% if langue %}Français{% else %}Anglais{% endif %}</button></li>
+                                  </ul>    
+                        </div>
+                        <div class="recherche">
+                        <form action="/recherche" method="post">
                                     <input type="recherche" name="recherche" value="{{ recherche }}">
                                     <input type=submit value=&#128269;>
                                     </form>

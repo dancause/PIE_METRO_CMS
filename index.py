@@ -62,7 +62,7 @@ def is_authenticated(session):
 
 @app.route('/')
 def start_page():
-    Log('log')
+    Log('star_page')
     articles=get_db().select_liste()
     if verifierLangue() == 'FR':
         return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles')
@@ -99,6 +99,7 @@ def logout():
         id_session = session["id"]
         session.pop('id', None)
         get_db().delete_session(id_session)
+        Log('LOGOUT')
     return redirect("/")
 
 
@@ -157,14 +158,14 @@ def login_validation():
     password = request.form['password']
     hash = get_db().get_user_login_info(courriel)
     if courriel == "correcteur" and password == "secret":
-        print 'mot passe temporaire'
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
+        Log('acces grant')
         return redirect("/")
     print hash
     if hash == None or hash[0] == None:
-        print 'passe ici'
+        Log('wrong password')
         return render_template('login.html',error='wrong user/password')
     print 'passe la'
     salt = hash[0]
@@ -174,8 +175,10 @@ def login_validation():
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
+        Log('acces grant')
         return redirect("/")
     else:
+        Log('wrong password')
         return render_template('login.html',error='wrong user/password')
 
 
@@ -423,6 +426,8 @@ def delete_article(id_article):
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
     comments=get_db().get_comments(article.unique)
+    print 
+    Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
     else:
@@ -430,6 +435,7 @@ def afficher_article(categorie,url_article):
 
 @app.route('/categorie/<id_categorie>', methods=['POST','GET'])
 def afficher_article_categorie(id_categorie):
+    Log('afficher categories: '+id_categorie)
     articles=get_db().get_categorie_article(id_categorie)
     if verifierLangue() == 'FR':
         return render_template('temp_intro_articles.html',articles=articles,title=id_categorie)
@@ -522,6 +528,7 @@ def search_term():
     else:
         resp = make_response(render_template('temp_intro_articles.html',articles=articles,title='Search Result', langue=1,recherche=rechercher))
     resp.set_cookie('recherche', rechercher)
+    Log('search: '+rechercher)
     return resp
 
 @app.route('/gestion', methods=['POST','GET'])
@@ -599,7 +606,7 @@ def valider_url_2(url,unique):
     return get_db().valider_url_2(url,unique)
 
 def enlever_accent(texte):
-    return unicodedata.normalized('NFKD', texte).encode('ASCII', 'ignore')
+    return unicodedata.normalized('NFKD', texte).encode('ASCII', 'ignore')  
 
 def valider_champs(champs):
     if not champs:
@@ -616,8 +623,17 @@ def verifierLangue():
     else:
         return langue
 
+def getUser():
+    if "id" in session:
+        id_session = session["id"]
+        user_name = get_db().get_User_Session(id_session)
+    else:
+        user_name = "invited"
+    return user_name
+
+
 def Log(action):
-    id_user='admin'
+    id_user=getUser()
     get_db().log_activity(id_user,action, request.user_agent.platform, request.user_agent.browser+" "+request.user_agent.version, request.environ['REMOTE_ADDR'])
 
 def kept_search():
