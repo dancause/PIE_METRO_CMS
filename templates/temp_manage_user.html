@@ -36,7 +36,7 @@
                         </select>
 
                     </td>
-    				<td><input name="actif_{{u.id}}" id="actif_{{ u.id }}" type="checkbox" {% if u.status == 'true' %}checked{% else %}{% endif %}  value="true"></td>
+    				<td><input name="actif_{{u.id}}" id="actif_{{ u.id }}" type="checkbox" {% if u.status == 'True' or u.status == 1 %}checked{% else %}{% endif %}  value="True"></td>
 
                     <td><input  type="submit" onclick="modify_user({{ u.id }});"></td>
 
