@@ -462,7 +462,7 @@ def menu_categories():
 def comments():
     if request.method =="POST":
         content = request.json
-        get_db().save_comments('admin',content['id_article'],content['comment'])
+        get_db().save_comments(getUser(),content['id_article'],content['comment'])
         comments=get_db().get_comments(content['id_article'])
     return render_template('comments.html',comments=comments)
 
