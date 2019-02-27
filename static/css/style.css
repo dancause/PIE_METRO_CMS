@@ -1,49 +1,8 @@
-.a_menu:hover {
-background-color: lightgray;
-}
-
-.ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-}
-
-.li {
-    float: left;
-}
-
-.li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.li:hover {
-    background-color: #222;
-}
 
 
-div .navbar-header{
-background-color: black;
-}
 
-.active {
-    background-color: darkgrey;
-}
 
-.recherche{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
 
-.navbar-header{
-    float:	none;
-}
 .article{
     background-color: white;
 }

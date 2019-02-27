@@ -13,43 +13,36 @@
 </head>
 
 <body>
-        <nav class="navbar navbar-default menu_float">
-          <div class="container-fluide">
-                       <div class="navbar-header">
-                                    <a class="active home" href="/"><img src="/img/2000px-Felipe_icon_User.svg.png" height="42" width="42"></a>
-                           <li class="li" id="login"></li>
-
-                                    <div class ="recherche">
-                                    <form action="/recherche" method="post">
-=======
    
-                                  <ul class="ul">
-                                      <li class="menu li"></li>
-                                      <li class="li"><a class="active home" href="/"><img src="/img/2000px-Felipe_icon_User.svg.png" height="42" width="42"></a></li>
-                                      <li class="li" id="login"><a href="/login">Login</a></li>
-                                      <li class="li" id="menu_cat"></li>
-                                      <li class="li" id="changer"><button id="button_langue" class="button_langue btn btn-light" onclick="Changer_Langue()" value="{% if langue %}Français{% else %}Anglais{% endif %}">{% if langue %}Français{% else %}Anglais{% endif %}</button></li>
-                                  </ul>    
-                        </div>
-                        <div class="recherche">
-                        <form action="/recherche" method="post">
-                                    <input type="recherche" name="recherche" value="{{ recherche }}">
-                                    <input type=submit value=&#128269;>
-                                    </form>
-                                    </div>
-                        </li>
-                        <div class="recherche"><ul class="ul" id="menu_cat"></ul></div>
-              </div>
-              </div>
-            </nav>
+
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/menu_css.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/langue.js"></script>
+    <script src="/js/menu.js"></script>
+
+    
+<div id='cssmenu'>
+<ul>
+   <li><a href='#'><span>Home</span></a></li>
+    <li class='active has-sub' id="login" ><a href="/login">Login</a></li>
+   <li class='active has-sub' id="menu_cat" ><a href='#'><span>Categories</span></a></li>
+   <li><a href='#'><span>About</span></a></li>
+   <li><a href='#'><span>Contact</span></a></li>
+            <li class='last'><div class="recherche">
+                                 <form action="/recherche" method="post"><input type="recherche" name="recherche" value="{{ recherche }}"><input type=submit value=&#128269;></form>
+                              </div>
+            </li>
+</ul>
+</div>
 
 
+
             <br>
             <br>
-            <br>
-            <br>
-            <br>
-            <br>
+
 
 <div class="container-fluid">
 
@@ -69,8 +62,5 @@
     <script src="/vendor/jquery/jquery-ui.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/js/login.js"></script>
-    <script src="/js/langue.js"></script>
-    <script src="/js/menu.js"></script>
-    <link href="/css/style.css" rel="stylesheet">
+
 </html>
