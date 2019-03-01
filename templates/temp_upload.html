@@ -28,7 +28,7 @@
   			<hr>
  			<div><a href="/delete/{{ p.media }}">{% if langue %}Delete{% else %}Effacer{% endif %}</a></div>			
     </div>	
-    {% if loop.index is divisibleby 4 %} </div><div class="row row_media">{% endif %}							
+    {% if loop.index is divisibleby 3 %} </div><div class="row row_media">{% endif %}							
 	{% endfor %}
 	</div>
 </div>
