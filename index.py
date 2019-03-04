@@ -247,6 +247,11 @@ def list_user():
     roles = get_db().get_roles()
     return render_template('temp_manage_user.html', users=users, roles=roles)
 
+@app.route('/gestion/user/profil', methods=["POST","GET"])
+@authentication_required
+def user_profil():
+    return render_template('temp_profil_user.html')
+
 @app.route('/gestion/usager/update/<id_user>', methods=["POST","GET"])
 @authentication_required
 def update_user(id_user):
