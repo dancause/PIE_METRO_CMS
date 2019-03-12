@@ -57,6 +57,18 @@ def authentication_required(f):
         return f(*args, **kwargs)
     return decorated
 
+
+def admin(f):
+    @wraps(f)
+    def decorated2(*args, **kwargs):
+        print 2 < getRight()
+        if 2 < getRight():
+            print 'passe ici'
+            return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
+        return f(*args, **kwargs)
+    return decorated2
+
+
 def is_authenticated(session):
     return "id" in session
 
@@ -297,7 +309,10 @@ def create_article():
 
 @app.route('/gestion/create/user')
 @authentication_required
+@admin
 def create_user():
+    print controlRight(2)
+    print 'passe la'
     return render_template('temp_create_new_user.html')
 
 
@@ -635,6 +650,20 @@ def getUser():
     else:
         user_name = "invited"
     return user_name
+
+def getRight():
+    if "id" in session:
+        id_session = session["id"]
+        user_name = get_db().get_User_Right(id_session)
+    else:
+        user_name = "invited"
+    return user_name
+
+def controlRight(level):
+    print level < getRight()
+    if level < getRight():
+        print 'passe ici'
+        return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
 
 
 def Log(action):

@@ -592,9 +592,22 @@ class Database:
     def get_User_Session(self,num_session):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select courriel from sessions where id_session =?",(num_session,))
+        cursor.execute("select users.nom from sessions inner join users on sessions.id_session = ?",(num_session,))
         data = cursor.fetchone()
         if data is None:
             return "invited"
         else:
             return data[0]
+
+    def get_User_Right(self,num_session):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute("select users.role from sessions inner join users on sessions.id_session = ?",(num_session,))
+        data = cursor.fetchone()
+        if data is None:
+            return "invited"
+        else:
+            return data[0]
+
+
+
