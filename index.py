@@ -57,7 +57,6 @@ def authentication_required(f):
         return f(*args, **kwargs)
     return decorated
 
-
 def admin(f):
     @wraps(f)
     def decorated2(*args, **kwargs):
@@ -67,6 +66,16 @@ def admin(f):
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated2
+
+def writer(f):
+    @wraps(f)
+    def decorated3(*args, **kwargs):
+        print 3 < getRight()
+        if 3 < getRight():
+            print 'passe ici'
+            return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
+        return f(*args, **kwargs)
+    return decorated3
 
 
 def is_authenticated(session):
@@ -254,6 +263,7 @@ def update_user_test():
 
 @app.route('/gestion/user/list', methods=["POST","GET"])
 @authentication_required
+@admin
 def list_user():
     users = get_db().list_all_user()
     roles = get_db().get_roles()
@@ -266,6 +276,7 @@ def user_profil():
 
 @app.route('/gestion/usager/update/<id_user>', methods=["POST","GET"])
 @authentication_required
+@admin
 def update_user(id_user):
     users = get_db().list_all_user()
     roles = get_db().get_roles()
@@ -318,6 +329,7 @@ def create_user():
 
 @app.route('/save/nouveau', methods=['POST','GET'])
 @authentication_required
+@writer
 def nouveau():
     url = request.form['URL']
     datepub = request.form['datepublication']
@@ -352,6 +364,7 @@ def nouveau():
 
 @app.route('/save/miseajour/<id_article>', methods=['POST','GET'])
 @authentication_required
+@writer
 def afficher_update(id_article):
     article = get_db().get_info_article(id_article)
     erreur_data = valider_acticle(article)
@@ -362,6 +375,7 @@ def afficher_update(id_article):
 
 @app.route('/save/miseajour', methods=['POST','GET'])
 @authentication_required
+@writer
 def save_update():
     unique = request.form['id']
     url = request.form['URL']
@@ -392,12 +406,14 @@ def save_update():
 
 @app.route('/gestion/liste/articles', methods=['POST','GET'])
 @authentication_required
+@writer
 def loadupdate():
     articles = get_db().all_liste()
     return render_template('temp_listes_articles.html',articles=articles)
 
 @app.route('/save/fichiers', methods=['POST','GET'])
 @authentication_required
+@writer
 def upload():
     info_upload = {}
     if request.method == 'POST':
@@ -426,6 +442,7 @@ def upload():
 
 @app.route('/delete/<filename>', methods=['POST','GET'])
 @authentication_required
+@admin
 def delete_media(filename):
     if filename <> None and get_db().valider_medias(filename) == False:
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -438,6 +455,7 @@ def delete_media(filename):
 
 @app.route('/delete/article/<id_article>', methods=['POST','GET'])
 @authentication_required
+@admin
 def delete_article(id_article):
     get_db().delete_article(id_article)
     return redirect(url_for('loadupdate'))
@@ -494,18 +512,21 @@ def validate_comments():
 
 @app.route('/valider/comments/<id_comments>', methods=['POST','GET'])
 @authentication_required
+@writer
 def check_comments(id_comments):
     get_db().comments_validated(id_comments)
     return '',200
 
 @app.route('/unvalider/comments/<id_comments>', methods=['POST','GET'])
 @authentication_required
+@writer
 def uncheck_comments(id_comments):
     get_db().comments_unvalidated(id_comments)
     return '',200
 
 @app.route('/valider/signaler/comments/<id_comments>', methods=['POST','GET'])
 @authentication_required
+@writer
 def signal_comments(id_comments):
     get_db().comments_validated_signaled(id_comments)
     return '',200
@@ -524,12 +545,14 @@ def unvalidated_comments():
 
 @app.route('/signaled/comments', methods=['POST','GET'])
 @authentication_required
+@writer
 def singaled_comments():
     comments = get_db().get_signaled_comments()
     return render_template('liste_comments.html',comments=comments)
 
 @app.route('/all/comments', methods=['POST','GET'])
 @authentication_required
+@writer
 def all_comments():
     comments = get_db().get_all_comments()
     return render_template('liste_comments.html',comments=comments)
