@@ -60,7 +60,6 @@ def authentication_required(f):
 def admin(f):
     @wraps(f)
     def decorated2(*args, **kwargs):
-        print 2 < getRight()
         if 2 < getRight():
             print 'passe ici'
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
@@ -70,7 +69,6 @@ def admin(f):
 def writer(f):
     @wraps(f)
     def decorated3(*args, **kwargs):
-        print 3 < getRight()
         if 3 < getRight():
             print 'passe ici'
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
