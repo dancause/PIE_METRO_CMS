@@ -13,8 +13,6 @@ MarkupSafe
 pathlib 
 pip
 pipenv
-pymssql
-pyodbc 
 requests
 setuptools
 typing   
