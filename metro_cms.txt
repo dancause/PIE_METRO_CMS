@@ -1,6 +1,7 @@
 CMS simple en python
 Je travail sur le ce projet à temps perdu.
-Le CMS serait adapté pour des blogs simples bilingues.
-Pour le moment je travail la page de création d'article.
+Le CMS sera adapté pour des blogs simples bilingues.
+
+J'ajoute des fonctions selon mes envies et mon temps libres
 
 

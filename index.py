@@ -61,7 +61,6 @@ def admin(f):
     @wraps(f)
     def decorated2(*args, **kwargs):
         if 2 < getRight():
-            print 'passe ici'
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated2
@@ -70,7 +69,6 @@ def writer(f):
     @wraps(f)
     def decorated3(*args, **kwargs):
         if 3 < getRight():
-            print 'passe ici'
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated3
@@ -505,8 +503,9 @@ def comments():
 @app.route('/gestion/comments', methods=['POST','GET'])
 @authentication_required
 def validate_comments():
-    comments=get_db().get_comments_unvalidated()
-    return render_template('temps_admin_comment.html',comments=comments)
+	mycomments()
+	comments=get_db().get_comments_unvalidated()
+	return render_template('temps_admin_comment.html',comments=comments)
 
 @app.route('/valider/comments/<id_comments>', methods=['POST','GET'])
 @authentication_required
@@ -591,7 +590,7 @@ def sidepanel(type):
         return 0
     else:
         return 0
-
+        
 app.secret_key = "77458cd6536d0f464cd218d9f6b20d78"
 
 def allowed_file(filename):
@@ -609,7 +608,7 @@ def valider_acticle(articles):
     if valider_texte(articles.texte_fr):
         erreur_data.update({"texte_fr": "Paragraphe est invalide"})
     if valider_texte(articles.texte_ang):
-        erreur_data.update({"texte_ang": "Paragraphe est invalide"})
+    	erreur_data.update({"texte_ang": "Paragraphe est invalide"})
     if valider_mydate(articles.datepub):
         valider_mydate(articles.datepub)
         erreur_data.update({"datepub": "Date est invalide"})
@@ -694,6 +693,10 @@ def Log(action):
 def kept_search():
     search = request.cookies.get('recherche')
     return search
+    
+def mycomments():
+	user = getUser()
+	print user
 
 @app.errorhandler(400)
 def page_not_found400(e):

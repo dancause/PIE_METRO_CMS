@@ -608,6 +608,14 @@ class Database:
             return "invited"
         else:
             return data[0]
-
-
-
+        
+    def get_My_Comments(self,user):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute("select * from comments where id_user = ?",(user,))
+        comments = []
+        for row in cursor:
+            tempdate=row[4][:10]
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            comments.append(c)
+        return comments
