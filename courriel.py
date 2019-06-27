@@ -6,10 +6,11 @@ from email.MIMEText import MIMEText
 from os.path import exists
 
 
+
 def message_courriel(destination, token, body, subject):
     fichier = open("info_courriel.txt")
-    source = fichier.readline()
-    motpasse = fichier.readline()
+    source = os.environ.get('EMAIL')
+    motpasse = os.environ.get('password')
     msg = MIMEMultipart()
     msg['Subject'] = subject
     msg['From'] = source
