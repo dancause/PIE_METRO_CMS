@@ -8,7 +8,6 @@ from os.path import exists
 
 
 def message_courriel(destination, token, body, subject):
-    fichier = open("info_courriel.txt")
     source = os.environ.get('EMAIL')
     motpasse = os.environ.get('password')
     msg = MIMEMultipart()
