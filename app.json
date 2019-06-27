@@ -1,5 +1,5 @@
 {
-  "name": "PIE_METRO_CMS",
+  "name": "PIE-METRO-CMS",
   "description": "SIMPLE Python CMS with Flask.",
   "image": "heroku/python",
   "repository": "https://github.com/dancause/PIE_METRO_CMS",
