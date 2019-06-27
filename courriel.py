@@ -4,13 +4,13 @@ import smtplib
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from os.path import exists
-from os import environ
+import os
 
 
 
 def message_courriel(destination, token, body, subject):
-    source = environ.get('EMAIL')
-    motpasse = environ.get('password')
+    source = os.environ.get('EMAIL')
+    motpasse = os.environ.get('password')
     msg = MIMEMultipart()
     msg['Subject'] = subject
     msg['From'] = source
