@@ -1,8 +1,5 @@
-gunicorn
-certifi          
-chardet         
-Click            
-Cython           
+gunicorn          
+chardet                               
 enum34           
 Flask            
 Flask-WTF         
@@ -20,5 +17,5 @@ ua-parser
 urllib3   
 virtualenv
 virtualenv-clone
-Werkzeug
+werkzeug
 WTForms
