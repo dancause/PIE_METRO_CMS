@@ -11,6 +11,8 @@ import os
 def message_courriel(destination, token, body, subject):
     source = os.environ.get('EMAIL')
     motpasse = os.environ.get('password')
+    print source
+    print motpasse
     msg = MIMEMultipart()
     msg['Subject'] = subject
     msg['From'] = source
