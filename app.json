@@ -1,0 +1,21 @@
+{
+  "name": "PIE_METRO_CMS",
+  "description": "SIMPLE Python CMS with Flask.",
+  "image": "heroku/python",
+  "repository": "https://github.com/dancause/PIE_METRO_CMS",
+  "keywords": ["python", "flask" ],
+  "env": {
+    "SECRET_KEY": {
+      "description": "",
+      "generator": ""
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python index.py collectstatic --noinput",
+        "test": "python index.py test"
+      }
+    }
+  }
+}
