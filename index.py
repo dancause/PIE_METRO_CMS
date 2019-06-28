@@ -11,7 +11,7 @@ from validation import *
 
 from ua_parser import user_agent_parser
 from werkzeug.utils import secure_filename
-
+ 
 from datetime import datetime
 from flask import g
 from flask import json
@@ -102,7 +102,7 @@ def demande_recuperation_motpasse():
     if not get_db().valider_courriel(courriel):
         get_db().save_recuperation(courriel, token)
         message_courriel(courriel, token, render_template(
-                         'courriel_motpasse.html', token=token),
+                         'courriel_motpasse.html', token=token, site=os.environ.get('site')),
                          "Recuperation")
         return render_template('new_password.html',
                                data=data)
