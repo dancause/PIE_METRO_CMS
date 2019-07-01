@@ -88,7 +88,7 @@ class Database:
     def select_liste(self):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("""select * from article, categories where article.categorie = categories.id and article.datepub <=(select date('now'))order by article.datepub""")
+        cursor.execute("""select * from article, categories where article.categorie = categories.id and article.datepub <=(select date('now'))order by article.datepub desc""")
         listes = []
         for row in cursor:
             p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])

@@ -14,8 +14,16 @@
 {% if articles %}
 {% for p in articles %} 
 <a href="/article/{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr}}{% endif%}/{{p.url}}" class="link" style="text-decoration: none;">
+
  	<div class="row row_media intro_articles">
-			<div class="col-md-6 center header_article"><img src="/images/{{p.photo}}" class="img-responsive center-block"></div>
+				<div class="col-md-6 center header_article card" style="padding-left: 0px;padding-right: 0px;">
+    <div class="card-image-container">
+        <img src="/images/{{p.photo}}">
+    </div>
+
+</div>
+
+
 			<div class="col-md-6 text_black">
 					<div class="row title_article">
 						<div class="col-xs-9"><h2>{% if langue %}{{ p.titre_ang }} {% else %}{{ p.titre_fr }}{% endif%}</h2></div>

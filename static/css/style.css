@@ -1,5 +1,8 @@
 
-
+.login{
+        text-align: center;
+    font-size: larger;
+}
 
 
 
@@ -56,7 +59,7 @@ box-shadow:10px 10px 40px  #0c0c0c;
 }
 
 .intro_articles{
-    background-color: #e8e8e8;
+    background-color: #ffffff;
     border-radius: 0px;
     box-shadow: 10px 10px 40px #777;
     border-bottom-width: 0px;
@@ -102,7 +105,6 @@ box-shadow:10px 10px 40px  #0c0c0c;
 
 .header_article{
     overflow: hidden;
-    box-shadow: 0px 1px 5px 0px #777;
     padding-left: 0px;
     padding-right: 0px;
     border-top-left-radius: 0px;
@@ -112,6 +114,8 @@ box-shadow:10px 10px 40px  #0c0c0c;
 .title_article{
     background-color: black;
     color: #ddd;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 .article_resume{
@@ -178,7 +182,10 @@ width: 300px;
 a{
 text-decoration: none;
 }
-
+div{
+    margin-left: 0px;
+    margin-right: 0px;
+}
 .gallery_ligne{
     padding-bottom: 15px;
 }
@@ -191,3 +198,31 @@ text-decoration: none;
 
 
  }
+
+.card {
+    width: ;
+}
+
+.card-image-container {
+    width: 100%;
+    height: 275px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image-container img {
+    min-height: 100%;
+    min-width: 100%;
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
+}
+
+.card-text-container {
+    width: 100%;
+    height: 100px;
+    background-color: #ffffff;
+}
