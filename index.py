@@ -590,6 +590,10 @@ def sidepanel(type):
     else:
         return 0
         
+@app.route('/view/<file>', methods=['POST','GET'])
+def view(file):
+    return render_template('view.html',photo=file)
+
 app.secret_key = "77458cd6536d0f464cd218d9f6b20d78"
 
 def allowed_file(filename):

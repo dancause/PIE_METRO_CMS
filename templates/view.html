@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block content %}
+<title>{{photo}}</title>
+<div class="row">
+  <br>
+
+<div class="col-xs-12 text-center">
+<img class="img-responsive" src="/images/{{photo}}" alt="{{photo}}" >
+</div>
+
+<div class="col-xs-12 text-center">
+  <br>
+<button onclick="goBack()">Go Back</button>
+</div>
+
+</div>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+{% endblock %}
