@@ -280,7 +280,6 @@ def update_user(id_user):
     return render_template('temp_manage_user.html', users=users, roles=roles)
 
 @app.route('/gestion/create/user', methods=["POST"])
-@authentication_required
 def invitation():
     nom = request.form["nom"]
     courriel = request.form["courriel"]
