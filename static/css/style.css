@@ -31,21 +31,15 @@
 
 .medias_display {
 	
-    margin-right: 5px;
-    margin-left: 5px;
+
     background-color: white;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
-    border-radius: 8px;
+     border: 1px solid #ccc;
     border-color: black;
-    box-shadow: 10px 10px 40px #777;
-    width: 300px;
+
 }
 
 .medias_display:hover{
-box-shadow:10px 10px 40px  #0c0c0c;
+
 }
 
 .row_media {

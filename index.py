@@ -82,9 +82,9 @@ def start_page():
     Log('star_page')
     articles=get_db().select_liste()
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles')
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles',side=1)
     else:
-        return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1)
+        return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1,side=1)
 
 @app.route('/login', methods=['POST','GET'])
 def login_page():

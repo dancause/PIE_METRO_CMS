@@ -222,20 +222,20 @@
 
    <div class="row row_media">
     {% for p in photos %}
-    <div class="medias_display col-xs-3" id="photo_{{ p.id }}" name="photo_gallery">
+    <div class="medias_display col-xs-2" id="photo_{{ p.id }}" name="photo_gallery">
         <div class="row " onclick="photoentete('{{p.media}}', {{ p.id }})">
     		<div class="col-xs-6"><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
         <div    name="header_photo" style="visibility: hidden;" class="col-xs-6" id="entete_{{ p.id }}"><label>Entête<label></div>
         </div>
     		<hr>
     		<div>
-                <a href="/images/{{ p.media }}" target="_blank"><img src="/images/{{p.media}}" alt="{{p.media}}" class="img-responsive img-thumbnail" style="height: 227.5px;" ></a>
+                <a href="/view/{{ p.media }}" ><img src="/images/{{p.media}}" alt="{{p.media}}" class="img-responsive img-thumbnail" style="height: auto;" ></a>
             </div>
  			<div onclick="build_list('{{p.media}}', {{ p.id }})" >
                 <label>{{p.media}}</label>
             </div>
     </div>
-    {% if loop.index is divisibleby 4 %} </div><div class="row row_media">{% endif %}
+    {% if loop.index is divisibleby 6 %} </div><div class="row row_media">{% endif %}
 	{% endfor %}
 	</div>
 </div>
