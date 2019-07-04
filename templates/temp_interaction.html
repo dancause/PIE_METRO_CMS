@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% block content %}
+  <title>UPLOAD</title>
+   <meta charset="utf-8">
+  <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css">
+  <script src="/vendor/jquery/jquery.js"></script>
+  <script src="/vendor/jquery/jquery-ui.js"></script>
+<script src="/js/comments.js"></script>
+
+
+<div class="form_upload">
+    <h1 class="title">Interaction List</h1>
+
+ <table class="table table-hover table-responsive liste_articles">
+    <thead>
+    	<tr>
+        <th>ID</th>
+        <th>ID_USER</th>
+        <th>ACTION</th>
+    	<th>OS</th>
+    	<th>BROWSER</th>
+    	<th>IP</th>
+    	<th>DATE</th>
+    	</tr>
+    	</thead>
+    	 {% if not interactions %}
+
+    	 <tr>
+
+    	<td style="text-align: center;" COLSPAN="7"><h2>Empty</h2></td>
+    	</tr>
+    	 {% else %}
+				{% for a in interactions %}
+				<tr>
+                    <td>{{ a.id }}</td>
+    				<td>{{ a.id_user}}</td>
+    				<td>{{ a.action }}</td>
+    				<td>{{ a.os }}</td>
+    				<td>{{ a.ip_adresse }}</td>
+    				<td>{{ a.browser }}</td>
+    				<td>{{ a.date }}</td>
+    			</tr>
+    			{% endfor %}
+    	{% endif %}
+    </table>
+
+
+
+{% endblock %}

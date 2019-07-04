@@ -27,14 +27,14 @@
     	<th>mise à jour</th>
     	</tr>
     	</thead>
-    	 {% if not articles %}
+    	 {% if not interactions %}
 
     	 <tr>
 
     	<td style="text-align: center;" COLSPAN="10"><h2>aucun photo</h2></td>
     	</tr>
     	 {% else %}
-				{% for a in articles %}
+				{% for a in interactions %}
 				<tr>
                     <td>{{a.unique }}</td>
     				<td>{{a.url}}</td>

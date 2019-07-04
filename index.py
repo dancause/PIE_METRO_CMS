@@ -178,11 +178,11 @@ def login_validation():
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
-        Log('acces grant')
+        Log('acces grant'+' - '+courriel)
         return redirect("/")
     print hash
     if hash == None or hash[0] == None:
-        Log('wrong password')
+        Log('wrong password'+' - '+courriel)
         return render_template('login.html',error='wrong user/password')
     print 'passe la'
     salt = hash[0]
@@ -192,7 +192,7 @@ def login_validation():
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
-        Log('acces grant')
+        Log('acces grant'+' - '+courriel)
         return redirect("/")
     else:
         Log('wrong password')
@@ -495,7 +495,7 @@ def menu_categories():
 def comments():
     if request.method =="POST":
         content = request.json
-        get_db().save_comments(getUser(),content['id_article'],content['comment'])
+        get_db().save_comments(getUser(),content['id_article'],content['comment'],getIdUser())
         comments=get_db().get_comments(content['id_article'])
     return render_template('comments.html',comments=comments)
 
@@ -552,6 +552,13 @@ def singaled_comments():
 def all_comments():
     comments = get_db().get_all_comments()
     return render_template('liste_comments.html',comments=comments)
+
+@app.route('/gestion/interaction', methods=['POST','GET'])
+@authentication_required
+@writer
+def all_interaction():
+    interactions = get_db().get_all_interactions()
+    return render_template('temp_interaction.html',interactions=interactions)
 
 @app.route('/recherche', methods=['POST','GET'])
 def search_term():
@@ -673,6 +680,14 @@ def getUser():
     else:
         user_name = "invited"
     return user_name
+
+def getIdUser():
+    if "id" in session:
+        id_session = session["id"]
+        ID = get_db().get_id_User_Session(id_session)
+    else:
+        ID = "0"
+    return ID
 
 def getRight():
     if "id" in session:
