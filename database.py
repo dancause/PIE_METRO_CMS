@@ -56,6 +56,16 @@ class Comments:
         self.approved = approved
         self.signal = signal
 
+class Interactions:
+     def __init__(self,id,id_user, action, os, browser, ip_adresse, date):
+        self.id = id
+        self.id_user = id_user
+        self.action = action
+        self.os = os
+        self.browser = browser
+        self.ip_adresse = ip_adresse
+        self.date = date
+
 class Roles:
     def __init__(self, id, role, active):
         self.id = id
@@ -404,7 +414,7 @@ class Database:
         cursor.execute(("insert into medias(creator, media, "
                         "date) values(?, ?, ?)"), (creator, filename, datetime.now(), ))
         connection.commit()
-        
+
     def valider_medias(self, filename):
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -476,10 +486,10 @@ class Database:
             comments.append(c)
         return comments
 
-    def save_comments(self,id_user,id_article,comment):
+    def save_comments(self,id_user,id_article,comment,indice):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("insert into COMMENTS(id_user, id_article, comment, date, approved, signal) values(?, ?, ?, ?, ?, ? )"), (id_user, id_article, comment, datetime.now(),"false","false" ))
+        cursor.execute(("insert into COMMENTS(id_user, id_article, indice_user, comment, date, approved, signal) values(?, ?, ?, ?, ?, ?, ? )"), (id_user, id_article, indice, comment, datetime.now(),"false","false" ))
         connection.commit()
 
     def get_all_comments(self):
@@ -592,23 +602,33 @@ class Database:
     def get_User_Session(self,num_session):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select users.nom from sessions inner join users on sessions.id_session = ?",(num_session,))
+        cursor.execute("select users.nom from sessions inner join users on sessions.courriel =  users.courriel where sessions.id_session = ?",(num_session,))
         data = cursor.fetchone()
         if data is None:
             return "invited"
         else:
             return data[0]
 
+    def get_id_User_Session(self,num_session):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute("select users.id from sessions inner join users on sessions.courriel =  users.courriel where sessions.id_session = ?",(num_session,))
+        data = cursor.fetchone()
+        if data is None:
+            return "0"
+        else:
+            return data[0]
+
     def get_User_Right(self,num_session):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select users.role from sessions inner join users on sessions.id_session = ?",(num_session,))
+        cursor.execute("select users.role from sessions inner join users on sessions.courriel =  users.courriel where sessions.id_session = ?",(num_session,))
         data = cursor.fetchone()
         if data is None:
             return "invited"
         else:
             return data[0]
-        
+
     def get_My_Comments(self,user):
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -619,3 +639,14 @@ class Database:
             c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
             comments.append(c)
         return comments
+
+    def get_all_interactions(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute('select * from INTERACTION order by date desc')
+        interactions = []
+        for row in cursor:
+            print row[1]
+            c = Interactions(row[0], row[1], row[2], row[3], row[4], row[5],row[6])
+            interactions.append(c)
+        return interactions

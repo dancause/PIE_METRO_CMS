@@ -28,6 +28,7 @@
     	</tr>
     	</thead>
     	 {% if not articles %}
+    	 {% if not interactions %}
 
     	 <tr>
 
@@ -35,6 +36,7 @@
     	</tr>
     	 {% else %}
 				{% for a in articles %}
+				{% for a in interactions %}
 				<tr>
                     <td>{{a.unique }}</td>
     				<td>{{a.url}}</td>

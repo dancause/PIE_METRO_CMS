@@ -11,7 +11,7 @@ from validation import *
 
 from ua_parser import user_agent_parser
 from werkzeug.utils import secure_filename
- 
+
 from datetime import datetime
 from flask import g
 from flask import json
@@ -113,6 +113,8 @@ def demande_recuperation_motpasse():
 @authentication_required
 def logout():
     if "id" in session:
+        print session
+        print session["id"]
         id_session = session["id"]
         session.pop('id', None)
         get_db().delete_session(id_session)
@@ -178,7 +180,9 @@ def login_validation():
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
-        Log('acces grant')
+        print session
+        print session["id"]
+        Log('acces grant'+' - '+courriel)
         return redirect("/")
     print hash
     if hash == None or hash[0] == None:
@@ -192,7 +196,7 @@ def login_validation():
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
-        Log('acces grant')
+        Log('acces grant'+' - '+courriel)
         return redirect("/")
     else:
         Log('wrong password')
@@ -459,7 +463,7 @@ def delete_article(id_article):
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
     comments=get_db().get_comments(article.unique)
-    print 
+    print
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
@@ -495,7 +499,7 @@ def menu_categories():
 def comments():
     if request.method =="POST":
         content = request.json
-        get_db().save_comments(getUser(),content['id_article'],content['comment'])
+        get_db().save_comments(getUser(),content['id_article'],content['comment'],getIdUser())
         comments=get_db().get_comments(content['id_article'])
     return render_template('comments.html',comments=comments)
 
@@ -553,6 +557,13 @@ def all_comments():
     comments = get_db().get_all_comments()
     return render_template('liste_comments.html',comments=comments)
 
+@app.route('/gestion/interaction', methods=['POST','GET'])
+@authentication_required
+@writer
+def all_interaction():
+    interactions = get_db().get_all_interactions()
+    return render_template('temp_interaction.html',interactions=interactions)
+
 @app.route('/recherche', methods=['POST','GET'])
 def search_term():
     rechercher='vide'
@@ -589,7 +600,7 @@ def sidepanel(type):
         return 0
     else:
         return 0
-        
+
 @app.route('/view/<file>', methods=['POST','GET'])
 def view(file):
     return render_template('view.html',photo=file)
@@ -649,7 +660,7 @@ def valider_url_2(url,unique):
     return get_db().valider_url_2(url,unique)
 
 def enlever_accent(texte):
-    return unicodedata.normalized('NFKD', texte).encode('ASCII', 'ignore')  
+    return unicodedata.normalized('NFKD', texte).encode('ASCII', 'ignore')
 
 def valider_champs(champs):
     if not champs:
@@ -674,6 +685,14 @@ def getUser():
         user_name = "invited"
     return user_name
 
+def getIdUser():
+    if "id" in session:
+        id_session = session["id"]
+        ID = get_db().get_id_User_Session(id_session)
+    else:
+        ID = "0"
+    return ID
+
 def getRight():
     if "id" in session:
         id_session = session["id"]
@@ -696,7 +715,7 @@ def Log(action):
 def kept_search():
     search = request.cookies.get('recherche')
     return search
-    
+
 def mycomments():
 	user = getUser()
 	print user
