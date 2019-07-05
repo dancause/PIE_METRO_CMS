@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+{% block content %}
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/name_file.js"></script>
+    <script src="/js/xhr.js"></script>
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container_fluid">
+          <div class="page-header">
+            <h1 class="title">Get File Liste yrdy </h1>
+        </div>
+
+
+</div>
+
+<div class="container">
+  <div class="row row_media">
+
+       {% if not fichiers %}
+
+       {% else %}
+        {% for a in fichiers %}
+  
+
+
+
+
+
+ 
+                                        <div class="col-sm-2">
+<div><a href="/images/{{ a.name}}" target="_blank"><img src="/images/{{a.name}}" alt="{{a.name}}" class="img-thumbnail" style="height: 175px;"></a> {{a.name}}</div>
+                                             </div>
+
+
+
+
+    {% if loop.index is divisibleby 6 %} </div><div class="row row_media">{% endif %} 
+
+
+
+          {% endfor %}
+      {% endif %}
+</div>
+
+
+<script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" class="__web-inspector-hide-shortcut__"></script>
+{% endblock %}
+

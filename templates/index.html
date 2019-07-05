@@ -36,8 +36,8 @@
 
 
 <div id="container-fluid" class="{% if side %}container-fluid{% else %}container{% endif %}">
+{% if side %}<div class=row>{% else %}<div>{% endif %}
 
-<div class=row>
 
         {% if side %} <div class="col-sm-1 col-xs-0"></div><div class="col-sm-10 col-xs-12">{% endif %}
         {% block content %}{% endblock %}
