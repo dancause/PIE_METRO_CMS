@@ -414,7 +414,7 @@ class Database:
         cursor.execute(("insert into medias(creator, media, "
                         "date) values(?, ?, ?)"), (creator, filename, datetime.now(), ))
         connection.commit()
-        
+
     def valider_medias(self, filename):
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -602,7 +602,7 @@ class Database:
     def get_User_Session(self,num_session):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select users.nom from sessions inner join users on sessions.id_session = ?",(num_session,))
+        cursor.execute("select users.nom from sessions inner join users on sessions.courriel =  users.courriel where sessions.id_session = ?",(num_session,))
         data = cursor.fetchone()
         if data is None:
             return "invited"
@@ -612,23 +612,23 @@ class Database:
     def get_id_User_Session(self,num_session):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select users.nom, users.id from sessions inner join users on sessions.id_session = ?",(num_session,))
+        cursor.execute("select users.id from sessions inner join users on sessions.courriel =  users.courriel where sessions.id_session = ?",(num_session,))
         data = cursor.fetchone()
         if data is None:
             return "0"
         else:
-            return data[1]
+            return data[0]
 
     def get_User_Right(self,num_session):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select users.role from sessions inner join users on sessions.id_session = ?",(num_session,))
+        cursor.execute("select users.role from sessions inner join users on sessions.courriel =  users.courriel where sessions.id_session = ?",(num_session,))
         data = cursor.fetchone()
         if data is None:
             return "invited"
         else:
             return data[0]
-        
+
     def get_My_Comments(self,user):
         connection = self.get_connection()
         cursor = connection.cursor()

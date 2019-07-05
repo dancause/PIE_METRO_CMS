@@ -11,7 +11,7 @@ from validation import *
 
 from ua_parser import user_agent_parser
 from werkzeug.utils import secure_filename
- 
+
 from datetime import datetime
 from flask import g
 from flask import json
@@ -113,6 +113,8 @@ def demande_recuperation_motpasse():
 @authentication_required
 def logout():
     if "id" in session:
+        print session
+        print session["id"]
         id_session = session["id"]
         session.pop('id', None)
         get_db().delete_session(id_session)
@@ -178,11 +180,13 @@ def login_validation():
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
+        print session
+        print session["id"]
         Log('acces grant'+' - '+courriel)
         return redirect("/")
     print hash
     if hash == None or hash[0] == None:
-        Log('wrong password'+' - '+courriel)
+        Log('wrong password')
         return render_template('login.html',error='wrong user/password')
     print 'passe la'
     salt = hash[0]
@@ -459,7 +463,7 @@ def delete_article(id_article):
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
     comments=get_db().get_comments(article.unique)
-    print 
+    print
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
@@ -596,7 +600,7 @@ def sidepanel(type):
         return 0
     else:
         return 0
-        
+
 @app.route('/view/<file>', methods=['POST','GET'])
 def view(file):
     return render_template('view.html',photo=file)
@@ -656,7 +660,7 @@ def valider_url_2(url,unique):
     return get_db().valider_url_2(url,unique)
 
 def enlever_accent(texte):
-    return unicodedata.normalized('NFKD', texte).encode('ASCII', 'ignore')  
+    return unicodedata.normalized('NFKD', texte).encode('ASCII', 'ignore')
 
 def valider_champs(champs):
     if not champs:
@@ -711,7 +715,7 @@ def Log(action):
 def kept_search():
     search = request.cookies.get('recherche')
     return search
-    
+
 def mycomments():
 	user = getUser()
 	print user
