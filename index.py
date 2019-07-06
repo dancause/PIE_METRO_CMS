@@ -60,7 +60,7 @@ def authentication_required(f):
 def admin(f):
     @wraps(f)
     def decorated2(*args, **kwargs):
-        if 2 < getRight():
+        if 2 <= getRight():
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated2
@@ -68,7 +68,7 @@ def admin(f):
 def writer(f):
     @wraps(f)
     def decorated3(*args, **kwargs):
-        if 3 < getRight():
+        if 3 <= getRight():
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated3
@@ -113,8 +113,6 @@ def demande_recuperation_motpasse():
 @authentication_required
 def logout():
     if "id" in session:
-        print session
-        print session["id"]
         id_session = session["id"]
         session.pop('id', None)
         get_db().delete_session(id_session)
@@ -138,11 +136,7 @@ def motpasseperdue(id_token):
                                error_message=u"Non autorisé"), 401
     trenteminute = 1800
     res = get_db().recuperer_motpasse(id_token)
-    print "mot passe perdue temp"
-    print res
-    print time.mktime(datetime.now().timetuple())
     if res is None:
-        print 'test2'
         return redirect(url_for('page_not_found401')), 401
     if ((time.mktime(datetime.now().timetuple()))-res) > trenteminute:
         return render_template('new_password.html',
@@ -180,8 +174,6 @@ def login_validation():
         id_session = uuid.uuid4().hex
         get_db().save_session(id_session, courriel)
         session["id"] = id_session
-        print session
-        print session["id"]
         Log('acces grant'+' - '+courriel)
         return redirect("/")
     print hash
@@ -207,8 +199,16 @@ def login_validation():
 @authentication_required
 def inviter_collaborateur():
     roles = get_db().get_roles()
-    print roles
     return render_template('temp_invitation.html',roles=roles)
+
+@app.route('/gestion/liste/fichiers')
+@authentication_required
+def getlist():
+    fichiers = []
+    files = os.listdir('static/images')
+    for name in files:
+        fichiers.append({'name':name})
+    return render_template('temp_liste_files.html',fichiers=fichiers)
 
 @app.route('/gestion/invitation/<token>')
 def nouveau_usager(token):
@@ -217,7 +217,6 @@ def nouveau_usager(token):
                                error_message=u"Non autorisé"), 401
     res = get_db().valider_invitation(token)
     if res != None:
-        print res
         return render_template('temp_create_new_user.html', token=token)
     else:
         return render_template('error_html.html', error_html="401",
@@ -258,7 +257,6 @@ def update_user_test():
         user = request.json
         get_db().update_user(user['id'],"",user['nom'],user['courriel'],user['role'], user['picture'],user['actif'])
         roles = get_db().get_roles()
-        print user
     return render_template('usager.html',user=user,roles=roles, role=int(user['role']) )
 
 @app.route('/gestion/user/list', methods=["POST","GET"])
@@ -280,7 +278,6 @@ def user_profil():
 def update_user(id_user):
     users = get_db().list_all_user()
     roles = get_db().get_roles()
-    print roles
     return render_template('temp_manage_user.html', users=users, roles=roles)
 
 @app.route('/gestion/create/user', methods=["POST"])
@@ -321,8 +318,6 @@ def create_article():
 @authentication_required
 @admin
 def create_user():
-    print controlRight(2)
-    print 'passe la'
     return render_template('temp_create_new_user.html')
 
 
@@ -343,12 +338,10 @@ def nouveau():
     texte_ang = request.form['editor_ang']
     gallery = request.form['gallery_html']
     comments_on = request.form.get('comments_on')
-    print comments_on
     if comments_on != 'true':
         comments_on = 'false'
     article = Articles("", url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie,
                            etiquettes, tag, photo, "", "", gallery, comments_on)
-    print article
     erreur_data = valider_acticle(article)
     if any(erreur_data):
         photos = get_db().liste_medias()
@@ -463,7 +456,6 @@ def delete_article(id_article):
 def afficher_article(categorie,url_article):
     article=get_db().get_url_article(url_article)
     comments=get_db().get_comments(article.unique)
-    print
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
