@@ -1,0 +1,40 @@
+
+<div class="form">
+    <input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
+    <div>
+        <div>
+        <textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea>
+        </div>
+        <div>
+        <button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();">POST</button>
+        </div>
+    </div>
+</div>
+{% else %}{{ articles.data2 }}
+<div class="form">
+    <div>
+        <div>
+        <textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} desactivated {% else %} désactivé{% endif %}" disabled style="background-color: gainsboro;"></textarea>
+        </div>
+        <div>
+        <button type="" value="" id="" onclick="" disabled>POST</button>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if comments %}
+<div id="add_comment" name="add_comment">
+{% for c in comments %}
+    <div>
+        <div>{{ c.id_user }}</div>
+        <div> <p>{{c.comments}}</p></div>
+        <div>{{c.date}}</div>
+    </div>
+        <hr>
+{% endfor %}
+{% else %}
+    <div id="add_comment" name="add_comment"><label>{% if langue %} No Comments {% else %} Aucun Commentaire {% endif %}</label></div>
+</div>
+{% endif %}
+
