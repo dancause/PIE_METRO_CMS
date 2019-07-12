@@ -74,7 +74,7 @@ function create(){
 
     console.log(a.length);
     var tempgall = "";
-    var gallery = '<div class="row ">';
+    var gallery = '<div class="row text-center">';
 
     for (i in a) {
         if (a[i] != "") {
