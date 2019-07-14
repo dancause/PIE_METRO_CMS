@@ -67,19 +67,18 @@ function create(){
     var a = verif_cookie().split(",");
     var colonne = radiocheck('colonne');
     var style = radiocheck('style');
+    var moreStyle = document.getElementById('moreStyle').value;
     var compteur=1;
-    console.log(colonne);
-    console.log(style);
     var cols = 12 / colonne;
     var j=0;
 
     console.log(a.length);
     var tempgall = "";
-    var gallery = '<div class="row ">';
+    var gallery = '<div class="row text-center">';
 
     for (i in a) {
         if (a[i] != "") {
-                    gallery = gallery +'<div class=" gallery_ligne col-md-' + cols + '"><a href="/view/' + a[i]+'"><img class="img-responsive" ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '"  ></a></div>';
+                    gallery = gallery +'<div class=" gallery_ligne col-md-' + cols + '"><a href="/view/' + a[i]+'"><img class="img-responsive ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '" style="'+moreStyle+'" ></a></div>';
                             if(compteur < colonne){
 
                                 compteur++;

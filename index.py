@@ -689,8 +689,12 @@ def getRight():
     if "id" in session:
         id_session = session["id"]
         user_name = get_db().get_User_Right(id_session)
+        print getUser()
+        print user_name
     else:
         user_name = "invited"
+        print getUser()
+        print user_name
     return user_name
 
 def controlRight(level):
