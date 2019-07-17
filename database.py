@@ -489,7 +489,9 @@ class Database:
     def save_comments(self,id_user,id_article,comment,indice):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("insert into COMMENTS(id_user, id_article, indice_user, comment, date, approved, signal) values(?, ?, ?, ?, ?, ?, ? )"), (id_user, id_article, indice, comment, datetime.now(),"false","false" ))
+        print indice
+        print id_user
+        cursor.execute(("insert into COMMENTS(id_user, id_article, indice_user, comment, date, approved, signal) values(?, ?, ?, ?, ?, ?, ? )"), (id_user, id_article, indice, comment, datetime.now(),"false","false"))
         connection.commit()
 
     def get_all_comments(self):
@@ -632,7 +634,7 @@ class Database:
     def get_My_Comments(self,user):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select * from comments where id_user = ?",(user,))
+        cursor.execute("select * from comments where indice_user = ?  order by date desc",(user,))
         comments = []
         for row in cursor:
             tempdate=row[4][:10]

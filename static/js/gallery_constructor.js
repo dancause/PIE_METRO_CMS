@@ -83,7 +83,7 @@ function create(){
 
                                 compteur++;
                             } else{
-                                gallery = gallery +'</div><div class="row ">';
+                                gallery = gallery +'</div><div class="row text-center">';
                                 compteur=1;
                             }
         }
@@ -113,4 +113,3 @@ document.getElementById("entete_"+index).style.visibility = "visible";
 console.log(document.getElementById("entete_"+index).style.visibility );
 
 }
-

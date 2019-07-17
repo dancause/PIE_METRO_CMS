@@ -201,6 +201,13 @@ def inviter_collaborateur():
     roles = get_db().get_roles()
     return render_template('temp_invitation.html',roles=roles)
 
+@app.route('/gestion/profil')
+@authentication_required
+def view_profil():
+    roles = get_db().get_roles()
+    comments = get_db().get_My_Comments(getIdUser())
+    return render_template('temp_profil_user.html',roles=roles,comments=comments)
+
 @app.route('/gestion/liste/fichiers')
 @authentication_required
 def getlist():
