@@ -129,7 +129,14 @@ class Database:
         cursor.execute(("""select * from article, categories where article.categorie= categories.id and article.url = ?"""), (url, ))
         row = cursor.fetchone()
         p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])
-        print row[13]
+        return p
+
+    def get_id_article(self,id_article):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("""select * from article, categories where article.categorie= categories.id and article.id = ?"""), (id_article, ))
+        row = cursor.fetchone()
+        p = Articles(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[17],row[18],row[12],row[13])
         return p
 
     def get_categorie_article(self,id_categorie):

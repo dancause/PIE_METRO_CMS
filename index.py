@@ -439,6 +439,31 @@ def upload():
     else:
         return render_template('temp_upload.html',photos=photos,langue=1)
 
+@app.route('/save/photo/profil', methods=['POST','GET'])
+@authentication_required
+def upload_photo_profil():
+    app.config['UPLOAD_FOLDER'] = 'static/images_profiles'
+    info_upload = {}
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file[]' not in request.files:
+            return redirect(request.url)
+        uploaded_files = request.files.getlist("file")
+        for tempfile in uploaded_files:
+            file = tempfile.filename
+            if file == '':
+                return redirect(request.url)
+            if allowed_file(file):
+                if get_db().valider_medias(secure_filename(file)):
+                    filename = secure_filename(file)
+                    tempfile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    get_db().save_medias('admin', filename)
+                else:
+                    print 'La photo existe'
+            else:
+                print 'fichier interdit'
+    photos = get_db().liste_medias()
+
 @app.route('/delete/<filename>', methods=['POST','GET'])
 @authentication_required
 @admin
@@ -468,6 +493,19 @@ def afficher_article(categorie,url_article):
         return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
     else:
         return render_template('temp_article.html',articles=article,title='Category : '+categorie, langue=1,comments=comments)
+
+@app.route('/article/<id>', methods=['POST','GET'])
+def afficher_id_article(id):
+    print id
+    article=get_db().get_id_article(id)
+    print article
+    comments=get_db().get_comments(article.unique)
+    Log('article: '+article.titre_fr)
+    if verifierLangue() == 'FR':
+        return render_template('temp_article.html',articles=article,comments=comments)
+    else:
+        return render_template('temp_article.html',articles=article,langue=1,comments=comments)
+
 
 @app.route('/categorie/<id_categorie>', methods=['POST','GET'])
 def afficher_article_categorie(id_categorie):
