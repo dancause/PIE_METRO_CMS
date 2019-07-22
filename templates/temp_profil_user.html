@@ -6,10 +6,10 @@
 
 
 <br>
-
+<div class="container">
 <div class=row>
 <div id="photo_profil" class=" col-sm-12 text-center">
-<img src='/images_profiles/nopicture.png' class="img-thumbnail" style="width:250px;"><br>
+<img src='/images_profiles/{{user.picture}}' class="img-thumbnail" style="width:250px;"><br>
 
 <form method="post" enctype="multipart/form-data" action="/save/photo/profil">
 <input type=file name="file" multiple="">
@@ -20,28 +20,34 @@
 </div>
 </div>
 <div class="row form-group">
-<div class="col "><label>Firstname</label><input class="form-control" type="text"></input></div>
-<div class="col"><label>Lastname</label><inpu class="form-control" type="text"></input></div>
+<div class="col "><label>Firstname</label><input class="form-control" type="text" value="{{user.firstname}}"></input></div>
+<div class="col"><label>Lastname</label><input class="form-control" type="text" value="{{user.lastname}}"></input></div>
 </div>
 <div class="row">
-<div class="col-sm-12"><label>email</label><input class="form-control"  type="text"></input></div>
+<div class="col-sm-8"><label>email</label><input class="form-control"  type="text"value="{{user.courriel}}"></input></div>
 </div>
 <div class="row form-group">
-<div class="col"><label>Country</label><input class="form-control"  type="text"></input></div>
-<div class="col"><label>States</label><input class="form-control"  type="text"></input></div>
+<div class="col"><label>Country</label><input class="form-control"  type="text"value="{{user.country}}"></input></div>
+<div class="col"><label>States</label><input class="form-control"  type="text"value="{{user.city}}"></input></div>
 </div>
 
 <div class="form-group row">
-<div class="col-sm-12"><label>Bios</label><input  class="form-control" type="text"></input></div>
-<div class="col-sm-12"><label>texte</label><textarea name="name" rows="10" style="width:100%;"></textarea></div>
+<div class="col-sm-12"><label>interet</label><input  class="form-control" type="text"value="{{user.interet}}"></input></div>
+<div class="col-sm-12"><label>texte</label><textarea name="name" rows="10" style="width:100%;">{{user.text}}"</textarea></div>
 </div>
-
+<input class="form-control" type="button"submit value="update"/>
 </form>
-
+</div>
 <div class=contribution>
 
     <div id="comments">
+      <div class=row>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
 {% include 'comments_user.html' %}
+</div>
+<div class="col-sm-3"></div>
+      </div>
   </div>
 
 

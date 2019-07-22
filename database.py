@@ -67,6 +67,24 @@ class Interactions:
         self.ip_adresse = ip_adresse
         self.date = date
 
+class Users2:
+    def __init__(self, id, nom, courriel, picture, active, role, hide_email, text,country, state, city,interet, firstname, lastname, date ):
+        self.id = id
+        self.nom = nom
+        self.courriel = courriel
+        self.picture = picture
+        self.active = active
+        self.role = role
+        self.hide_email = hide_email
+        self.text = text
+        self.country = country
+        self.state = state
+        self.city = city
+        self.interet = interet
+        self.firstname = firstname
+        self.lastname = lastname
+        self.date = date
+
 class Roles:
     def __init__(self, id, role, active):
         self.id = id
@@ -660,3 +678,19 @@ class Database:
             c = Interactions(row[0], row[1], row[2], row[3], row[4], row[5],row[6])
             interactions.append(c)
         return interactions
+
+    def save_photo_profil(self,namefile,id_user):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("update users set picture = ? where id = ? "),(namefile, id_user, ))
+        connection.commit()
+
+    def get_info_user(self,id_user):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute("select * from users where id = ? ",(id_user,))
+        row = cursor.fetchone()
+        if row is None:
+            return "invited"
+        else:
+            return Users2(row[0], row[1], row[2], row[7], row[8], row[6], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17])

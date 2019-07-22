@@ -204,11 +204,10 @@ def inviter_collaborateur():
 @app.route('/gestion/profil')
 @authentication_required
 def view_profil():
-    roles = get_db().get_roles()
-    print roles
+    user = get_db().get_info_user(getIdUser())
     comments = get_db().get_My_Comments(getIdUser())
     print getIdUser()
-    return render_template('temp_profil_user.html',roles=roles,comments=comments)
+    return render_template('temp_profil_user.html',user=user,comments=comments)
 
 @app.route('/gestion/liste/fichiers')
 @authentication_required
@@ -452,23 +451,18 @@ def upload_photo_profil():
         if 'file' not in request.files:
             return redirect(request.url)
         uploaded_files = request.files.getlist("file")
-        print uploaded_files
         for tempfile in uploaded_files:
             file = tempfile.filename
             if file == '':
                 return redirect(request.url)
             if allowed_file(file):
-                if get_db().valider_medias(secure_filename(file)):
-                    filename = secure_filename(file)
-                    tempfile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                    get_db().save_medias('admin', filename)
-                else:
-                    print 'La photo existe'
-                    return redirect(url_for('view_profil'))
+                filename,extension = file.split('.')
+                newname = str(uuid.uuid4())+'.'+extension
+                tempfile.save(os.path.join(app.config['UPLOAD_FOLDER'], newname))
+                get_db().save_photo_profil(newname,getIdUser())
             else:
                 print 'fichier interdit'
                 return redirect(url_for('view_profil'))
-    photos = get_db().liste_medias()
     return redirect(url_for('view_profil'))
 
 @app.route('/delete/<filename>', methods=['POST','GET'])
