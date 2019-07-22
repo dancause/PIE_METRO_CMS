@@ -12,7 +12,7 @@
 {% endif %}
 				<div class="article_list">
 {% if articles %}
-{% for p in articles %} 
+{% for p in articles %}
 <a href="/article/{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr}}{% endif%}/{{p.url}}" class="link" style="text-decoration: none;">
 
  	<div class="row row_media intro_articles">
@@ -26,12 +26,12 @@
 
 			<div class="col-md-6 text_black">
 					<div class="row title_article">
-						<div class="col-xs-9"><h2>{% if langue %}{{ p.titre_ang }} {% else %}{{ p.titre_fr }}{% endif%}</h2></div>
-						<div class="col-xs-3" style="text-align: -webkit-right;padding-top: 20px;padding-left: 0px;"><h4>{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr }}{% endif%}</h4></div>
+						<div class="col-8"><h2>{% if langue %}{{ p.titre_ang }} {% else %}{{ p.titre_fr }}{% endif%}</h2></div>
+						<div class="col-4 text-right align-middle" style=""><h4>{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr }}{% endif%}</h4></div>
 					</div>
 					<div class="row">
-					<div class="col-xs-6"><h6>{% if langue %}by : {% else %}par :{% endif%} {{p.auteur}}</h6></div>
-					<div class="col-xs-6" style="text-align: -webkit-right;"><h6>date: {{ p.datepub }}</h6></div>
+					<div class="col-6"><h6>{% if langue %}by : {% else %}par :{% endif%} {{p.auteur}}</h6></div>
+					<div class="col-6 text-right" style=""><h6>date: {{ p.datepub }}</h6></div>
 					</div>
 					<div class="text"><p class="text_article">{% if langue %}{{ p.texte_ang | striptags }} {% else %}{{ p.texte_fr | striptags}}{% endif%}</p></div>
 					<div>{% if langue %}tag: {{ p.tag }} {% else %} etiquettes: {{ p.etiquettes }}{% endif%}</div>
@@ -39,7 +39,7 @@
 </div>
 </a>
 
-{% endfor %} 
+{% endfor %}
 {% else %}
 <h2 class="title center">{% if langue %} No Result{% else %}Aucun résultat{% endif %}</h2>
 {% endif %}

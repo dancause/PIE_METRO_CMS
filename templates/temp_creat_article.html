@@ -9,7 +9,7 @@
 <script src="/js/cms.js"></script>
 <script src="/js/francais.js"></script>
 <script src="/js/anglais.js"></script>
-    <script src="/js/gallery_constructor.js"></script>
+<script src="/js/gallery_constructor.js"></script>
 
   <script>
   $( function() {
@@ -19,25 +19,26 @@
   <h1 class="mobile title">Nouvel article</h1>
 
 <form action= {% if update %}"/save/miseajour"{% else %}"/save/nouveau"{% endif%}method="POST">
-<DIV class="mobile row row_media">
-		<DIV class="mobile row">
-			<DIV>
-			<div class="mobile form-group col-md-4">
+<DIV class=" ">
+		<DIV class=" row">
+			<div class=" form-group col-4">
 			<label id="lblurl lblgroup">URL: {% if erreur_data %}<div class="mobile erreur">{{erreur_data.URL}}</div>{% endif %}</label>
-			<input type="text"  style="width: 100%;" name="URL" value="{% if articles %}{{articles.url}}{% endif %}" id="URL" class="mobile form-control mobile"></DIV>
-			</div>
+			<input type="text"  style="width: 100%;" name="URL" value="{% if articles %}{{articles.url}}{% endif %}" id="URL" class="mobile form-control mobile">
+    </DIV>
 
-		<DIV>
-		<div class="mobile form-group col-md-4">
+
+
+		<div class=" form-group col-4">
 		<label id="lblauteur lblgroup">Auteur: {% if erreur_data %}<div class="mobile erreur mobile">{{erreur_data.auteur}}</div>{% endif %}</label>
-		<input type="text"  style="width: 100%;" name="auteur" value="{% if articles %}{{articles.auteur}}{% endif %}" id="auteur" class="mobile form-control"></DIV>
+		<input type="text"  style="width: 100%;" name="auteur" value="{% if articles %}{{articles.auteur}}{% endif %}" id="auteur" class="mobile form-control">
+  </DIV>
 
-                    </div>
-		<DIV>
-		<div class="mobile form-group col-md-4">
+
+
+		<div class=" form-group col-4">
 		<label id="lbldate lblgroup">date de publication:{% if erreur_data %}<div class="mobile erreur">{{erreur_data.datepub}}</div>{% endif %}</label>
 		<input type="text"  style="width: 100%;" name="datepublication" id="datepublication" value="{% if articles %}{{articles.datepub}}{% endif %}" class="mobile form-control" required placeholder="AAAA-MM-JJ"></DIV>
-                    </div>
+
 		</DIV>
 
 					<div id="tabs">
@@ -82,8 +83,8 @@
 			</div>
 
 				</div>
-<div class="mobile row">
-<div class="mobile form-group col-md-6">
+<div class=" row">
+<div class=" form-group col-6">
  				<label id="lblcategorie lblgroup">Catégoie:</label>
  				<select name="categorie" id="categorie"  style="width: 100%;" class="mobile form-control" {% if articles %}value="{{articles.categorie}}"{% endif %}>
                 {% if update %}{% else %}<option disable selected value>Choisir une catégorie</option>{% endif %}
@@ -93,7 +94,7 @@
  				</select></div>
 
 
- <div class="mobile form-group col-md-6">
+ <div class="form-group col-6">
  <label id="lblphoto lblgroup">photo de l'en-tête</label>
  <input type="text" name="photo" placeholder="photo" id="photo" class="mobile form-control" value="{% if articles %}{{ articles.photo}}{% endif %}" style="width: 100%;" >
 	</div>
@@ -101,12 +102,12 @@
 
 
 
-<div class=" ">
+
 <div class="row">
-<div class="col-xs-6">
+<div class="col-6">
   <input type=reset value='Reset' type="button" class=" btn btn-primary" style="" >
 </div>
-<div class="col-xs-6">
+<div class="col-6">
   {% if update %}
  <input type=submit value='Mise à Jour' type="button" class=" btn btn-primary" style="" >
   {% else %}
@@ -115,10 +116,12 @@
 </div>
 </div>
 
-        <div class=" col-xs-12">
+<div class="row">
+        <div class=" col-12">
             <legend   style="margin-bottom: 0px;">Gallery HTML code</legend>
         <input style="width: 100%;" name='gallery_html' id="gallery_html" value="{% if articles %}{{ articles.data1 }}{% endif %}"></input>
         </div>
+  </div>
 
 
     <div>
@@ -131,7 +134,7 @@
  </div>
 
 
-</DIV>
+
 
 
 </form>
@@ -147,90 +150,89 @@
     <hr>
 
     <div class ="form-group">
-    <div class=" row row_media">
-        <div class=" row">
-            <div class=" col-xs-6"><button type="button" class=" btn btn-primary" onclick="reset()">reset</button></div>
-            <div class=" col-xs-6"><button type="button" class=" btn btn-primary" onclick="create()">create</button></div>
+
+        <div class=" row row_media">
+            <div class=" col-6"><button type="button" class=" btn btn-primary" onclick="reset()">reset</button></div>
+            <div class=" col-6"><button type="button" class=" btn btn-primary" onclick="create()">create</button></div>
         </div>
 
-         <div class=" col-xs-12">
-             <div class=" col-xs-6" style="padding-left: 0px;">
+<div class="row row_media">
+
+             <div class=" col-6" style="padding-left: 0px;">
 
 
 
                  <fieldset>
                             <legend style="margin-bottom: 0px;">Colonne(s)</legend>
-
-                            <div class=" col-md-3">
+<div class="row ">
+                            <div class=" col-3">
                                 <input type="radio" id="un"
                                        name="colonne" value="1" checked />
                                 <label for="un">1</label>
                             </div>
 
-                            <div class=" col-md-3">
+                            <div class=" col-3">
                                 <input type="radio" id="deux"
                                        name="colonne" value="2" />
                                 <label for="deux">2</label>
                             </div>
 
-                            <div class=" col-md-3">
+                            <div class=" col-3">
                                 <input type="radio" id="trois"
                                        name="colonne" value="3" />
                                 <label for="trois">3</label>
                             </div>
 
-                            <div class=" col-md-3">
+                            <div class=" col-3">
                                 <input type="radio" id="quatre"
                                        name="colonne" value="4" />
                                 <label for="quatre">4</label>
                             </div>
-
+</div>
                     </fieldset>
 
 
              </div>
-             <div class=" col-xs-6">
+             <div class=" col-6">
                     <fieldset>
                             <legend style="margin-bottom: 0px;">Class Bootstrap image</legend>
-
-                            <div class=" col-md-4">
+<div class="row ">
+                            <div class=" col-4">
                                 <input type="radio" id="Rounded_Corners"
                                        name="style" value="img-rounded" checked />
                                 <label for="Rounded_Corners">Rounded</label>
                             </div>
 
-                            <div class=" col-md-4">
+                            <div class=" col-4">
                                 <input type="radio" id="Circle"
                                        name="style" value="img-circle" />
                                 <label for="Circle">Circle</label>
                             </div>
 
-                            <div class=" col-md-4">
+                            <div class=" col-4">
                                 <input type="radio" id="Thumbnail"
                                        name="style" value="img-thumbnail" />
                                 <label for="Thumbnail">Thumbnail</label>
                             </div>
-
+</div>
                     </fieldset>
-
         </div>
-
-        <div>
+</div>
+        <div class="row row_media">
 
           <label>Style : <input type="text" id="moreStyle"></label>
         </div>
-    </div>
 
-    </div>
+
 
 <div class="liste_photo">
 
    <div class="row row_media">
     {% for p in photos %}
-    <div class="medias_display col-xs-2" id="photo_{{ p.id }}" name="photo_gallery">
+    <div class="medias_display col-2" id="photo_{{ p.id }}" name="photo_gallery">
         <div class="row " onclick="photoentete('{{p.media}}', {{ p.id }})">
-    		<div class="col-xs-6"><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
-        <div    name="header_photo" style="visibility: hidden;" class="col-xs-6" id="entete_{{ p.id }}"><label>Entête<label></div>
+    		<div class="col-12"><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
+        <div    name="header_photo" style="visibility: hidden;" class="col-12" id="entete_{{ p.id }}"><label>Entête<label></div>
         </div>
     		<hr>
     		<div>

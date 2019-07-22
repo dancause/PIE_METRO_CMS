@@ -78,7 +78,7 @@ function create(){
 
     for (i in a) {
         if (a[i] != "") {
-                    gallery = gallery +'<div class=" gallery_ligne col-md-' + cols + '"><a href="/view/' + a[i]+'"><img class="img-responsive ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '" style="'+moreStyle+'" ></a></div>';
+                    gallery = gallery +'<div class=" gallery_ligne col-md-' + cols + '"><a href="/view/' + a[i]+'"><img class="img-fluid ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '" style="'+moreStyle+'" ></a></div>';
                             if(compteur < colonne){
 
                                 compteur++;

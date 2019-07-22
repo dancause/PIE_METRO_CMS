@@ -205,7 +205,9 @@ def inviter_collaborateur():
 @authentication_required
 def view_profil():
     roles = get_db().get_roles()
+    print roles
     comments = get_db().get_My_Comments(getIdUser())
+    print getIdUser()
     return render_template('temp_profil_user.html',roles=roles,comments=comments)
 
 @app.route('/gestion/liste/fichiers')
@@ -442,13 +444,15 @@ def upload():
 @app.route('/save/photo/profil', methods=['POST','GET'])
 @authentication_required
 def upload_photo_profil():
+    print uuid.uuid4()
     app.config['UPLOAD_FOLDER'] = 'static/images_profiles'
     info_upload = {}
     if request.method == 'POST':
         # check if the post request has the file part
-        if 'file[]' not in request.files:
+        if 'file' not in request.files:
             return redirect(request.url)
         uploaded_files = request.files.getlist("file")
+        print uploaded_files
         for tempfile in uploaded_files:
             file = tempfile.filename
             if file == '':
@@ -460,9 +464,12 @@ def upload_photo_profil():
                     get_db().save_medias('admin', filename)
                 else:
                     print 'La photo existe'
+                    return redirect(url_for('view_profil'))
             else:
                 print 'fichier interdit'
+                return redirect(url_for('view_profil'))
     photos = get_db().liste_medias()
+    return redirect(url_for('view_profil'))
 
 @app.route('/delete/<filename>', methods=['POST','GET'])
 @authentication_required

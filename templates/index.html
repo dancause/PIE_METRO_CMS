@@ -18,7 +18,7 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/menu_css.css" rel="stylesheet">
 
-    
+
 <div id='cssmenu'>
 <ul>
    <li><a href='/'><span>Home</span></a></li>
@@ -26,7 +26,13 @@
    <li class='active has-sub' id="menu_cat" ><a href='#'><span>Categories</span></a></li>
    <li><a href='#'><span>About</span></a></li>
    <li><a href='#'><span>Contact</span></a></li>
-   <li class="li" id="changer"><button id="button_langue" class="button_langue btn btn-light" onclick="Changer_Langue()" value="{% if langue %}Français{% else %}Anglais{% endif %}">{% if langue %}FR{% else %}ENG{% endif %}</button></li>
+   <li class="li" id="changer"><button id="button_langue" class="button_langue btn btn-light" onclick="Changer_Langue()" value="{% if langue %}Français{% else %}Anglais{% endif %}" style="
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 0px;
+">{% if langue %}FR{% else %}ENG{% endif %}</button></li>
             <li class='last'><div class="recherche">
                         <form action="/recherche" method="post"><input type="recherche" name="recherche" value="{{ recherche }}"><input type=submit value=&#128269;></form>
                               </div>
@@ -52,6 +58,7 @@
 <footer class="text-center" style="padding-top: 20px;">Projet Metro CMS <a href="https://github.com/dancause/PIE_METRO_CMS"><img src="/img/GitHub-Mark-120px-plus.png" height="42" width="42"></a></footer>
 
 </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="/vendor/jquery/jquery.js"></script>
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/jquery/jquery-ui.js"></script>
@@ -60,7 +67,11 @@
     <script src="/js/login.js"></script>
     <script src="/js/langue.js"></script>
     <script src="/js/menu.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 
 </html>

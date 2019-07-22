@@ -47,7 +47,7 @@ class Categories:
         self.date = date
 
 class Comments:
-    def __init__(self, id, id_user, id_article, comments, date, approved, signal):
+    def __init__(self, id, id_user, id_article, comments, date, approved, signal, photo):
         self.id = id
         self.id_user = id_user
         self.id_article = id_article
@@ -55,6 +55,7 @@ class Comments:
         self.date = date
         self.approved = approved
         self.signal = signal
+        self.photo = photo
 
 class Interactions:
      def __init__(self,id,id_user, action, os, browser, ip_adresse, date):
@@ -489,7 +490,7 @@ class Database:
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
-            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6], "")
             comments.append(c)
         return comments
 
@@ -508,7 +509,7 @@ class Database:
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
-            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6],"")
             comments.append(c)
         return comments
 
@@ -519,7 +520,7 @@ class Database:
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
-            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6],"")
             comments.append(c)
         return comments
 
@@ -530,7 +531,7 @@ class Database:
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
-            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6],"")
             comments.append(c)
         return comments
 
@@ -541,7 +542,7 @@ class Database:
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
-            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6],"")
             comments.append(c)
         return comments
 
@@ -577,7 +578,7 @@ class Database:
         comments = []
         for row in cursor:
             tempdate = row[4][:10]
-            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5], row[6])
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5], row[6],"")
             comments.append(c)
         return comments
 
@@ -641,11 +642,11 @@ class Database:
     def get_My_Comments(self,user):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select * from comments where indice_user = ?  order by date desc",(user,))
+        cursor.execute("select * from comments inner join users on users.id = comments.indice_user where comments.indice_user = ?  order by date desc",(user,))
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
-            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6])
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6], row[19])
             comments.append(c)
         return comments
 
