@@ -20,7 +20,11 @@
 .home {
   padding: 5px 16px;
 }
-
+.text_profil{ 
+width: 100%;
+border: 1px solid #ced4da;
+border-radius: .25rem;
+}
 .textarea {
     margin: 0px 0px 15px;
     width: 100%;
@@ -30,7 +34,7 @@
 }
 
 .medias_display {
-	
+
 
     background-color: white;
      border: 1px solid #ccc;
@@ -184,7 +188,7 @@ div{
     padding-bottom: 15px;
 }
 
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 .header_article {
     height: auto;
 

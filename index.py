@@ -273,7 +273,10 @@ def update_user_test():
 def list_user():
     users = get_db().list_all_user()
     roles = get_db().get_roles()
-    return render_template('temp_manage_user.html', users=users, roles=roles)
+    if verifierLangue() == 'FR':
+        return render_template('temp_manage_user.html', users=users, roles=roles)
+    else:
+        return render_template('temp_manage_user.html', users=users, roles=roles, langue=1)
 
 @app.route('/gestion/user/profil', methods=["POST","GET"])
 @authentication_required
