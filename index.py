@@ -206,8 +206,15 @@ def inviter_collaborateur():
 def view_profil():
     user = get_db().get_info_user(getIdUser())
     comments = get_db().get_My_Comments(getIdUser())
-    print getIdUser()
-    return render_template('temp_profil_user.html',user=user,comments=comments)
+    print verifierLangue()
+    if verifierLangue() == 'FR':
+        print 'profil fr'
+        return render_template('temp_profil_user.html',user=user,comments=comments,side=1)
+    else:
+        print 'profil eng'
+        return render_template('temp_profil_user.html',user=user,comments=comments, langue=1,side=1)
+
+
 
 @app.route('/gestion/liste/fichiers')
 @authentication_required
