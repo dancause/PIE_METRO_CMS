@@ -96,6 +96,11 @@ class Countries:
         self.id = id
         self.name = name
 
+class States:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
 class Database:
     def __init__(self):
         self.connection = None
@@ -707,5 +712,16 @@ class Database:
         listes = []
         for row in cursor:
             p = Countries(row[0], row[2])
+            listes.append(p)
+        return listes
+
+
+    def getStatesCountry(self,country):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute(("select * from states where country_id = ? ")(country,))
+        listes = []
+        for row in cursor:
+            p = States(row[0], row[1])
             listes.append(p)
         return listes

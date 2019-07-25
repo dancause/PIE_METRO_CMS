@@ -319,6 +319,11 @@ def invitation():
     return render_template('login.html',
                            message=u'Votre code usager a été créer')
 
+@app.route('/gestion/province/<country>')
+def province(country):
+    states = get_db().getStatesCountry(country)
+    return render_template('states.html',states=states)
+
 @app.route('/liste')
 def intro():
     articles=get_db().select_liste()

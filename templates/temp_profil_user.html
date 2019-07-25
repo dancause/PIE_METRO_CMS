@@ -33,13 +33,13 @@
 
 </div>
 <div class="row form-group">
-<div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="categorie" id="categorie"  style="width: 100%;" class="mobile form-control" {% if articles %}value="{{articles.categorie}}"{% endif %}>
-  <option disable selected value>{% if langue %}Choose a country{% else %}Choisir une catégorie{% endif%}</option>
+<div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="categorie" id="country"  onchange="state()" style="width: 100%;" class="mobile form-control" value="{{user.countries}}">
+  <option disable selected value>{% if langue %}Choose a country{% else %}Choisir un pays{% endif%}</option>
 {% for c in countries %}
 <option value="{{c.id}}">{{c.name}}</option>
 {% endfor%}
 </select></div>
-<div class="col-md-6"><label>{% if langue %}States{% else %}États/Provinces{% endif%}</label><input class="form-control"  type="text"value="{{user.city}}"></input></div>
+<div class="col-md-6"><label>{% if langue %}States{% else %}États/Provinces{% endif%}</label><select class="form-control" id="states" type="text"value="{{user.city}}"><select></div>
 </div>
 
 
@@ -69,6 +69,31 @@
 
 </div>
 
+<script type="text/javascript">
+  function state(){
+  	var pays = document.getElementById('country').value;
+
+
+  	var xhr = new XMLHttpRequest();
+  	xhr.onreadystatechange = function() {
+  	if (xhr.readyState === XMLHttpRequest.DONE)
+  	{
+          	if (xhr.status === 200)
+          	{
+          	states.innerHTML = xhr.responseText;
+          	}
+          	else
+          	{
+          	console.log('Erreur avec le serveur');
+          	}
+  	}
+  };
+  xhr.open("GET", '/gestion/province/'+pays);
+  xhr.send();
+
+  }
+
+</script>
 
 
 
