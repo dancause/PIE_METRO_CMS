@@ -206,13 +206,14 @@ def inviter_collaborateur():
 def view_profil():
     user = get_db().get_info_user(getIdUser())
     comments = get_db().get_My_Comments(getIdUser())
+    countries = get_db().get_countries()
     print verifierLangue()
     if verifierLangue() == 'FR':
         print 'profil fr'
-        return render_template('temp_profil_user.html',user=user,comments=comments,side=1)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries,side=1)
     else:
         print 'profil eng'
-        return render_template('temp_profil_user.html',user=user,comments=comments, langue=1,side=1)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1,side=1)
 
 
 

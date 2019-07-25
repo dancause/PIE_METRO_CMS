@@ -91,6 +91,11 @@ class Roles:
         self.role = role
         self.active = active
 
+class Countries:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
 class Database:
     def __init__(self):
         self.connection = None
@@ -694,3 +699,13 @@ class Database:
             return "invited"
         else:
             return Users2(row[0], row[1], row[2], row[7], row[8], row[6], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17])
+
+    def get_countries(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute("select * from countries ")
+        listes = []
+        for row in cursor:
+            p = Countries(row[0], row[2])
+            listes.append(p)
+        return listes
