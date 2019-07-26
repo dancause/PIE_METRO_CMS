@@ -719,7 +719,7 @@ class Database:
     def getStatesCountry(self,country):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("select * from states where country_id = ? ")(country,))
+        cursor.execute("select * from states where country_id like ? ",(country,))
         listes = []
         for row in cursor:
             p = States(row[0], row[1])
