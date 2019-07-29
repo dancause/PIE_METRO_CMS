@@ -265,8 +265,8 @@ class Database:
 
     def ajout_utilisateur(self, nom, courriel, salt, hash):
         connection = self.get_connection()
-        connection.execute(("""insert into users(text,country, state, city,interet, firstname, lastname, date, nom,courriel,salt,hash)values
-                           (?,?,?,?,?,?,?,?,?,?,?,?)"""), ('','','','','','','',datetime.now(),nom, courriel, salt, hash))
+        connection.execute(("""insert into users(nom,courriel,salt,hash)values
+                           (?,?,?,?)"""), (nom, courriel, salt, hash))
         connection.commit()
 
     def get_user_login_info(self, courriel):
@@ -301,11 +301,11 @@ class Database:
         else:
             return data[0]
 
-    def save_invitation(self, courriel, token):
+    def save_invitation(self, courriel, token, role):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("insert into invitation(courriel, token, date_invitation) "
-                        "values(?, ?, ?)"), (courriel, token, datetime.now(),))
+        cursor.execute(("insert into invitation(courriel, token, date_invitation, role) "
+                        "values(?, ?, ?, ?)"), (courriel, token, datetime.now(), role,))
         connection.commit()
 
     def save_recuperation(self, courriel, token):
@@ -715,11 +715,10 @@ class Database:
             listes.append(p)
         return listes
 
-
     def getStatesCountry(self,country):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute("select * from states where country_id like ? ",(country,))
+        cursor.execute("select * from states where country_id like ? order by name",(country,))
         listes = []
         for row in cursor:
             p = States(row[0], row[1])

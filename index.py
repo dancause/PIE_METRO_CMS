@@ -68,7 +68,7 @@ def admin(f):
 def writer(f):
     @wraps(f)
     def decorated3(*args, **kwargs):
-        if 3 > getRight():
+        if 3 < getRight():
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated3
@@ -261,14 +261,14 @@ def envoyer_invitation():
         get_db().save_invitation(courriel, token)
         message_courriel(courriel, token, render_template(
                          'courriel_invitation.html', token=token),
-                         "invitation")
+                         "Inscription")
         return render_template('temp_invitation.html',
                                data=u"Invitation envoyées")
     elif get_db().inviter_courriel(courriel) is False:
         token = get_db().token_invitation(courriel)
         message_courriel(courriel, token, render_template(
                          'courriel_invitation.html', token=token),
-                         "invitation rappel")
+                         "Inscription rappel")
         return render_template('temp_invitation.html',
                                data=u"Invitation envoyées à nouveau")
     else:
