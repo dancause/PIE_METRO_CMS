@@ -244,7 +244,10 @@ def nouveau_usager(token):
                                error_message=u"Non autorisé"), 401
     res = get_db().valider_invitation(token)
     if res != None:
-        return render_template('temp_create_new_user.html', token=token)
+        if verifierLangue() == 'FR':
+            return render_template('temp_create_new_user.html', token=token)
+        else:
+            return render_template('temp_create_new_user.html', token=token,langue=1)
     else:
         return render_template('error_html.html', error_html="401",
                                error_message=u"Non autorisée"), 401
@@ -260,14 +263,14 @@ def envoyer_invitation():
     if get_db().inviter_courriel(courriel) is True:
         get_db().save_invitation(courriel, token)
         message_courriel(courriel, token, render_template(
-                         'courriel_invitation.html', token=token),
+                         'courriel_invitation.html', token=token,site='https://py-metro-cms.herokuapp.com'),
                          "Inscription")
         return render_template('temp_invitation.html',
                                data=u"Invitation envoyées")
     elif get_db().inviter_courriel(courriel) is False:
         token = get_db().token_invitation(courriel)
         message_courriel(courriel, token, render_template(
-                         'courriel_invitation.html', token=token),
+                         'courriel_invitation.html', token=token,site='https://py-metro-cms.herokuapp.com'),
                          "Inscription rappel")
         return render_template('temp_invitation.html',
                                data=u"Invitation envoyées à nouveau")

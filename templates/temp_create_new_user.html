@@ -14,14 +14,14 @@
                     <input  type="text" id="token2" name="token2" size="40" class="form-control" value="{{ token }}" disabled >
 				</div>
 				<div class="form-group">
-                    <label for="nom">Nom :</label>
+                    <label for="nom">{% if langue %}Username :{% else %}Nom d'usager :{% endif %}</label>
                     <input  type="text" id="nom" name="nom" size="40" class="form-control" value="{{name}}" >
 				</div>
 					{% if erreur_data %}
                     <div class="erreur">{{erreur_data.nom}}</div>
                     {% endif %}
 				<div class="form-group">
-                    <label for="courriel">courriel :</label>
+                    <label for="courriel">{% if langue %}Email :{% else %}courriel :{% endif %}</label>
                     <input  type="email" id="courriel" name="courriel" size="40" class="form-control" value="{{courriel}}" >
 				</div>
 
@@ -30,7 +30,7 @@
                     {% endif %}
 
                    <div class="form-group">
-                    <label for="motpass">mot de passe :</label>
+                    <label for="motpass">{% if langue %}Password{% else %}mot de passe :{% endif %}</label>
                     <input  type="password" id="motpasse" name="motpasse" size="40" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
 				</div>
 
@@ -38,16 +38,16 @@
                     <div class="erreur">{{erreur_data.motpasse}}</div>
                     {% endif %}
                     <div class="form-group">
-                    <label for="motpass2">vérification mot de passe :</label>
+                    <label for="motpass2">{% if langue %}Password{% else %}vérification mot de passe :{% endif %}</label>
                     <input  type="password" id="motpasse2" name="motpasse2" size="40" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" >
 				</div>
 
 				{% if erreur_data %}
                     <div class="erreur">{{erreur_data.motpasse2}}</div>
                     {% endif %}
-                <div class="form-group">
-                  <input type=reset value='annuler' type="button" class="btn btn-primary">
-                  <input type=submit value='OK' type="button" class="btn btn-primary">
+                <div class="row form-group">
+                  <div class="col-6"><input type=reset value='{% if langue %}Reset{% else %}Annuler{% endif %}' type="button" class="btn btn-secondary btn-lg btn-block">  </div>
+                  <div class="col-6"><input type=submit value='OK' type="button" class="btn btn-secondary btn-lg btn-block">  </div>
                 </div>
 </form>
 
