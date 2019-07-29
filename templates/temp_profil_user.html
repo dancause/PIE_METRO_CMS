@@ -6,7 +6,7 @@
 
 
 
-<div class="container row_media">
+<div class="row_media">
   <br>
 <div class=row>
 <div id="photo_profil" class=" col-sm-12 text-center">
@@ -20,17 +20,18 @@
 </div>
 
 <form>
-  <div class="row form-group">
-  <div class="col-md-6"><label>{% if langue %}Username {% else %}Nom d'usager{% endif%}</label><input class="form-control" type="text" value="{{user.nom}}"></input></div>
-  <div class="col-md-5"><label>{% if langue %}Email{% else %}Courriel{% endif%}</label><input class="form-control"  type="text"value="{{user.courriel}}" disabled></input></div>
-  <div class="col-md-1">  <br><label> {% if langue %}Hide{% else %}Caché{% endif%}<input type="checkbox" name="hide_email" value="1"/></label></div>
-  </div>
+<div class="row form-group">
+<div class="col-md-6"><label>{% if langue %}Username {% else %}Nom d'usager{% endif%}</label><input class="form-control" type="text" value="{{user.nom}}"></input></div>
+<div class="col-md-6">
+<div class="row">
+<div class="col-10"><label>{% if langue %}Email{% else %}Courriel{% endif%}</label><input class="form-control"  type="text"value="{{user.courriel}}" disabled></input></div>
+<div class="col-2"><br><label> {% if langue %}Hide{% else %}Caché{% endif%}<input type="checkbox" name="hide_email" value="1"/></label></div>
+</div>
+</div>
+</div>
 <div class="row form-group">
 <div class="col-md-6"><label>{% if langue %}Firstname{% else %}Prénom{% endif%}</label><input class="form-control" type="text" value="{{user.firstname}}"></input></div>
 <div class="col-md-6"><label>{% if langue %}Lastname{% else %}Nom de Famille{% endif%}</label><input class="form-control" type="text" value="{{user.lastname}}"></input></div>
-</div>
-<div class="row">
-
 </div>
 <div class="row form-group">
 <div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="categorie" id="country"  onchange="state()" style="width: 100%;" class="mobile form-control" value="{{user.countries}}">
@@ -48,8 +49,8 @@
 <div class="col-md-12"><label>{% if langue %}Bios{% else %}Bios{% endif%}</label><textarea class="text_profil" name="name" rows="5" style="width:100%;">{{user.text}}</textarea></div>
 </div>
 <div class="form-group row">
-<div class="col-md-6"><input class="form-control btn btn-secondary" type="submit" value="{% if langue %}update{% else %}mise à jour{% endif%}"></input></div>
-<div class="col-md-6"><input class="form-control btn btn-secondary" type="submit" value="{% if langue %}close{% else %}fermer{% endif%}"></input></div>
+<div class="col-md-6"><input class="btn btn-secondary btn-lg btn-block" type="submit" value="{% if langue %}update{% else %}mise à jour{% endif%}"></input></div>
+<div class="col-md-6"><input class="btn btn-secondary btn-lg btn-block" type="submit" value="{% if langue %}close{% else %}fermer{% endif%}"></input></div>
 </div>
 </form>
 <br>

@@ -1,36 +1,29 @@
 {% extends "index.html" %}
 {% block content %}
 <div>
-  <h3>Invitation</h3>
+  <h3>Inscription</h3>
   <div>
-  
-<form action="/gestion/send/invitation" method="post">
+
+<form action="/gestion/send/inscription" method="post">
+
 <div class="row">
-				<div class="form-group col-md-6">
+				<div class="form-group col-12">
                     <label for="courriel">courriel :</label>
                     <input  type="text" id="courriel" name="courriel" size="40" class="form-control" >
 				</div>
 
-            <div class=" form-group col-md-6">
- 				<label id="">TYPE:</label>
- 				<select name="role" id="role"  style="width: 100%;" class="form-control">
-                {% if update %}{% else %}<option disable selected value>Choisir une catégorie</option>{% endif %}
- 				{% for r in roles %}
- 				<option value="{{r.id}}">{{r.role}}</option>
- 				{% endfor %}
- 				</select>
-            </div>
 </div>
 				{% if data %}
                     <div class="erreur">{{data}}</div>
-                    {% endif %}             
-                <div class="form-group">
-                  <input type=reset value='annuler' type="button" class="btn btn-primary">
-                  <input type=submit value='OK' type="button" class="btn btn-primary">
-                </div>
+        {% endif %}
+
+                <div class="row form-group">
+                  <div class="col-6"><input type=reset value='annuler' type="button" class="btn btn-secondary btn-lg btn-block"></div>
+                  <div class="col-6"><input type=submit value='OK' type="button" class="btn btn-secondary btn-lg btn-block"></div>
+    </div>
 </form>
 
   </div>
   </div>
-  
+
   {% endblock %}

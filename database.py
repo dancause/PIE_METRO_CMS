@@ -265,8 +265,8 @@ class Database:
 
     def ajout_utilisateur(self, nom, courriel, salt, hash):
         connection = self.get_connection()
-        connection.execute(("""insert into users(nom,courriel,salt,hash)values
-                           (?,?,?,?)"""), (nom, courriel, salt, hash))
+        connection.execute(("""insert into users(text,country, state, city,interet, firstname, lastname, date, nom,courriel,salt,hash)values
+                           (?,?,?,?,?,?,?,?,?,?,?,?)"""), ('','','','','','','',datetime.now(),nom, courriel, salt, hash))
         connection.commit()
 
     def get_user_login_info(self, courriel):
@@ -301,11 +301,11 @@ class Database:
         else:
             return data[0]
 
-    def save_invitation(self, courriel, token, role):
+    def save_invitation(self, courriel, token):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("insert into invitation(courriel, token, date_invitation, role) "
-                        "values(?, ?, ?, ?)"), (courriel, token, datetime.now(), role,))
+        cursor.execute(("insert into invitation(courriel, token, date_invitation) "
+                        "values(?, ?, ?)"), (courriel, token, datetime.now(),))
         connection.commit()
 
     def save_recuperation(self, courriel, token):

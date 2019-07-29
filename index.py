@@ -60,7 +60,7 @@ def authentication_required(f):
 def admin(f):
     @wraps(f)
     def decorated2(*args, **kwargs):
-        if 2 <= getRight():
+        if getRight() > 2:
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated2
@@ -68,7 +68,7 @@ def admin(f):
 def writer(f):
     @wraps(f)
     def decorated3(*args, **kwargs):
-        if 3 <= getRight():
+        if 3 > getRight():
             return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated3
@@ -195,8 +195,7 @@ def login_validation():
         return render_template('login.html',error='wrong user/password')
 
 
-@app.route('/gestion/invitation')
-@authentication_required
+@app.route('/gestion/inscription')
 def inviter_collaborateur():
     roles = get_db().get_roles()
     return render_template('temp_invitation.html',roles=roles)
@@ -207,14 +206,26 @@ def view_profil():
     user = get_db().get_info_user(getIdUser())
     comments = get_db().get_My_Comments(getIdUser())
     countries = get_db().get_countries()
-    print verifierLangue()
     if verifierLangue() == 'FR':
-        print 'profil fr'
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries,side=1)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries)
     else:
-        print 'profil eng'
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1,side=1)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1)
 
+@app.route('/gestion/profil/update')
+@authentication_required
+def update_profil():
+    courriel = request.form['username']
+    password = request.form['password']
+    courriel = request.form['username']
+    password = request.form['password']
+    courriel = request.form['username']
+    password = request.form['password']
+    courriel = request.form['username']
+    password = request.form['password']
+    if verifierLangue() == 'FR':
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries)
+    else:
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1)
 
 
 @app.route('/gestion/liste/fichiers')
@@ -226,7 +237,7 @@ def getlist():
         fichiers.append({'name':name})
     return render_template('temp_liste_files.html',fichiers=fichiers)
 
-@app.route('/gestion/invitation/<token>')
+@app.route('/gestion/inscription/<token>')
 def nouveau_usager(token):
     if "id" in session:
         return render_template('error_html.html', error_html="401",
@@ -238,18 +249,16 @@ def nouveau_usager(token):
         return render_template('error_html.html', error_html="401",
                                error_message=u"Non autorisée"), 401
 
-@app.route('/gestion/send/invitation', methods=["POST"])
-@authentication_required
+@app.route('/gestion/send/inscription', methods=["POST"])
 def envoyer_invitation():
     courriel = request.form['courriel']
-    role = request.form['role']
     token = uuid.uuid4().hex
     if get_db().valider_courriel(courriel) is False:
         data = u"Il y a déja un compte associé à ce courriel"
         return render_template('temp_invitation.html',
                                data=data)
     if get_db().inviter_courriel(courriel) is True:
-        get_db().save_invitation(courriel, token, role)
+        get_db().save_invitation(courriel, token)
         message_courriel(courriel, token, render_template(
                          'courriel_invitation.html', token=token),
                          "invitation")
