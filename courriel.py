@@ -17,7 +17,7 @@ def message_courriel(destination, token, body, subject):
     msg['From'] = source
     msg['To'] = destination
     msg.attach(MIMEText(body, 'html'))
-    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server = smtplib.SMTP(os.environ.get('smtp'), os.environ.get('number'))
     server.starttls()
     server.login(source, motpasse)
     text = msg.as_string()
