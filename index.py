@@ -222,6 +222,8 @@ def update_profil():
     password = request.form['password']
     courriel = request.form['username']
     password = request.form['password']
+    courriel = request.form['username']
+    password = request.form['password']
     if verifierLangue() == 'FR':
         return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries)
     else:

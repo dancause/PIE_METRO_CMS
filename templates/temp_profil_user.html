@@ -21,32 +21,32 @@
 
 <form>
 <div class="row form-group">
-<div class="col-md-6"><label>{% if langue %}Username {% else %}Nom d'usager{% endif%}</label><input class="form-control" type="text" value="{{user.nom}}"></input></div>
+<div class="col-md-6"><label>{% if langue %}Username {% else %}Nom d'usager{% endif%}</label><input name="nom"class="form-control" type="text" value="{{user.nom}}"></input></div>
 <div class="col-md-6">
 <div class="row">
-<div class="col-10"><label>{% if langue %}Email{% else %}Courriel{% endif%}</label><input class="form-control"  type="text"value="{{user.courriel}}" disabled></input></div>
+<div class="col-10"><label>{% if langue %}Email{% else %}Courriel{% endif%}</label><input class="form-control" name="courriel" type="text"value="{{user.courriel}}" disabled></input></div>
 <div class="col-2"><br><label> {% if langue %}Hide{% else %}Caché{% endif%}<input type="checkbox" name="hide_email" value="1"/></label></div>
 </div>
 </div>
 </div>
 <div class="row form-group">
-<div class="col-md-6"><label>{% if langue %}Firstname{% else %}Prénom{% endif%}</label><input class="form-control" type="text" value="{{user.firstname}}"></input></div>
-<div class="col-md-6"><label>{% if langue %}Lastname{% else %}Nom de Famille{% endif%}</label><input class="form-control" type="text" value="{{user.lastname}}"></input></div>
+<div class="col-md-6"><label>{% if langue %}Firstname{% else %}Prénom{% endif%}</label><input class="form-control" name="firstname" type="text" value="{{user.firstname}}"></input></div>
+<div class="col-md-6"><label>{% if langue %}Lastname{% else %}Nom de Famille{% endif%}</label><input class="form-control" name="lastname" type="text" value="{{user.lastname}}"></input></div>
 </div>
 <div class="row form-group">
-<div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="categorie" id="country"  onchange="state()" style="width: 100%;" class="mobile form-control" value="{{user.countries}}">
+<div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="country" id="country"  onchange="state()" style="width: 100%;" class="mobile form-control" value="{{user.countries}}">
   <option disable selected value>{% if langue %}Choose a country{% else %}Choisir un pays{% endif%}</option>
 {% for c in countries %}
 <option value="{{c.id}}">{{c.name}}</option>
 {% endfor%}
 </select></div>
-<div class="col-md-6"><label>{% if langue %}States{% else %}États/Provinces{% endif%}</label><select class="form-control" id="states" type="text"value="{{user.city}}"><select></div>
+<div class="col-md-6"><label>{% if langue %}States{% else %}États/Provinces{% endif%}</label><select name="state" class="form-control" id="states" type="text"value="{{user.city}}"><select></div>
 </div>
 
 
 <div class="form-group row">
-<div class="col-md-12"><label>{% if langue %}Interet{% else %}Intêret{% endif%}</label><input  class="form-control" type="text"value="{{user.interet}}"></input></div>
-<div class="col-md-12"><label>{% if langue %}Bios{% else %}Bios{% endif%}</label><textarea class="text_profil" name="name" rows="5" style="width:100%;">{{user.text}}</textarea></div>
+<div class="col-md-12"><label>{% if langue %}Interet{% else %}Intêret{% endif%}</label><input  name="interet" class="form-control" type="text"value="{{user.interet}}"></input></div>
+<div class="col-md-12"><label>{% if langue %}Bios{% else %}Bios{% endif%}</label><textarea class="text_profil" name="text" rows="5" style="width:100%;">{{user.text}}</textarea></div>
 </div>
 <div class="form-group row">
 <div class="col-md-6"><input class="btn btn-secondary btn-lg btn-block" type="submit" value="{% if langue %}update{% else %}mise à jour{% endif%}"></input></div>
