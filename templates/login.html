@@ -1,21 +1,8 @@
-<!DOCTYPE HTML>
-
-<html>
-    <head>
-        <title>Login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="UTF-8">
-        <link rel="SHORTCUT ICON" href="../">
-        <!-- CSS -->
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" type="text/css"/>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" type="text/css"/>
-         <script src="/js/gestion_usagers.js"></script>
-
-    </head>
-    <body>
-    
+{% extends "index.html" %}
+{% block content %}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" type="text/css"/>
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" type="text/css"/>
+       <script src="/js/gestion_usagers.js"></script>
     <style>
     body{
     background-image: url("../img/fond_login.jpg");
@@ -32,15 +19,15 @@ background-repeat: no-repeat;
     </style>
       <div id="bg">
 <div class="container-fluid">
-      
+
             <div id="">
-               
+
                 <div id=""></div>
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4"  id="reset_password"><a href="/"><img src="/images/metro.jpg" class="mx-auto d-block img-fluid" alt="logo" style="    padding-top: 50px;"></a>
                 <form name="login" class="tcenter" action="/login/validation" method="POST">
-                                            
+
                 <div class="control-group">
                     <span sfuuid="1" class="edit">
                         <input type="text" name="username" value="" placeholder="Nom d&#39;utilisateur" class="form-control login" aria-label="username" required style="
@@ -48,7 +35,7 @@ background-repeat: no-repeat;
 ">
                     </span>
                 </div>
-                                
+
                 <div class="control-group">
                     <span sfuuid="2" class="edit">
                         <input type="password" name="password" value="" placeholder="Mot de passe" aria-label="password" class="form-control login" requireds style="
@@ -61,7 +48,7 @@ background-repeat: no-repeat;
                                     <strong>{{ error }}</strong>
                                 </p>
                                 {% endif %}
-                            
+
                             <div class="login-footer">
                                 <span sfuuid="3" class="edit"><input type="submit" name="submit" class="btn btn-secondary btn-lg btn-block" value="Submit"style="
     margin-top: 20px;
@@ -76,7 +63,7 @@ background-repeat: no-repeat;
             </div>
 
 
-                    
+
 </div>
                 <div id="footer"></div>
                 <div id="drawers"></div>
@@ -84,5 +71,4 @@ background-repeat: no-repeat;
         </div>
 
 </div>
-    </body>
-</html>
+{% endblock %}
