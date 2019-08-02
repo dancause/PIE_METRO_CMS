@@ -131,7 +131,6 @@ def affichage_login():
 def motpasseperdue(id_token):
     data = u'Le délais de renouvellement du mot de passe a été dépassé'
     if "id" in session:
-        print 'test1'
         return render_template('error_html.html', error_html="401",
                                error_message=u"Non autorisé"), 401
     trenteminute = 1800
@@ -176,11 +175,9 @@ def login_validation():
         session["id"] = id_session
         Log('acces grant'+' - '+courriel)
         return redirect("/")
-    print hash
     if hash == None or hash[0] == None:
-        Log('wrong password')
+        Log('wrong password | '+courriel)
         return render_template('login.html',error='wrong user/password')
-    print 'passe la'
     salt = hash[0]
     hashed_password = hashlib.sha512(password + salt).hexdigest()
     if hashed_password == hash[1]:
@@ -191,7 +188,7 @@ def login_validation():
         Log('acces grant'+' - '+courriel)
         return redirect("/")
     else:
-        Log('wrong password')
+        Log('wrong password | '+courriel)
         return render_template('login.html',error='wrong user/password')
 
 
@@ -473,7 +470,6 @@ def upload():
 @app.route('/save/photo/profil', methods=['POST','GET'])
 @authentication_required
 def upload_photo_profil():
-    print uuid.uuid4()
     app.config['UPLOAD_FOLDER'] = 'static/images_profiles'
     info_upload = {}
     if request.method == 'POST':
@@ -527,9 +523,7 @@ def afficher_article(categorie,url_article):
 
 @app.route('/article/<id>', methods=['POST','GET'])
 def afficher_id_article(id):
-    print id
     article=get_db().get_id_article(id)
-    print article
     comments=get_db().get_comments(article.unique)
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
@@ -765,18 +759,12 @@ def getRight():
     if "id" in session:
         id_session = session["id"]
         user_name = get_db().get_User_Right(id_session)
-        print getUser()
-        print user_name
     else:
         user_name = "invited"
-        print getUser()
-        print user_name
     return user_name
 
 def controlRight(level):
-    print level < getRight()
     if level < getRight():
-        print 'passe ici'
         return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
 
 

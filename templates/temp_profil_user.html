@@ -40,7 +40,7 @@
 <option value="{{c.id}}">{{c.name}}</option>
 {% endfor%}
 </select></div>
-<div class="col-md-6"><label>{% if langue %}States{% else %}États/Provinces{% endif%}</label><select name="state" class="form-control" id="states" type="text"value="{{user.city}}"><select></div>
+<div class="col-md-6"><label>{% if langue %}States{% else %}États/Provinces{% endif%}</label><select name="states" class="form-control" id="states" type="text"value="{{user.state}}"><select></div>
 </div>
 
 
@@ -72,7 +72,6 @@
 
 <script type="text/javascript">
   function state(){
-    console.log('passe ici');
   	var pays = document.getElementById('country').value;
 
 
