@@ -25,6 +25,7 @@ from flask import make_response
 from flask import redirect
 from functools import wraps
 from database import Articles
+from database import Users2
 from database import Database
 from flask import render_template
 
@@ -176,7 +177,7 @@ def login_validation():
         Log('acces grant'+' - '+courriel)
         return redirect("/")
     if hash == None or hash[0] == None:
-        Log('wrong password | '+courriel)
+        Log('wrong password')
         return render_template('login.html',error='wrong user/password')
     salt = hash[0]
     hashed_password = hashlib.sha512(password + salt).hexdigest()
@@ -188,7 +189,7 @@ def login_validation():
         Log('acces grant'+' - '+courriel)
         return redirect("/")
     else:
-        Log('wrong password | '+courriel)
+        Log('wrong password')
         return render_template('login.html',error='wrong user/password')
 
 
@@ -196,31 +197,58 @@ def login_validation():
 def inviter_collaborateur():
     roles = get_db().get_roles()
     return render_template('temp_invitation.html',roles=roles)
+    if verifierLangue() == 'FR':
+        return render_template('temp_invitation.html',roles=roles)
+    else:
+        return render_template('temp_invitation.html',roles=roles,langue=1)
 
-@app.route('/gestion/profil')
+@app.route('/gestion/profil', methods=['POST','GET'])
 @authentication_required
 def view_profil():
     user = get_db().get_info_user(getIdUser())
     comments = get_db().get_My_Comments(getIdUser())
     countries = get_db().get_countries()
+    if request.method =="POST":
+        nom = request.form['nom']
+        courriel =  request.form['courriel']
+        lastname = request.form['lastname']
+        firstname = request.form['firstname']
+        hide_email = request.form.get('hide_email')
+        country = request.form['country']
+        states = request.form['states']
+        interet =  request.form['interet']
+        text = request.form['text']
+        print nom
+        print courriel
+        print lastname
+        print firstname
+        print hide_email
+        print country
+        print states
+        print interet
+        print text
+        profil = Users2(getIdUser(), nom, courriel, '', '', '', hide_email, text,country, states, '',interet, firstname, lastname, '' )
+        print profil
     if verifierLangue() == 'FR':
         return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries)
     else:
         return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1)
 
-@app.route('/gestion/profil/update')
+@app.route('/gestion/profil/update', methods=['POST','GET'])
 @authentication_required
 def update_profil():
-    courriel = request.form['username']
-    password = request.form['password']
-    courriel = request.form['username']
-    password = request.form['password']
-    courriel = request.form['username']
-    password = request.form['password']
-    courriel = request.form['username']
-    password = request.form['password']
-    courriel = request.form['username']
-    password = request.form['password']
+    print 'passe GPU'
+    nom = request.form['nom']
+    courriel = request.form['courriel']
+    hide_email = request.form['hide']
+    country = request.form['country']
+    state = request.form['states']
+    interet = request.form['interet']
+    text = request.form['text']
+    lastname = request.form['lastname']
+    firstname = request.form['firstname']
+    user = Users2(getIdUser(), nom, courriel, '', '', '', hide_email, text,country, state, '',interet, firstname, lastname, '' )
+    get_db().saveUpdateProfil(user)
     if verifierLangue() == 'FR':
         return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries)
     else:
@@ -234,7 +262,7 @@ def getlist():
     files = os.listdir('static/images')
     for name in files:
         fichiers.append({'name':name})
-    return render_template('temp_liste_files.html',fichiers=fichiers)
+    return render_template('temp_liste_files.html',fichiers=fichiers,side=1)
 
 @app.route('/gestion/inscription/<token>')
 def nouveau_usager(token):
@@ -293,9 +321,9 @@ def list_user():
     users = get_db().list_all_user()
     roles = get_db().get_roles()
     if verifierLangue() == 'FR':
-        return render_template('temp_manage_user.html', users=users, roles=roles)
+        return render_template('temp_manage_user.html', users=users, roles=roles,side=1)
     else:
-        return render_template('temp_manage_user.html', users=users, roles=roles, langue=1)
+        return render_template('temp_manage_user.html', users=users, roles=roles, langue=1,side=1)
 
 @app.route('/gestion/user/profil', methods=["POST","GET"])
 @authentication_required
@@ -339,15 +367,15 @@ def province(country):
 def intro():
     articles=get_db().select_liste()
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles')
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles',side=1)
     else:
-        return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1)
+        return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1,side=1)
 
 @app.route('/gestion/creer/article')
 def create_article():
     photos = get_db().liste_medias()
     categories = get_db().liste_categories()
-    return render_template('temp_creat_article.html', photos=photos,categories=categories)
+    return render_template('temp_creat_article.html', photos=photos,categories=categories,side=1)
 
 @app.route('/gestion/create/user')
 @authentication_required
@@ -463,9 +491,9 @@ def upload():
                 print 'fichier interdit'
     photos = get_db().liste_medias()
     if verifierLangue() == 'FR':
-        return render_template('temp_upload.html',photos=photos)
+        return render_template('temp_upload.html',photos=photos,side=1)
     else:
-        return render_template('temp_upload.html',photos=photos,langue=1)
+        return render_template('temp_upload.html',photos=photos,langue=1,side=1)
 
 @app.route('/save/photo/profil', methods=['POST','GET'])
 @authentication_required
@@ -570,7 +598,7 @@ def comments():
 def validate_comments():
 	mycomments()
 	comments=get_db().get_comments_unvalidated()
-	return render_template('temps_admin_comment.html',comments=comments)
+	return render_template('temps_admin_comment.html',comments=comments,side=1)
 
 @app.route('/valider/comments/<id_comments>', methods=['POST','GET'])
 @authentication_required
@@ -778,7 +806,6 @@ def kept_search():
 
 def mycomments():
 	user = getUser()
-	print user
 
 @app.errorhandler(400)
 def page_not_found400(e):

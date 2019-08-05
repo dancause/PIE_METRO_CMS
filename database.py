@@ -724,3 +724,6 @@ class Database:
             p = States(row[0], row[1])
             listes.append(p)
         return listes
+
+    def saveUpdateProfil(self,u):
+        print u
