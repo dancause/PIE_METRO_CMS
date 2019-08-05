@@ -25,7 +25,7 @@
 <div class="col-md-6">
 <div class="row">
 <div class="col-10"><label>{% if langue %}Email{% else %}Courriel{% endif%}</label><input class="form-control" name="courriel" type="email" value="{{user.courriel}}"></input></div>
-<div class="col-2"><br><label> {% if langue %}Hide{% else %}Caché{% endif%}<input type="checkbox" name="hide_email" value="1"/></label></div>
+<div class="col-2"><br><label> {% if langue %}Hide{% else %}Caché{% endif%}<input type="checkbox" name="hide_email" value="user.hide_email" {% if user.hide_email == 'True' or user.hide_email == 1 %}checked{% else %}{% endif %} /></label></div>
 </div>
 </div>
 </div>
@@ -34,15 +34,15 @@
 <div class="col-md-6"><label>{% if langue %}Lastname{% else %}Nom de Famille{% endif%}</label><input class="form-control" name="lastname" type="text" value="{{user.lastname}}"></input></div>
 </div>
 <div class="row form-group">
-<div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="country" id="country"  onchange="state()" style="width: 100%;" class="mobile form-control" value="{{user.countries}}">
-  <option disable selected value="0">{% if langue %}Choose a country{% else %}Choisir un pays{% endif%}</option>
+{{pays}}
+<div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="country" id="country"  onchange="state()" style="width: 100%;" class="mobile form-control" value="{{user.country}}">
+  {% if user.country >= 1 %}{% else %}<option disable selected value="0"> {% if langue %}Choose a country{% else %}Choisir un pays{% endif%}</option>{% endif %}
 {% for c in countries %}
-<option value="{{c.id}}">{{c.name}}</option>
+<option value="{{c.id}}" {% if c.id == pays %}selected{% else %} asdfsfsd {% endif %}>{{c.name}}</option>
 {% endfor%}
 </select></div>
 <div class="col-md-6"><label>{% if langue %}States{% else %}États/Provinces{% endif%}</label><select name="states" class="form-control" id="states" type="text"value="{{user.state}}">
-<option disable selected value="0"></option>
-<select></div>
+ <select></div>{{user.state}} /   {{user.country}}
 </div>
 
 

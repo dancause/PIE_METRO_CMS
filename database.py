@@ -726,4 +726,8 @@ class Database:
         return listes
 
     def saveUpdateProfil(self,u):
-        print u
+        print u.nom
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute("update users set nom = ?, courriel = ?, hide_email = ?, text = ?,country = ?, states = ?,interet = ?, firstname = ?, lastname = ? where id = ? ",(u.nom,u.courriel,u.hide_email,u.text,u.country,u.state,u.interet,u.firstname,u.lastname, u.id, ))
+        connection.commit()

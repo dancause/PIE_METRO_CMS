@@ -208,6 +208,7 @@ def view_profil():
     user = get_db().get_info_user(getIdUser())
     comments = get_db().get_My_Comments(getIdUser())
     countries = get_db().get_countries()
+    pays = ''
     if request.method =="POST":
         nom = request.form['nom']
         courriel =  request.form['courriel']
@@ -227,12 +228,13 @@ def view_profil():
         print states
         print interet
         print text
+        pays = int(country)
         profil = Users2(getIdUser(), nom, courriel, '', '', '', hide_email, text,country, states, '',interet, firstname, lastname, '' )
-        print profil
+        get_db().saveUpdateProfil(profil)
     if verifierLangue() == 'FR':
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries,pays=pays)
     else:
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1,pays=pays)
 
 @app.route('/gestion/profil/update', methods=['POST','GET'])
 @authentication_required
