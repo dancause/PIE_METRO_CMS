@@ -1,4 +1,4 @@
 
 {% for s in states %}
-<option value="{{s.id}}">{{s.name}}</option>
+<option value="{{s.id}}" {% if s.id == province %} selected {% else %} {% endif %} >{{s.name}}</option>
 {% endfor%}

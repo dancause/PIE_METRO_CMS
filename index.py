@@ -365,6 +365,11 @@ def province(country):
     states = get_db().getStatesCountry(country)
     return render_template('states.html',states=states)
 
+@app.route('/gestion/provinces/<country>/<province>')
+def provinces(country,province):
+    states = get_db().getStatesCountry(country)
+    return render_template('states.html',states=states,province=int(province))
+
 @app.route('/liste')
 def intro():
     articles=get_db().select_liste()

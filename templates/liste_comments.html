@@ -21,7 +21,7 @@
 				<tr id="{{c.id}}">
                     <td>{{c.id}}</td>
     				<td>{{c.id_user}}</td>
-    				<td>{{c.id_article}}</td>
+    				<td><a href ="/article/{{c.id_article}}">{{c.id_article}}</a></td>
     				<td>{{c.comments }}</td>
     				<td>{{c.date}}</td>
     				<td><input type="checkbox" id="checkbox_validate_{{c.id}}" name="xxx" onclick="validat_comment({{c.id}});" {% if c.approved=="true" %}checked{% else %}{% endif %} {% if c.signal=="true" %}disabled {% else %}{% endif %}/></td>
