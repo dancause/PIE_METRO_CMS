@@ -38,12 +38,16 @@
 <div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="country" id="country"  onchange="state()" style="width: 100%;" class="mobile form-control" value="{{user.country}}">
   {% if user.country >= 1 %}{% else %}<option disable selected value="0"> {% if langue %}Choose a country{% else %}Choisir un pays{% endif%}</option>{% endif %}
 {% for c in countries %}
-<option value="{{c.id}}" {% if c.id == pays %}selected{% else %} asdfsfsd {% endif %}>{{c.name}}</option>
+<option value="{{c.id}}" {% if c.id == user.country %}selected{% else %} {% endif %}>{{c.name}}</option>
 {% endfor%}
 </select></div>
 <div class="col-md-6"><label>{% if langue %}States{% else %}États/Provinces{% endif%}</label><select name="states" class="form-control" id="states" type="text"value="{{user.state}}">
- <select></div>{{user.state}} /   {{user.country}}
-</div>
+
+  {% for s in states %}
+  <option value="{{s.id}}" {% if s.id == user.state %} selected {% else %} {% endif %} >{{s.name}}</option>
+  {% endfor%}
+ <select></div> /   {{user.country}}
+</div><span id="etats" style="display:none;">{{user.state}}</span>
 
 
 <div class="form-group row">
@@ -95,6 +99,7 @@
   xhr.send();
 
   }
+
 
 </script>
 

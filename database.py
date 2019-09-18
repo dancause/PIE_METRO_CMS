@@ -711,7 +711,7 @@ class Database:
         cursor.execute("select * from countries ")
         listes = []
         for row in cursor:
-            p = Countries(row[0], row[2])
+            p = Countries(str(row[0]), row[2])
             listes.append(p)
         return listes
 
@@ -721,12 +721,11 @@ class Database:
         cursor.execute("select * from states where country_id like ? order by name",(country,))
         listes = []
         for row in cursor:
-            p = States(row[0], row[1])
+            p = States(str(row[0]), row[1])
             listes.append(p)
         return listes
 
     def saveUpdateProfil(self,u):
-        print(u.nom)
         connection = self.get_connection()
         cursor = connection.cursor()
         cursor.execute("update users set nom = ?, courriel = ?, hide_email = ?, text = ?,country = ?, states = ?,interet = ?, firstname = ?, lastname = ? where id = ? ",(u.nom,u.courriel,u.hide_email,u.text,u.country,u.state,u.interet,u.firstname,u.lastname, u.id, ))

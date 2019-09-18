@@ -209,6 +209,7 @@ def view_profil():
     user = get_db().get_info_user(getIdUser())
     comments = get_db().get_My_Comments(getIdUser())
     countries = get_db().get_countries()
+    states = get_db().getStatesCountry(user.country)
     pays = ''
     if request.method =="POST":
         nom = request.form['nom']
@@ -220,27 +221,18 @@ def view_profil():
         states = request.form['states']
         interet =  request.form['interet']
         text = request.form['text']
-        print(nom)
-        print(courriel)
-        print(lastname)
-        print(firstname)
-        print(hide_email)
-        print(country)
-        print(states)
-        print(interet)
-        print(text)
         pays = int(country)
         profil = Users2(getIdUser(), nom, courriel, '', '', '', hide_email, text,country, states, '',interet, firstname, lastname, '' )
         get_db().saveUpdateProfil(profil)
+        return redirect('/gestion/profil')
     if verifierLangue() == 'FR':
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries,pays=pays)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries,pays=pays,states=states)
     else:
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1,pays=pays)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1,pays=pays,states=states)
 
 @app.route('/gestion/profil/update', methods=['POST','GET'])
 @authentication_required
 def update_profil():
-    print('passe GPU')
     nom = request.form['nom']
     courriel = request.form['courriel']
     hide_email = request.form['hide']
@@ -252,11 +244,7 @@ def update_profil():
     firstname = request.form['firstname']
     user = Users2(getIdUser(), nom, courriel, '', '', '', hide_email, text,country, state, '',interet, firstname, lastname, '' )
     get_db().saveUpdateProfil(user)
-    if verifierLangue() == 'FR':
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries)
-    else:
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1)
-
+    return redirect("/gestion/profil")
 
 @app.route('/gestion/liste/fichiers')
 @authentication_required
@@ -365,6 +353,11 @@ def invitation():
 def province(country):
     states = get_db().getStatesCountry(country)
     return render_template('states.html',states=states)
+
+@app.route('/gestion/provinces/<country>/<province>')
+def provinces(country,province):
+    states = get_db().getStatesCountry(country)
+    return render_template('states.html',states=states,province=int(province))
 
 @app.route('/liste')
 def intro():
