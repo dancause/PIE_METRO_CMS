@@ -54,7 +54,7 @@ def authentication_required(f):
     def decorated(*args, **kwargs):
         if not is_authenticated(session):
             return render_template('error_html.html', error_html="401",
-                                   error_message="Non autorisé"), 401
+                                   error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated
 
@@ -62,7 +62,7 @@ def admin(f):
     @wraps(f)
     def decorated2(*args, **kwargs):
         if getRight() > 2:
-            return render_template('error_html.html', error_html="401",error_message="Non autorisé"), 401
+            return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated2
 
@@ -70,7 +70,7 @@ def writer(f):
     @wraps(f)
     def decorated3(*args, **kwargs):
         if 3 < getRight():
-            return render_template('error_html.html', error_html="401",error_message="Non autorisé"), 401
+            return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated3
 
@@ -83,7 +83,7 @@ def start_page():
     Log('star_page')
     articles=get_db().select_liste()
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title='Dernières Nouvelles',side=1)
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles',side=1)
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1,side=1)
 
@@ -97,7 +97,7 @@ def login_page_change_password():
 
 @app.route('/login/demande/motpasse', methods=['POST'])
 def demande_recuperation_motpasse():
-    data = "La demande de récupération a été envoyée"
+    data = u"La demande de récupération a été envoyée"
     courriel = request.form['courriel']
     token = uuid.uuid4().hex
     if not get_db().valider_courriel(courriel):
@@ -109,7 +109,7 @@ def demande_recuperation_motpasse():
                                data=data)
     else:
         return render_template('new_password.html',
-                               data="Le courriel n'existe pas")
+                               data=u"Le courriel n'existe pas")
 @app.route('/logout')
 @authentication_required
 def logout():
@@ -130,10 +130,10 @@ def affichage_login():
 
 @app.route('/motpasseperdue/<id_token>')
 def motpasseperdue(id_token):
-    data = 'Le délais de renouvellement du mot de passe a été dépassé'
+    data = u'Le délais de renouvellement du mot de passe a été dépassé'
     if "id" in session:
         return render_template('error_html.html', error_html="401",
-                               error_message="Non autorisé"), 401
+                               error_message=u"Non autorisé"), 401
     trenteminute = 1800
     res = get_db().recuperer_motpasse(id_token)
     if res is None:
@@ -152,7 +152,7 @@ def changer_mot_passe():
     courriel = get_db().courriel_recuperation(token)
     if courriel is False and get_db().valider_courriel(courriel):
         return render_template('temp_changement_mot_passe.html',
-                               data="Problème à l'identification")
+                               data=u"Problème à l'identification")
     erreurs = valider_mot_passe(motpasse, motpasse2)
     if any(erreurs):
         return render_template('temp_changement_mot_passe.html',
@@ -163,7 +163,7 @@ def changer_mot_passe():
         get_db().update_mot_passe(courriel, salt, hash)
         get_db().delete_recuperation(token)
         return render_template('temp_changement_mot_passe.html',
-                               data="Mot de passe changé")
+                               data=u"Mot de passe changé")
 
 @app.route('/login/validation', methods=['POST','GET'])
 def login_validation():
@@ -179,9 +179,8 @@ def login_validation():
     if hash == None or hash[0] == None:
         Log('wrong password')
         return render_template('login.html',error='wrong user/password')
-    salt = hash[0].encode('utf-8')
-    pw = password.encode('utf-8')
-    hashed_password = hashlib.sha512(pw+ salt).hexdigest()
+    salt = hash[0]
+    hashed_password = hashlib.sha512(password + salt).hexdigest()
     if hashed_password == hash[1]:
         # Accès autorisé
         id_session = uuid.uuid4().hex
@@ -220,15 +219,15 @@ def view_profil():
         states = request.form['states']
         interet =  request.form['interet']
         text = request.form['text']
-        print(nom)
-        print(courriel)
-        print(lastname)
-        print(firstname)
-        print(hide_email)
-        print(country)
-        print(states)
-        print(interet)
-        print(text)
+        print nom
+        print courriel
+        print lastname
+        print firstname
+        print hide_email
+        print country
+        print states
+        print interet
+        print text
         pays = int(country)
         profil = Users2(getIdUser(), nom, courriel, '', '', '', hide_email, text,country, states, '',interet, firstname, lastname, '' )
         get_db().saveUpdateProfil(profil)
@@ -240,7 +239,7 @@ def view_profil():
 @app.route('/gestion/profil/update', methods=['POST','GET'])
 @authentication_required
 def update_profil():
-    print('passe GPU')
+    print 'passe GPU'
     nom = request.form['nom']
     courriel = request.form['courriel']
     hide_email = request.form['hide']
@@ -271,7 +270,7 @@ def getlist():
 def nouveau_usager(token):
     if "id" in session:
         return render_template('error_html.html', error_html="401",
-                               error_message="Non autorisé"), 401
+                               error_message=u"Non autorisé"), 401
     res = get_db().valider_invitation(token)
     if res != None:
         if verifierLangue() == 'FR':
@@ -280,14 +279,14 @@ def nouveau_usager(token):
             return render_template('temp_create_new_user.html', token=token,langue=1)
     else:
         return render_template('error_html.html', error_html="401",
-                               error_message="Non autorisée"), 401
+                               error_message=u"Non autorisée"), 401
 
 @app.route('/gestion/send/inscription', methods=["POST"])
 def envoyer_invitation():
     courriel = request.form['courriel']
     token = uuid.uuid4().hex
     if get_db().valider_courriel(courriel) is False:
-        data = "Il y a déja un compte associé à ce courriel"
+        data = u"Il y a déja un compte associé à ce courriel"
         return render_template('temp_invitation.html',
                                data=data)
     if get_db().inviter_courriel(courriel) is True:
@@ -296,17 +295,17 @@ def envoyer_invitation():
                          'courriel_invitation.html', token=token,site='https://py-metro-cms.herokuapp.com'),
                          "Inscription")
         return render_template('temp_invitation.html',
-                               data="Invitation envoyées")
+                               data=u"Invitation envoyées")
     elif get_db().inviter_courriel(courriel) is False:
         token = get_db().token_invitation(courriel)
         message_courriel(courriel, token, render_template(
                          'courriel_invitation.html', token=token,site='https://py-metro-cms.herokuapp.com'),
                          "Inscription rappel")
         return render_template('temp_invitation.html',
-                               data="Invitation envoyées à nouveau")
+                               data=u"Invitation envoyées à nouveau")
     else:
         return render_template('temp_invitation.html',
-                               data="Le courriel existe déjà")
+                               data=u"Le courriel existe déjà")
 
 @app.route('/gestion/user/update', methods=['POST','GET'])
 @authentication_required
@@ -359,7 +358,7 @@ def invitation():
     get_db().ajout_utilisateur(nom, courriel, salt, hash)
     get_db().delete_invitation(token)
     return render_template('login.html',
-                           message='Votre code usager a été créer')
+                           message=u'Votre code usager a été créer')
 
 @app.route('/gestion/province/<country>')
 def province(country):
@@ -370,7 +369,7 @@ def province(country):
 def intro():
     articles=get_db().select_liste()
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title='Dernières Nouvelles',side=1)
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles',side=1)
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1,side=1)
 
@@ -489,9 +488,9 @@ def upload():
                     tempfile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     get_db().save_medias('admin', filename)
                 else:
-                    print('La photo existe')
+                    print 'La photo existe'
             else:
-                print('fichier interdit')
+                print 'fichier interdit'
     photos = get_db().liste_medias()
     if verifierLangue() == 'FR':
         return render_template('temp_upload.html',photos=photos,side=1)
@@ -518,7 +517,7 @@ def upload_photo_profil():
                 tempfile.save(os.path.join(app.config['UPLOAD_FOLDER'], newname))
                 get_db().save_photo_profil(newname,getIdUser())
             else:
-                print('fichier interdit')
+                print 'fichier interdit'
                 return redirect(url_for('view_profil'))
     return redirect(url_for('view_profil'))
 
@@ -526,7 +525,7 @@ def upload_photo_profil():
 @authentication_required
 @admin
 def delete_media(filename):
-    if filename != None and get_db().valider_medias(filename) == False:
+    if filename <> None and get_db().valider_medias(filename) == False:
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         get_db().delete_medias(filename)
         photos = get_db().liste_medias()
@@ -548,7 +547,7 @@ def afficher_article(categorie,url_article):
     comments=get_db().get_comments(article.unique)
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
-        return render_template('temp_article.html',articles=article,title='Catégorie : '+categorie,comments=comments)
+        return render_template('temp_article.html',articles=article,title=u'Catégorie : '+categorie,comments=comments)
     else:
         return render_template('temp_article.html',articles=article,title='Category : '+categorie, langue=1,comments=comments)
 
@@ -576,7 +575,7 @@ def afficher_article_categorie(id_categorie):
 def afficher_article_auteur(id_auteur):
     articles=get_db().get_categorie_article(id_auteur)
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title='Catégorie : '+id_auteur)
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Catégorie : '+id_auteur)
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Category : '+id_auteur, langue=1)
 
@@ -667,7 +666,7 @@ def search_term():
         rechercher = request.cookies.get('recherche')
     articles = get_db().select_recherche(rechercher)
     if verifierLangue() == 'FR':
-        resp = make_response(render_template('temp_intro_articles.html',articles=articles,title='Resultats de recherche',recherche=rechercher))
+        resp = make_response(render_template('temp_intro_articles.html',articles=articles,title=u'Resultats de recherche',recherche=rechercher))
     else:
         resp = make_response(render_template('temp_intro_articles.html',articles=articles,title='Search Result', langue=1,recherche=rechercher))
     resp.set_cookie('recherche', rechercher)
@@ -683,7 +682,7 @@ def validerSession(message):
     data = message
     if "id" in session:
         return render_template('error_html.html', error_html="401",
-                               error_message="Non autorisé"), 401
+                               error_message=u"Non autorisé"), 401
     else:
         return True
 
@@ -796,7 +795,7 @@ def getRight():
 
 def controlRight(level):
     if level < getRight():
-        return render_template('error_html.html', error_html="401",error_message="Non autorisé"), 401
+        return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
 
 
 def Log(action):
@@ -813,12 +812,12 @@ def mycomments():
 @app.errorhandler(400)
 def page_not_found400(e):
     return render_template('error_html.html', error_html="400",
-                           error_message="Requête erronée"), 400
+                           error_message=u"Requête erronée"), 400
 
 @app.errorhandler(401)
 def page_not_found401(e):
     return render_template('error_html.html', error_html="401",
-                           error_message="Non autorisé"), 401
+                           error_message=u"Non autorisé"), 401
 
 @app.errorhandler(404)
 def page_not_found404(e):
@@ -828,7 +827,7 @@ def page_not_found404(e):
 @app.errorhandler(405)
 def page_not_found405(e):
     return render_template('error_html.html', error_html="405",
-                           error_message="Méthode requête non autorisée"), 405
+                           error_message=u"Méthode requête non autorisée"), 405
 
 @app.errorhandler(500)
 def page_not_found500(e):

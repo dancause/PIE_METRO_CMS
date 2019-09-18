@@ -3,3 +3,5 @@ Je travail sur ce projet à temps perdu.
 Le CMS sera adapté pour des blogs simples bilingues.
 
 J'ajoute des fonctions selon mes envies et mon temps libres
+
+mise à jour en python 3.7.4
