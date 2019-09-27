@@ -514,11 +514,11 @@ class Database:
     def get_comments(self, id_article):
         connection = self.get_connection()
         cursor = connection.cursor()
-        cursor.execute(("select * from comments where id_article = ? order by date desc"),(id_article, ))
+        cursor.execute(("select * from comments inner join users on users.id = COMMENTS.indice_user where id_article = ? order by date desc"),(id_article, ))
         comments = []
         for row in cursor:
             tempdate=row[4][:10]
-            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6], "")
+            c = Comments(row[0], row[1], row[2], row[3], tempdate, row[5],row[6], row[19])
             comments.append(c)
         return comments
 

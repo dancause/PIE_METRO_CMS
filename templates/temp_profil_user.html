@@ -36,7 +36,7 @@
 <div class="row form-group">
 {{pays}}
 <div class="col-md-6"><label>{% if langue %}Country{% else %}Pays{% endif%}</label><select name="country" id="country"  onchange="state()" style="width: 100%;" class="mobile form-control" value="{{user.country}}">
-  {% if user.country >= 1 %}{% else %}<option disable selected value="0"> {% if langue %}Choose a country{% else %}Choisir un pays{% endif%}</option>{% endif %}
+  {% if user.country %}{% else %}<option disable selected value="0"> {% if langue %}Choose a country{% else %}Choisir un pays{% endif%}</option>{% endif %}
 {% for c in countries %}
 <option value="{{c.id}}" {% if c.id == user.country %}selected{% else %} {% endif %}>{{c.name}}</option>
 {% endfor%}
@@ -46,7 +46,7 @@
   {% for s in states %}
   <option value="{{s.id}}" {% if s.id == user.state %} selected {% else %} {% endif %} >{{s.name}}</option>
   {% endfor%}
- <select></div> /   {{user.country}}
+ <select></div> 
 </div><span id="etats" style="display:none;">{{user.state}}</span>
 
 
