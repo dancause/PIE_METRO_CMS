@@ -1,31 +1,25 @@
 
 {% if articles.data2 == 'true' %}
-<div class="form">
-    <input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
-    <div>
-        <div>
-        <textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea>
-        </div>
-        <div>
-        <button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();">POST</button>
-        </div>
-    </div>
+<div class="form"><input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
+        <div><textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea></div>
+        <div><button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();">POST</button></div>
 </div>
 {% else %}{{ articles.data2 }}
 <div class="form">
-    <div>
         <div>
         <textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} desactivated {% else %} désactivé{% endif %}" disabled style="background-color: gainsboro;"></textarea>
         </div>
         <div>
         <button type="" value="" id="" onclick="" disabled>POST</button>
         </div>
-    </div>
+
 </div>
 {% endif %}
 
-{% if comments %}
+
 <div id="add_comment" name="add_comment">
+
+{% if comments %}
 {% for c in comments %}
 <div class="row">
         <div class="col-2"><img src="/images_profiles/{{c.photo}}"  style="height: 80px;" class="img-responsive"></div>
@@ -38,6 +32,7 @@
         <hr>
 {% endfor %}
 {% else %}
-    <div id="add_comment" name="add_comment"><label>{% if langue %} No Comments {% else %} Aucun Commentaire {% endif %}</label></div>
-</div>
+{% if langue %}<label> No Comments {% else %} Aucun Commentaire </label>{% endif %}
+
 {% endif %}
+</div>

@@ -15,11 +15,8 @@
                 <img src="/images/{{articles.photo}}" class="img-responsive center-block article_image">
             </div>
                     <div class="row" style="">
-                        <div class="col-6">
-                            <h6  style="padding-left: 15px;">{% if langue %}by : {% else %}par :{% endif%} {{articles.auteur}}</h6></div>
-                        <div class="col-6 text-right align-middle">
-                            <h6 style="padding-right: 15px;">date: {{ articles.datepub }}</h6>
-                        </div>
+                        <div class="col-6"><h6  style="padding-left: 15px;">{% if langue %}by : {% else %}par :{% endif%} {{articles.auteur}}</h6></div>
+                        <div class="col-6 text-right align-middle"><h6 style="padding-right: 15px;">date: {{ articles.datepub }}</h6></div>
                     </div>
 
 
@@ -30,5 +27,7 @@
 </div>
 </div>
 <br>
+<div id="comments_section">
 {% include 'temp_comments.html' %}
+</div>
 {% endblock %}
