@@ -1,8 +1,17 @@
 
 {% if articles.data2 == 'true' %}
 <div class="form"><input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
-        <div><textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea></div>
-        <div><button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();">POST</button></div>
+    <div class="row">
+        <div class="col-8"><textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea></div>
+        <div class="col-4"><button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();" 
+    style="
+    background: lightgrey;
+    border: black;
+    border-radius: 50px;
+    border-style: solid;
+    border-width: 0.5px;
+    ">POST</button></div>
+</div>
 </div>
 {% else %}{{ articles.data2 }}
 <div class="form">
@@ -35,4 +44,4 @@
 {% if langue %}<label> No Comments {% else %} Aucun Commentaire </label>{% endif %}
 
 {% endif %}
-</div>
+</div>background

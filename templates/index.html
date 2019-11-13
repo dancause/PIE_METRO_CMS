@@ -34,7 +34,7 @@
     margin-top: 0px;
 ">{% if langue %}FR{% else %}ENG{% endif %}</button></li>
             <li class='last'><div class="recherche">
-                        <form action="/recherche" method="post"><input type="recherche" name="recherche" value="{{ recherche }}"><input type=submit value=&#128269;></form>
+                        <form action="/recherche" method="post"><input type="recherche" name="recherche" value="{{ recherche }}" placeholder="{% if langue %}recherche{% else %}search{% endif %}"><input type=submit value=&#128269;></form>
                               </div>
             </li>
 </ul>
