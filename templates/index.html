@@ -45,9 +45,9 @@
 {% if side %}<div class=row>{% else %}<div>{% endif %}
 
 
-        {% if side %} <div class="col-sm-1 col-xs-0"></div><div class="col-sm-10 col-xs-12">{% endif %}
+        {% if side %} <div class="col-0 col-sm-1 col-md-2">test</div><div class="col-12 col-sm-10 col-md-8">{% endif %}
         {% block content %}{% endblock %}
-        {% if side %}</div><div class="col-sm-1 col-xs-0"></div>{% endif %}
+        {% if side %}</div><div class="col-0 col-sm-1  col-md-2"> test</div>{% endif %}
 
 
 

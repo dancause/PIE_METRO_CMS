@@ -226,9 +226,9 @@ def view_profil():
         get_db().saveUpdateProfil(profil)
         return redirect('/gestion/profil')
     if verifierLangue() == 'FR':
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries,pays=pays,states=states)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries,pays=pays,states=states, side=1)
     else:
-        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1,pays=pays,states=states)
+        return render_template('temp_profil_user.html',user=user,comments=comments,countries=countries ,langue=1,pays=pays,states=states,side=1)
 
 @app.route('/gestion/profil/update', methods=['POST','GET'])
 @authentication_required
@@ -541,9 +541,9 @@ def afficher_article(categorie,url_article):
     comments=get_db().get_comments(article.unique)
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
-        return render_template('temp_article.html',articles=article,title='Catégorie : '+categorie,comments=comments)
+        return render_template('temp_article.html',articles=article,title='Catégorie : '+categorie,comments=comments, side=1)
     else:
-        return render_template('temp_article.html',articles=article,title='Category : '+categorie, langue=1,comments=comments)
+        return render_template('temp_article.html',articles=article,title='Category : '+categorie, langue=1,comments=comments, side=1)
 
 @app.route('/article/<id>', methods=['POST','GET'])
 def afficher_id_article(id):
@@ -561,9 +561,9 @@ def afficher_article_categorie(id_categorie):
     Log('afficher categories: '+id_categorie)
     articles=get_db().get_categorie_article(id_categorie)
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title=id_categorie)
+        return render_template('temp_intro_articles.html',articles=articles,title=id_categorie,side=1)
     else:
-        return render_template('temp_intro_articles.html',articles=articles,title=id_categorie, langue=1)
+        return render_template('temp_intro_articles.html',articles=articles,title=id_categorie, langue=1,side=1)
 
 @app.route('/auteur/<id_auteur>', methods=['POST','GET'])
 def afficher_article_auteur(id_auteur):
