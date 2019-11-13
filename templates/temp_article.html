@@ -12,7 +12,7 @@
                         <div class="col-3 text-right align-middle" style=""><h4>{% if langue %}{{ articles.cat_ang }} {% else %}{{ articles.cat_fr }}{% endif%}</h4></div>
                     </div>
             <div class="col-md-12 card-image-container" style="padding-left: 0px; padding-right: 0px;">
-                <img src="/images/{{articles.photo}}" class="img-responsive center-block article_image">
+                <a href="/view/{{articles.photo}}"><img src="/images/{{articles.photo}}" class="img-responsive center-block article_image"></a>
             </div>
                     <div class="row" style="">
                         <div class="col-6"><h6  style="padding-left: 15px;">{% if langue %}by : {% else %}par :{% endif%} {{articles.auteur}}</h6></div>
