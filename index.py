@@ -6,6 +6,7 @@ import time
 import uuid
 import hashlib
 import requests
+
 from courriel import *
 from validation import *
 
@@ -541,9 +542,9 @@ def afficher_article(categorie,url_article):
     comments=get_db().get_comments(article.unique)
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
-        return render_template('temp_article.html',articles=article,title='Catégorie : '+categorie,comments=comments, side=1)
+        return render_template('temp_article.html',article=article,title='Catégorie : '+categorie,comments=comments, side=1)
     else:
-        return render_template('temp_article.html',articles=article,title='Category : '+categorie, langue=1,comments=comments, side=1)
+        return render_template('temp_article.html',article=article,title='Category : '+categorie, langue=1,comments=comments, side=1)
 
 @app.route('/article/<id>', methods=['POST','GET'])
 def afficher_id_article(id):
@@ -551,9 +552,9 @@ def afficher_id_article(id):
     comments=get_db().get_comments(article.unique)
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
-        return render_template('temp_article.html',articles=article,comments=comments)
+        return render_template('temp_article.html',article=article,comments=comments)
     else:
-        return render_template('temp_article.html',articles=article,langue=1,comments=comments)
+        return render_template('temp_article.html',article=article,langue=1,comments=comments)
 
 
 @app.route('/categorie/<id_categorie>', methods=['POST','GET'])

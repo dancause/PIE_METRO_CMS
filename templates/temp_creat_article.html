@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
+<div class="nouvelle_article">
 <title>{% if update %}Mise à jour{% else %}New article{% endif%}</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css">
@@ -243,12 +244,15 @@
             </div>
     </div>
     {% if loop.index is divisibleby 6 %} </div><div class="row row_media">{% endif %}
+
 	{% endfor %}
-	</div>
+        </div>
+
 </div>
 
 
 
-
+</div>
+</div>
 
 {% endblock %}

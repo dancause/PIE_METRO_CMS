@@ -1,6 +1,6 @@
 
-{% if articles.data2 == 'true' %}
-<div class="form"><input type="hidden" name='id_article' id="id_article" value="{% if articles %}{{articles.unique}}{% endif %}">
+{% if article.data2 == 'true' %}
+<div class="form"><input type="hidden" name='id_article' id="id_article" value="{% if article %}{{article.unique}}{% endif %}">
     <div class="row">
         <div class="col-8"><textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} Write your comment {% else %} Écrivez votre commentaire ici {% endif %}"></textarea></div>
         <div class="col-4"><button type="submit" value="id_POST" id="id_POST" onclick="Add_Comments();" 
@@ -13,7 +13,7 @@
     ">POST</button></div>
 </div>
 </div>
-{% else %}{{ articles.data2 }}
+{% else %}{{ article.data2 }}
 <div class="form">
         <div>
         <textarea class="comments" id="comment" name="comment" class="comment" placeholder="{% if langue %} desactivated {% else %} désactivé{% endif %}" disabled style="background-color: gainsboro;"></textarea>
