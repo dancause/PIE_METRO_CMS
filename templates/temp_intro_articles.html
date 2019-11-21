@@ -13,7 +13,7 @@
 				<div class="article_list">
 {% if articles %}
 {% for p in articles %}
-<a href="/article/{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr}}{% endif%}/{{p.url}}" class="link" style="text-decoration: none;">
+<a href="/article/{% if langue %}{{ p.cat_ang }}{% else %}{{ p.cat_fr}}{% endif %}/{{p.url}}" class="link" style="text-decoration: none;">
 
  	<div class="row row_media intro_articles">
 				<div class="col-md-6 center header_article card" style="padding-left: 0px;padding-right: 0px;">
@@ -26,8 +26,8 @@
 
 			<div class="col-md-6 text_black">
 					<div class="row title_article">
-						<div class="col-8"><h2>{% if langue %}{{ p.titre_ang }} {% else %}{{ p.titre_fr }}{% endif%}</h2></div>
-						<div class="col-4 text-right align-middle" style=""><h4>{% if langue %}{{ p.cat_ang }} {% else %}{{ p.cat_fr }}{% endif%}</h4></div>
+						<div class="col-8"><h2>{% if langue %}{{ p.titre_ang }}{% else %}{{ p.titre_fr }}{% endif%}</h2></div>
+						<div class="col-4 text-right align-middle" style=""><h4>{% if langue %}{{ p.cat_ang }}{% else %}{{ p.cat_fr }}{% endif%}</h4></div>
 					</div>
 					<div class="row">
 					<div class="col-6"><h6>{% if langue %}by : {% else %}par :{% endif%} {{p.auteur}}</h6></div>
