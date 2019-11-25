@@ -10,14 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Projet_Metro_CMS</title>
       <meta property="fb:app_id" content="2511979995700455" />
+      <meta property="og:type"  content="website" />
   {% if article %}
-<meta property="og:type"  content="website" />
+
 <meta property="og:title" content="{% if langue %}{{ article.titre_ang }} {% else %}{{ article.titre_fr }}{% endif%}" />
 <meta property="og:site_name" content="Projet_Metro_CMS" />
 <meta property="og:url" content="https://py-metro-cms.herokuapp.com/article/{% if langue %}{{ article.cat_ang }}/{{ article.url }}{% else %}{{ article.cat_fr }}/{{ article.url }}{% endif%}"  />
 <meta property="og:image" content="https://py-metro-cms.herokuapp.com/images/{{article.photo}}" />
 
-  {% endif %}s
+  {% endif %}
 </head>
 
 <body>
