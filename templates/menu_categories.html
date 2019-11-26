@@ -1,6 +1,6 @@
 
 
-      <a href="#"><span>Catégories</span></a><ul>
+      <a href="#"><span>{% if langue %}Category{% else %}Catégories{% endif %}</span></a><ul>
       {% for c in menu_cat %} 
           <li class='has-sub'><a href="/categorie/{% if langue %}{{c.menu_cat_ang}}{% else %}{{c.menu_cat_fr}}{% endif %}">{% if langue %}{{c.menu_cat_ang}}{% else %}{{c.menu_cat_fr}}{% endif %}</a></li>
     {% endfor %}

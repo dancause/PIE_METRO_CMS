@@ -546,6 +546,20 @@ def afficher_article(categorie,url_article):
     else:
         return render_template('temp_article.html',article=article,title='Category : '+categorie, langue=1,comments=comments, side=1)
 
+
+@app.route('/<langue>/article/<url_article>', methods=['POST','GET'])
+def afficher_article_test(langue,url_article):
+    article=get_db().get_url_article(url_article)
+    comments=get_db().get_comments(article.unique)
+    categorie = article.categorie
+    Log('article: '+article.titre_fr)
+    if langue == 'fr':
+        return render_template('temp_article_test.html',article=article,title='Catégorie : '+categorie,comments=comments, side=1)
+    if langue == 'eng':
+        return render_template('temp_article_test.html',article=article,title='Category : '+categorie, langue=1,comments=comments, side=1)
+    else:
+        return render_template('error_html.html', error_html="404",error_message="Page introuvable"), 404
+
 @app.route('/article/<id>', methods=['POST','GET'])
 def afficher_id_article(id):
     article=get_db().get_id_article(id)
