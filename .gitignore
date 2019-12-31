@@ -2,3 +2,19 @@
 
 info_courriel.txt
 .DS_Store
+
+*.pyc
+
+ENV/*
+
+__pycache__/*
+
+__pycache__/courriel.cpython-37.pyc
+
+__pycache__/database.cpython-37.pyc
+
+__pycache__/index.cpython-37.pyc
+
+*.pyc
+
+*.pyc
