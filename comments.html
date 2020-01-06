@@ -1,0 +1,15 @@
+
+{% for c in comments %}
+<div class="row">
+        <div class="col-2"><img src="/images_profiles/{{c.photo}}"  style="height: 80px;" class="img-responsive"></div>
+        <div class="col-10">
+        <div>{{ c.id_user }}</div>
+        <div> <p>{{c.comments}}</p></div>
+        <div>{{c.date}}</div>
+        </div>
+</div>
+        <hr>
+{% endfor %}
+
+
+

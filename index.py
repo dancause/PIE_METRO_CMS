@@ -302,6 +302,7 @@ def envoyer_invitation():
 def update_user_test():
     if request.method =="POST":
         user = request.json
+        print(user)
         get_db().update_user(user['id'],"",user['nom'],user['courriel'],user['role'], user['picture'],user['actif'])
         roles = get_db().get_roles()
     return render_template('usager.html',user=user,roles=roles, role=int(user['role']) )
@@ -369,6 +370,8 @@ def intro():
         return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1,side=1)
 
 @app.route('/gestion/creer/article')
+@authentication_required
+@writer
 def create_article():
     photos = get_db().liste_medias()
     categories = get_db().liste_categories()
@@ -606,6 +609,7 @@ def comments():
 
 @app.route('/gestion/comments', methods=['POST','GET'])
 @authentication_required
+@admin
 def validate_comments():
 	mycomments()
 	comments=get_db().get_comments_unvalidated()
@@ -627,40 +631,42 @@ def uncheck_comments(id_comments):
 
 @app.route('/valider/signaler/comments/<id_comments>', methods=['POST','GET'])
 @authentication_required
-@writer
+@admin
 def signal_comments(id_comments):
     get_db().comments_validated_signaled(id_comments)
     return '',200
 
 @app.route('/validated/comments', methods=['POST','GET'])
 @authentication_required
+@admin
 def validated_comments():
     comments = get_db().get_valid_comments()
     return render_template('liste_comments.html',comments=comments)
 
 @app.route('/unvalidated/comments', methods=['POST','GET'])
 @authentication_required
+@admin
 def unvalidated_comments():
     comments = get_db().get_comments_unvalidated()
     return render_template('liste_comments.html',comments=comments)
 
 @app.route('/signaled/comments', methods=['POST','GET'])
 @authentication_required
-@writer
+@admin
 def singaled_comments():
     comments = get_db().get_signaled_comments()
     return render_template('liste_comments.html',comments=comments)
 
 @app.route('/all/comments', methods=['POST','GET'])
 @authentication_required
-@writer
+@admin
 def all_comments():
     comments = get_db().get_all_comments()
     return render_template('liste_comments.html',comments=comments)
 
 @app.route('/gestion/interaction', methods=['POST','GET'])
 @authentication_required
-@writer
+@admin
 def all_interaction():
     interactions = get_db().get_all_interactions()
     return render_template('temp_interaction.html',interactions=interactions)
@@ -797,10 +803,12 @@ def getIdUser():
 def getRight():
     if "id" in session:
         id_session = session["id"]
-        user_name = get_db().get_User_Right(id_session)
+        role = get_db().get_User_Right(id_session)
     else:
-        user_name = "invited"
-    return user_name
+        role = 10
+    print(role)
+    print("role")
+    return role
 
 def controlRight(level):
     if level < getRight():

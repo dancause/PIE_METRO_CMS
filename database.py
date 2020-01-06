@@ -663,7 +663,7 @@ class Database:
         cursor.execute("select users.role from sessions inner join users on sessions.courriel =  users.courriel where sessions.id_session = ?",(num_session,))
         data = cursor.fetchone()
         if data is None:
-            return "invited"
+            return 10
         else:
             return data[0]
 
