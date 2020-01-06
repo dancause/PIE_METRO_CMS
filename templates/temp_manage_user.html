@@ -25,7 +25,7 @@
 				{% for u in users %}
 				<tr id="usager_{{u.id}}">
                     <td>{{u.id}}</td>
-                    <td><img src="/images_profiles/{{u.picture}}" style="height: 80px;"></td>
+            <td><img id="picture_{{u.id}}" name="{{u.picture}}" src="/images_profiles/{{u.picture}}" style="height: 80px;"></td>
     				<td><input name="nom_{{u.id}}" id="nom_{{ u.id }}" type="text" value="{{ u.lastname }}"></td>
     				<td><input name="courriel_{{u.id}}" id="courriel_{{ u.id }}" type="text" value="{{ u.email }}"></td>
     				<td>

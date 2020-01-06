@@ -16,16 +16,17 @@ function modify_user(id){
                       }
               }
             };
-
+            var tempname = document.getElementById('picture_'+id).name;
+console.log(tempname);
             var datajson={
                 "id": id,
                 "nom": document.getElementById('nom_'+id).value,
                 "courriel": document.getElementById('courriel_'+id).value,
                 "role": document.getElementById('role_'+id).value,
                 "actif": document.getElementById('actif_'+id).checked,
-                "picture": document.getElementById('picture_'+id).value,
+                "picture": tempname,
             };
-
+            console.log(datajson);
             xhr.open('POST', '/gestion/user/update', true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(JSON.stringify(datajson));
@@ -56,4 +57,3 @@ function forget_password() {
 
 
 }
-
