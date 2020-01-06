@@ -2,18 +2,22 @@
 {% block content %}
 <title>{{photo}}</title>
 <div class="row">
-  <br>
+ 		<br>
 
-<div class="col-12 text-center">
-<img class="img-fluid" src="/images/{{photo}}" alt="{{photo}}" >
+			<div class="col-12 text-center">
+			<img class="img-fluid" src="/images/{{photo}}" alt="{{photo}}" >
+			</div>
 </div>
+		<div class="row text-center">
+  			<br>
+  	<div class="col-md-4 d-none d-md-block"></div>	
+	<div class="col-md-4"><button onclick="goBack()">Go Back</button></div>
+<div class="col-md-4 d-none d-md-block"></div>	
 
-<div class="col-12 text-center">
-  <br>
-<button onclick="goBack()">Go Back</button>
-</div>
+		</div>
 
-</div>
+
+
 <script>
 function goBack() {
   window.history.back();
