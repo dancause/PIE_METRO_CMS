@@ -21,7 +21,7 @@
                     <div class="row" style="">
                         <div class="col-4"><h6  style="padding-left: 15px;">{% if langue %}by : {% else %}par :{% endif%} {{article.auteur}}</h6></div>
                          <div class="col-4">
-                            <div class="fb-share-button" data-href="https://py-metro-cms.herokuapp.com/article/{% if langue %}{{ article.cat_ang }}/{{ article.url }}{% else %}{{ article.cat_fr }}/{{ article.url }}{% endif%}" data-layout="button" data-size="large"><a target="_blank" href="https://py-metro-cms.herokuapp.com/article/{% if langue %}{{ article.cat_ang }}/{{ article.url }}{% else %}{{ article.cat_fr }}/{{ article.url }}{% endif%}?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+                          <div class="fb-share-button" data-href="https://py-metro-cms.herokuapp.com/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpy-metro-cms.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
 
                         </div>
                         <div class="col-4 text-right align-middle"><h6 style="padding-right: 15px;">date: {{ article.datepub }}</h6></div>
@@ -34,8 +34,19 @@
                     <div>{% if langue %}tag: {{ article.tag }} {% else %} etiquettes: {{ article.etiquettes }}{% endif%}</div>
 </div>
 </div>
+
 </div>
 <br>
+ <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
 <div id="comments_section">
 {% include 'temp_comments.html' %}
 </div>
