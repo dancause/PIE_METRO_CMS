@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 {% if langue %}
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-us" xml:lang="en-us">
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en-us" xml:lang="en-us">
 {% else %}
-<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="fr" xml:lang="fr" xmlns:fb="http://ogp.me/ns/fb#" >
 {% endif %}
 
 <head>
       <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta ame="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" >
       <title>Projet_Metro_CMS</title>
       <meta property="fb:app_id" content="2511979995700455" />
       <meta property="og:type"  content="website" />
@@ -18,7 +18,81 @@
 <meta property="og:url" content="https://py-metro-cms.herokuapp.com/article/{% if langue %}{{ article.cat_ang }}/{{ article.url }}{% else %}{{ article.cat_fr }}/{{ article.url }}{% endif%}"  />
 <meta property="og:image" content="https://py-metro-cms.herokuapp.com/images/{{article.photo}}" />
 
+  
+
+<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
+       <script type="text/javascript">
+      function logResponse(response) {
+        if (console && console.log) {
+          console.log('The response was', response);
+        }
+      }
+
+      $(function(){
+        // Set up so we handle click on the buttons
+        $('#postToWall').click(function() {
+          FB.ui(
+            {
+              method : 'feed',
+              link   : $(this).attr('data-url')
+            },
+            function (response) {
+              // If response is null the user canceled the dialog
+              if (response != null) {
+                logResponse(response);
+              }
+            }
+          );
+        });
+
+        $('#sendToFriends').click(function() {
+          FB.ui(
+            {
+              method : 'send',
+              link   : $(this).attr('data-url')
+            },
+            function (response) {
+              // If response is null the user canceled the dialog
+              if (response != null) {
+                logResponse(response);
+              }
+            }
+          );
+        });
+
+        $('#sendRequest').click(function() {
+          FB.ui(
+            {
+              method  : 'apprequests',
+              message : $(this).attr('data-message')
+            },
+            function (response) {
+              // If response is null the user canceled the dialog
+              if (response != null) {
+                logResponse(response);
+              }
+            }
+          );
+        });
+      });
+    </script>
+
+    <!--[if IE]>
+      <script type="text/javascript">
+        var tags = ['header', 'section'];
+        while(tags.length)
+          document.createElement(tags.pop());
+      </script>
+    <![endif]-->
+
+
+
   {% endif %}
+
+
+
+
+
 </head>
 
 <body>
