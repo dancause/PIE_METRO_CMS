@@ -21,7 +21,11 @@
                     <div class="row" style="">
                         <div class="col-4"><h6  style="padding-left: 15px;">{% if langue %}by : {% else %}par :{% endif%} {{article.auteur}}</h6></div>
                          <div class="col-4">
-                          <div class="fb-share-button" data-href="https://py-metro-cms.herokuapp.com/" data-layout="button" data-size="large"><a target="_blank" id="postToWall" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpy-metro-cms.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+
+           <a href="#" class="facebook-button" id="postToWall" data-url="https://py-metro-cms.herokuapp.com/article/article.url">
+            <span class="plus">Post to Wall</span>
+          </a>
+                          <!--<div class="fb-share-button" data-href="https://py-metro-cms.herokuapp.com/" data-layout="button" data-size="large"><a target="_blank" id="postToWall" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpy-metro-cms.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>-->
 
                         </div>
                         <div class="col-4 text-right align-middle"><h6 style="padding-right: 15px;">date: {{ article.datepub }}</h6></div>

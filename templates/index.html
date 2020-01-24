@@ -9,81 +9,21 @@
       <meta charset="utf-8">
     <meta ame="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" >
       <title>Projet_Metro_CMS</title>
-      <meta property="fb:app_id" content="2511979995700455" />
-      <meta property="og:type"  content="website" />
-  {% if article %}
+   
 
+  {% if article %}
+<meta property="og:type"  content="article" />
 <meta property="og:title" content="{% if langue %}{{ article.titre_ang }} {% else %}{{ article.titre_fr }}{% endif%}" />
 <meta property="og:site_name" content="Projet_Metro_CMS" />
 <meta property="og:url" content="https://py-metro-cms.herokuapp.com/article/{% if langue %}{{ article.cat_ang }}/{{ article.url }}{% else %}{{ article.cat_fr }}/{{ article.url }}{% endif%}"  />
+<meta property="og:locale" content="{% if langue %}en_US{% else %}fr_CA{% endif%}">
 <meta property="og:image" content="https://py-metro-cms.herokuapp.com/images/{{article.photo}}" />
+<meta property="og:description" content="{% if langue %}{{ article.texte_ang|safe  }}{% else %}{{ article.texte_fr|safe  }}{% endif%}" />
 
+<meta property="fb:app_id" content="2511979995700455" />
   
 
-<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
-       <script type="text/javascript">
-      function logResponse(response) {
-        if (console && console.log) {
-          console.log('The response was', response);
-        }
-      }
-
-      $(function(){
-        // Set up so we handle click on the buttons
-        $('#postToWall').click(function() {
-          FB.ui(
-            {
-              method : 'feed',
-              link   : $(this).attr('data-url')
-            },
-            function (response) {
-              // If response is null the user canceled the dialog
-              if (response != null) {
-                logResponse(response);
-              }
-            }
-          );
-        });
-
-        $('#sendToFriends').click(function() {
-          FB.ui(
-            {
-              method : 'send',
-              link   : $(this).attr('data-url')
-            },
-            function (response) {
-              // If response is null the user canceled the dialog
-              if (response != null) {
-                logResponse(response);
-              }
-            }
-          );
-        });
-
-        $('#sendRequest').click(function() {
-          FB.ui(
-            {
-              method  : 'apprequests',
-              message : $(this).attr('data-message')
-            },
-            function (response) {
-              // If response is null the user canceled the dialog
-              if (response != null) {
-                logResponse(response);
-              }
-            }
-          );
-        });
-      });
-    </script>
-
-    <!--[if IE]>
-      <script type="text/javascript">
-        var tags = ['header', 'section'];
-        while(tags.length)
-          document.createElement(tags.pop());
-      </script>
-    <![endif]-->
+<!--<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>-->
 
 
 
