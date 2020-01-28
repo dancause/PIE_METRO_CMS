@@ -23,10 +23,9 @@
                         <div class="col-4"><h6  style="padding-left: 15px;">{% if langue %}by : {% else %}par :{% endif%} {{article.auteur}}</h6></div>
                          <div class="col-4">
 <!--facebook sharing--->
-<iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fpy-metro-cms.herokuapp.com/article/{% if langue %}{{ article.cat_ang }}{% else %}{{ article.cat_fr}}{% endif%}/{{ article.cat_fr }}%2F&layout=box_count&size=large&appId=2511979995700455&width=77&height=58" width="77" height="58" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+<iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fpy-metro-cms.herokuapp.com%2Farticle%2F{% if langue %}{{ article.cat_ang }}{% else %}{{ article.cat_fr}}{% endif%}%2F{{ article.url}}%2F&layout=box_count&size=large&appId=2511979995700455&width=77&height=58" width="77" height="58" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 
 
-                    <div class="fb-like" data-href="https://py-metro-cms.herokuapp.com/article/movie/TEST" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
 
                         </div>
                         <div class="col-4 text-right align-middle"><h6 style="padding-right: 15px;">date: {{ article.datepub }}</h6></div>
