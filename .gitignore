@@ -41,3 +41,7 @@ index.pyc
 
 validation.pyc
 courriel.pyc
+*.cfg
+bin/activate
+.Python
+__pycache__/*
