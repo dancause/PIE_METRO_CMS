@@ -121,6 +121,7 @@
         <div class=" col-12">
             <legend   style="margin-bottom: 0px;">Gallery HTML code</legend>
         <input style="width: 100%;" name='gallery_html' id="gallery_html" value="{% if articles %}{{ articles.data1 }}{% endif %}"></input>
+        <textarea>{% if articles %}{{ articles.data1 }}{% endif %}</textarea>
         </div>
   </div>
 
@@ -152,14 +153,14 @@
 
     <div class ="form-group">
 
-        <div class=" row row_media">
+        <div class=" row ">
             <div class=" col-6"><button type="button" class="btn btn-secondary btn-lg btn-block" onclick="reset()">reset</button></div>
             <div class=" col-6"><button type="button" class="btn btn-secondary btn-lg btn-block" onclick="create()">create</button></div>
         </div>
 
-<div class="row row_media">
+<div class="row ">
 
-             <div class=" col-6" style="padding-left: 0px;">
+             <div class=" col-4" style="padding-left: 0px;">
 
 
 
@@ -194,7 +195,27 @@
 
 
              </div>
-             <div class=" col-6">
+
+
+
+ <div class=" col-4" style="padding-left: 0px;">
+
+
+
+                 <fieldset>
+                            <legend style="margin-bottom: 0px;">Grid ajust size</legend>
+<div class="row ">
+
+</div>
+                    </fieldset>
+
+
+             </div>
+
+
+
+
+             <div class=" col-4">
                     <fieldset>
                             <legend style="margin-bottom: 0px;">Class Bootstrap image</legend>
 <div class="row ">
@@ -219,7 +240,7 @@
                     </fieldset>
         </div>
 </div>
-        <div class="row row_media">
+        <div class="row ">
 
           <label>Style : <input type="text" id="moreStyle"></label>
         </div>
@@ -228,7 +249,7 @@
 
 <div class="liste_photo">
 
-   <div class="row row_media">
+   <div class="row ">
     {% for p in photos %}
     <div class="medias_display col-2" id="photo_{{ p.id }}" name="photo_gallery">
         <div class="row " onclick="photoentete('{{p.media}}', {{ p.id }})">
@@ -243,7 +264,7 @@
                 <label>{{p.media}}</label>
             </div>
     </div>
-    {% if loop.index is divisibleby 6 %} </div><div class="row row_media">{% endif %}
+    {% if loop.index is divisibleby 6 %} </div><div class="row">{% endif %}
 
 	{% endfor %}
         </div>
