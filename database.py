@@ -117,10 +117,6 @@ class Database:
     def insert_article(self, url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data1, data2):
         connection = self.get_connection()
         cursor = connection.cursor()
-        print("insert article")
-        print(data2)
-        print(data1)
-        print("insert article")
         cursor.execute(("insert into article(url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag, photo, data_1, data_2 ) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),(url, auteur, datepub, titre_fr, titre_ang, texte_fr, texte_ang, categorie, etiquettes, tag,photo, data1, data2,))
         connection.commit()
 
@@ -525,8 +521,6 @@ class Database:
     def save_comments(self,id_user,id_article,comment,indice):
         connection = self.get_connection()
         cursor = connection.cursor()
-        print(indice)
-        print(id_user)
         cursor.execute(("insert into COMMENTS(id_user, id_article, indice_user, comment, date, approved, signal) values(?, ?, ?, ?, ?, ?, ? )"), (id_user, id_article, indice, comment, datetime.now(),"false","false"))
         connection.commit()
 
@@ -684,7 +678,6 @@ class Database:
         cursor.execute('select * from INTERACTION order by date desc')
         interactions = []
         for row in cursor:
-            print(row[1])
             c = Interactions(row[0], row[1], row[2], row[3], row[4], row[5],row[6])
             interactions.append(c)
         return interactions
