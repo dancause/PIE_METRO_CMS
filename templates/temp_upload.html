@@ -19,7 +19,7 @@
 <div class="liste_photo">
    <div class="row row_media">
     {% for p in photos %}
-    <div class="medias_display col-2">
+    <div class="medias_display col-12 col-sm-6 col-md-4 col-lg-2">
     		<div><label>{% if langue %}Number{% else %}Numéro{% endif %} : {{p.id}}</label></div>
     		<hr>
     		<div><a href="/view/{{ p.media }}" ><img src="/images/{{p.media}}" alt="{{p.media}}" class="img-responsive img-thumbnail" style="height: auto;"></a></div>

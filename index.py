@@ -55,7 +55,7 @@ def authentication_required(f):
     def decorated(*args, **kwargs):
         if not is_authenticated(session):
             return render_template('error_html.html', error_html="401",
-                                   error_message="Non autorisé"), 401
+                                   error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated
 
@@ -63,7 +63,7 @@ def admin(f):
     @wraps(f)
     def decorated2(*args, **kwargs):
         if getRight() > 2:
-            return render_template('error_html.html', error_html="401",error_message="Non autorisé"), 401
+            return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated2
 
@@ -71,7 +71,7 @@ def writer(f):
     @wraps(f)
     def decorated3(*args, **kwargs):
         if 3 < getRight():
-            return render_template('error_html.html', error_html="401",error_message="Non autorisé"), 401
+            return render_template('error_html.html', error_html="401",error_message=u"Non autorisé"), 401
         return f(*args, **kwargs)
     return decorated3
 
@@ -84,7 +84,7 @@ def start_page():
     Log('star_page')
     articles=get_db().select_liste()
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title='Dernières Nouvelles',side=1)
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Dernières Nouvelles',side=1)
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Lates News', langue=1,side=1)
 
@@ -134,7 +134,7 @@ def motpasseperdue(id_token):
     data = 'Le délais de renouvellement du mot de passe a été dépassé'
     if "id" in session:
         return render_template('error_html.html', error_html="401",
-                               error_message="Non autorisé"), 401
+                               error_message=u"Non autorisé"), 401
     trenteminute = 1800
     res = get_db().recuperer_motpasse(id_token)
     if res is None:
@@ -153,7 +153,7 @@ def changer_mot_passe():
     courriel = get_db().courriel_recuperation(token)
     if courriel is False and get_db().valider_courriel(courriel):
         return render_template('temp_changement_mot_passe.html',
-                               data="Problème à l'identification")
+                               data=u"Problème à l'identification")
     erreurs = valider_mot_passe(motpasse, motpasse2)
     if any(erreurs):
         return render_template('temp_changement_mot_passe.html',
@@ -164,7 +164,7 @@ def changer_mot_passe():
         get_db().update_mot_passe(courriel, salt, hash)
         get_db().delete_recuperation(token)
         return render_template('temp_changement_mot_passe.html',
-                               data="Mot de passe changé")
+                               data=u"Mot de passe changé")
 
 @app.route('/login/validation', methods=['POST','GET'])
 def login_validation():
@@ -260,7 +260,7 @@ def getlist():
 def nouveau_usager(token):
     if "id" in session:
         return render_template('error_html.html', error_html="401",
-                               error_message="Non autorisé"), 401
+                               error_message=u"Non autorisé"), 401
     res = get_db().valider_invitation(token)
     if res != None:
         if verifierLangue() == 'FR':
@@ -285,24 +285,23 @@ def envoyer_invitation():
                          'courriel_invitation.html', token=token,site='https://py-metro-cms.herokuapp.com'),
                          "Inscription")
         return render_template('temp_invitation.html',
-                               data="Invitation envoyées")
+                               data=u"Invitation envoyées")
     elif get_db().inviter_courriel(courriel) is False:
         token = get_db().token_invitation(courriel)
         message_courriel(courriel, token, render_template(
                          'courriel_invitation.html', token=token,site='https://py-metro-cms.herokuapp.com'),
                          "Inscription rappel")
         return render_template('temp_invitation.html',
-                               data="Invitation envoyées à nouveau")
+                               data=u"Invitation envoyées à nouveau")
     else:
         return render_template('temp_invitation.html',
-                               data="Le courriel existe déjà")
+                               data=u"Le courriel existe déjà")
 
 @app.route('/gestion/user/update', methods=['POST','GET'])
 @authentication_required
 def update_user_test():
     if request.method =="POST":
         user = request.json
-        print(user)
         get_db().update_user(user['id'],"",user['nom'],user['courriel'],user['role'], user['picture'],user['actif'])
         roles = get_db().get_roles()
     return render_template('usager.html',user=user,roles=roles, role=int(user['role']) )
@@ -545,9 +544,9 @@ def afficher_article(categorie,url_article):
     comments=get_db().get_comments(article.unique)
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
-        return render_template('temp_article.html',article=article,title='Catégorie : '+categorie,comments=comments, side=1)
+        return render_template('temp_article.html',article=article,title=u'Catégorie : '+categorie,comments=comments, side=1)
     else:
-        return render_template('temp_article.html',article=article,title='Category : '+categorie, langue=1,comments=comments, side=1)
+        return render_template('temp_article.html',article=article,title='Category : '+categorie,langue=1,comments=comments, side=1)
 
 
 @app.route('/<langue>/article/<url_article>', methods=['POST','GET'])
@@ -557,7 +556,7 @@ def afficher_article_test(langue,url_article):
     categorie = article.categorie
     Log('article: '+article.titre_fr)
     if langue == 'fr':
-        return render_template('temp_article_test.html',article=article,title='Catégorie : '+categorie,comments=comments, side=1)
+        return render_template('temp_article_test.html',article=article,title=u'Catégorie : '+categorie,comments=comments, side=1)
     if langue == 'eng':
         return render_template('temp_article_test.html',article=article,title='Category : '+categorie, langue=1,comments=comments, side=1)
     else:
@@ -569,9 +568,9 @@ def afficher_id_article(id):
     comments=get_db().get_comments(article.unique)
     Log('article: '+article.titre_fr)
     if verifierLangue() == 'FR':
-        return render_template('temp_article.html',article=article,comments=comments)
+        return render_template('temp_article.html',article=article,comments=comments,side=1)
     else:
-        return render_template('temp_article.html',article=article,langue=1,comments=comments)
+        return render_template('temp_article.html',article=article,langue=1,comments=comments,side=1)
 
 
 @app.route('/categorie/<id_categorie>', methods=['POST','GET'])
@@ -587,7 +586,7 @@ def afficher_article_categorie(id_categorie):
 def afficher_article_auteur(id_auteur):
     articles=get_db().get_categorie_article(id_auteur)
     if verifierLangue() == 'FR':
-        return render_template('temp_intro_articles.html',articles=articles,title='Catégorie : '+id_auteur)
+        return render_template('temp_intro_articles.html',articles=articles,title=u'Catégorie : '+id_auteur)
     else:
         return render_template('temp_intro_articles.html',articles=articles,title='Category : '+id_auteur, langue=1)
 
@@ -806,8 +805,6 @@ def getRight():
         role = get_db().get_User_Right(id_session)
     else:
         role = 10
-    print(role)
-    print("role")
     return role
 
 def controlRight(level):

@@ -20,21 +20,21 @@
 
        {% else %}
         {% for a in fichiers %}
-  
 
 
 
 
 
- 
-                                        <div class="col-sm-2">
+
+
+                                        <div class="col-md-2">
 <div><a href="/images/{{ a.name}}" target="_blank"><img src="/images/{{a.name}}" alt="{{a.name}}" class="img-thumbnail" style="height: 175px;"></a> {{a.name}}</div>
                                              </div>
 
 
 
 
-    {% if loop.index is divisibleby 6 %} </div><div class="row row_media">{% endif %} 
+    {% if loop.index is divisibleby 6 %} </div><div class="row row_media">{% endif %}
 
 
 
@@ -45,4 +45,3 @@
 
 <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" class="__web-inspector-hide-shortcut__"></script>
 {% endblock %}
-

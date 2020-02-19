@@ -41,7 +41,24 @@ index.pyc
 
 validation.pyc
 courriel.pyc
+<<<<<<< Updated upstream
 *.cfg
 bin/activate
 .Python
 __pycache__/*
+=======
+
+*.pyc
+
+*.pyc
+
+*.pyc
+
+__pycache__/courriel.cpython-37.pyc
+
+__pycache__/index.cpython-37.pyc
+
+__pycache__/validation.cpython-37.pyc
+
+__pycache__/database.cpython-37.pyc
+>>>>>>> Stashed changes
