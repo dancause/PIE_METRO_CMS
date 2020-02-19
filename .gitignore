@@ -45,3 +45,4 @@ courriel.pyc
 bin/activate
 .Python
 __pycache__/*
+db/cms_db.db
