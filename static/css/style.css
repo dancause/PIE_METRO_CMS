@@ -20,7 +20,7 @@
 .home {
   padding: 5px 16px;
 }
-.text_profil{
+.text_profil{ 
 width: 100%;
 border: 1px solid #ced4da;
 border-radius: .25rem;
@@ -34,9 +34,12 @@ border-radius: .25rem;
 }
 
 .medias_display {
+
+
     background-color: white;
      border: 1px solid #ccc;
     border-color: black;
+
 }
 
 .medias_display:hover{
@@ -44,7 +47,8 @@ border-radius: .25rem;
 }
 
 .row_media {
-    background-color: #eee;
+    border-radius: 20px;
+    background-color: #fff;
     padding-top: 10px;
     padding-bottom: 0px;
     margin-left: 0px;
@@ -56,7 +60,7 @@ border-radius: .25rem;
 .intro_articles{
     background-color: #ffffff;
     border-radius: 0px;
-  /*  box-shadow: 10px 10px 40px #777;*/
+    box-shadow: 10px 10px 40px #777;
     border-bottom-width: 0px;
     border-top-width: 10px;
     margin-bottom: 10px;
@@ -73,7 +77,7 @@ border-radius: .25rem;
 }
 
 .intro_articles:hover{
-  /*  box-shadow:10px 10px 40px  #0c0c0c;*/
+    box-shadow:10px 10px 40px  #0c0c0c;
     padding-bottom: 0px;
     margin-bottom: 10px;
 }
@@ -85,7 +89,6 @@ border-radius: .25rem;
     overflow: hidden;
     margin-bottom: 0px;
 }
-
 .text{
     background-color: white;
     border-radius: 5px;
@@ -223,11 +226,9 @@ div{
     background-color: #ffffff;
 }
 
-body{
-  background-color: #ececec;
 
-}
+.comments_list{
+    background: white;
+    border-radius: 20px;
 
-.table{
-  background-color: #ffffff;
 }
