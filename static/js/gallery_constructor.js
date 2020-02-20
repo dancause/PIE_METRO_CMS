@@ -67,6 +67,7 @@ function create(){
     var a = verif_cookie().split(",");
     var colonne = radiocheck('colonne');
     var style = radiocheck('style');
+    var grid = document.getElementById('grid').value;
     var moreStyle = document.getElementById('moreStyle').value;
     var compteur=1;
     var cols = 12 / colonne;
@@ -78,7 +79,7 @@ function create(){
 
     for (i in a) {
         if (a[i] != "") {
-                    gallery = gallery +'<div class=" gallery_ligne col-md-' + cols + '"><a href="/view/' + a[i]+'"><img class="img-fluid ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '" style="'+moreStyle+'" ></a></div>';
+                    gallery = gallery +'<div class=" gallery_ligne col-'+grid + cols + '"><a href="/view/' + a[i]+'"><img class="img-fluid ' + style + '" src="/images/' + a[i] + '" alt="' + a[i] + '" style="'+moreStyle+'" ></a></div>';
                             if(compteur < colonne){
 
                                 compteur++;

@@ -120,8 +120,8 @@
 <div class="row">
         <div class=" col-12">
             <legend   style="margin-bottom: 0px;">Gallery HTML code</legend>
-        <input style="width: 100%;" name='gallery_html' id="gallery_html" value="{% if articles %}{{ articles.data1 }}{% endif %}"></input>
-        <textarea>{% if articles %}{{ articles.data1 }}{% endif %}</textarea>
+       <!--<input style="width: 100%;" name='gallery_html' id="gallery_html" value="{% if articles %}{{ articles.data1 }}{% endif %}"></input>-->
+        <textarea style="width: 100%;" name='gallery_html' id="gallery_html" >{% if articles %}{{ articles.data1 }}{% endif %}</textarea>
         </div>
   </div>
 
@@ -160,36 +160,48 @@
 
 <div class="row ">
 
-             <div class=" col-4" style="padding-left: 0px;">
+             <div class=" col-5" style="padding-left: 0px;">
 
 
 
                  <fieldset>
                             <legend style="margin-bottom: 0px;">Colonne(s)</legend>
 <div class="row ">
-                            <div class=" col-3">
+                            <div class=" col-2">
                                 <input type="radio" id="un"
                                        name="colonne" value="1" checked />
                                 <label for="un">1</label>
                             </div>
 
-                            <div class=" col-3">
+                            <div class=" col-2">
                                 <input type="radio" id="deux"
                                        name="colonne" value="2" />
                                 <label for="deux">2</label>
                             </div>
 
-                            <div class=" col-3">
+                            <div class=" col-2">
                                 <input type="radio" id="trois"
                                        name="colonne" value="3" />
                                 <label for="trois">3</label>
                             </div>
 
-                            <div class=" col-3">
+                            <div class=" col-2">
                                 <input type="radio" id="quatre"
                                        name="colonne" value="4" />
                                 <label for="quatre">4</label>
                             </div>
+                            <div class=" col-2">
+                                <input type="radio" id="trois"
+                                       name="colonne" value="6" />
+                                <label for="six">6</label>
+                            </div>
+
+                            <div class=" col-2">
+                                <input type="radio" id="quatre"
+                                       name="colonne" value="12" />
+                                <label for="douze">12</label>
+                            </div>
+
 </div>
                     </fieldset>
 
@@ -198,13 +210,21 @@
 
 
 
- <div class=" col-4" style="padding-left: 0px;">
+ <div class=" col-2" style="padding-left: 0px;">
 
 
 
                  <fieldset>
                             <legend style="margin-bottom: 0px;">Grid ajust size</legend>
-<div class="row ">
+<div class="row">
+
+<select id="grid">
+  <option value="">XS</option>
+  <option value="sm-">Small</option>
+  <option value="md-">Medium</option>
+  <option value="lg-">Large</option>
+    <option value="xl-">x-Large</option>
+</select>
 
 </div>
                     </fieldset>
@@ -215,7 +235,7 @@
 
 
 
-             <div class=" col-4">
+             <div class=" col-5">
                     <fieldset>
                             <legend style="margin-bottom: 0px;">Class Bootstrap image</legend>
 <div class="row ">
@@ -242,7 +262,7 @@
 </div>
         <div class="row ">
 
-          <label>Style : <input type="text" id="moreStyle"></label>
+          <label>Style : <input type="text" id="moreStyle"  style="width: 100%;"></label>
         </div>
 
 
