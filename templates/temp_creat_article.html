@@ -84,11 +84,12 @@
 			</div>
 
 				</div>
+        <br>
 <div class=" row">
 <div class=" form-group col-6">
- 				<label id="lblcategorie lblgroup">Catégoie:</label>
+ 				<!--<label id="lblcategorie lblgroup">Catégoie:</label>-->
  				<select name="categorie" id="categorie"  style="width: 100%;" class="mobile form-control" {% if articles %}value="{{articles.categorie}}"{% endif %}>
-                {% if update %}{% else %}<option disable selected value>Choisir une catégorie</option>{% endif %}
+                {% if update %}{% else %}<option disable selected value>Choisir une catégorie/ choose category</option>{% endif %}
  				{% for c in categories %}
  				<option value="{{c.id}}">{{c.menu_cat_fr}}</option>
  				{% endfor%}
@@ -96,13 +97,10 @@
 
 
  <div class="form-group col-6">
- <label id="lblphoto lblgroup">photo de l'en-tête</label>
- <input type="text" name="photo" placeholder="photo" id="photo" class="mobile form-control" value="{% if articles %}{{ articles.photo}}{% endif %}" style="width: 100%;" >
+ <!--<label id="lblphoto lblgroup">photo de l'en-tête</label>-->
+ <input type="text" name="photo" placeholder="photo en-tête / header" id="photo" class="mobile form-control" value="{% if articles %}{{ articles.photo}}{% endif %}" style="width: 100%;" >
 	</div>
 </div>
-
-
-
 
 <div class="row">
 <div class="col-6">
@@ -132,7 +130,7 @@
     </div>
 
 <input type="hidden" name='id' value="{% if articles %}{{articles.unique}}{% endif %}" style="width: 100%;" />
-<br>
+
  </div>
 
 
@@ -217,15 +215,15 @@
                  <fieldset>
                             <legend style="margin-bottom: 0px;">Grid ajust size</legend>
 <div class="row">
-
-<select id="grid">
+<div class="col-12">
+<select id="grid" class=form-control>
   <option value="">XS</option>
   <option value="sm-">Small</option>
   <option value="md-">Medium</option>
   <option value="lg-">Large</option>
     <option value="xl-">x-Large</option>
 </select>
-
+</div>
 </div>
                     </fieldset>
 
@@ -262,7 +260,15 @@
 </div>
         <div class="row ">
 
-          <label>Style : <input type="text" id="moreStyle"  style="width: 100%;"></label>
+    
+    
+    <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Style</span>
+  </div>
+  <input type="text" id="moreStyle" class="form-control" aria-describedby="basic-addon1">
+</div>
+    </div>
         </div>
 
 
