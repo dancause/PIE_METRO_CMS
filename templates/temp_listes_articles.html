@@ -14,18 +14,18 @@
  <table class="table table-striped">
     <thead>
     	<tr>
-        <th>Numéro</th>
-        <th>URL</th>
-        <th>titre_1</th>
-    	<th>titre_2</th>
-    	<th>date</th>
-    	<th>auteur</th>
-    	<th>categorie_1</th>
-    	<th>categorie_2</th>
-    	<th>photo</th>
-            <th>commentaire</th>
-    	<th>effacer</th>
-    	<th>mise à jour</th>
+      <th scope="col">Numéro</th>
+      <th scope="col">URL</th>
+      <TH scope="col">titre_1</th>
+    	<TH scope="col">titre_2</th>
+    	<TH scope="col">date</th>
+    	<TH scope="col">auteur</th>
+    	<TH scope="col">categorie_1</th>
+    	<TH scope="col">categorie_2</th>
+    	<TH scope="col">photo</th>
+      <TH scope="col">commentaire</th>
+    	<TH scope="col">effacer</th>
+    	<TH scope="col">mise à jour</th>
     	</tr>
     	</thead>
     	 {% if not articles %}
@@ -37,18 +37,18 @@
     	 {% else %}
 				{% for a in articles %}
 				<tr>
-                    <td>{{a.unique }}</td>
-                    <td><a href="/article/{{a.cat_fr }}/{{ a.url }}">{{a.url}}</a></td>
-    				<td>{{a.titre_fr}}</td>
-    				<td>{{a.titre_ang }}</td>
-    				<td>{{a.datepub}}</td>
-    				<td>{{a.auteur }}</td>
-    				<td>{{a.cat_fr }}</td>
-    				<td>{{a.cat_ang }}</td>
-    				<td>{{a.photo}}</td>
-                    <td>{{a.data2}}</td>
-    				<td><a href="/delete/article/{{ a.unique }}">effacer</a></td>
-    				<td><a href="/save/miseajour/{{ a.unique }}">mise à jour</a></td>
+            <td data-label="ID">{{a.unique }}</td>
+            <td data-label="URL"><a href="/article/{{a.cat_fr }}/{{ a.url }}">{{a.url}}</a></td>
+    				<td data-label="TITRE FR">{{a.titre_fr}}</td>
+    				<td data-label="TITRE ANG">{{a.titre_ang }}</td>
+    				<td data-label="DATE PUB">{{a.datepub}}</td>
+    				<td data-label="AUTEUR">{{a.auteur }}</td>
+    				<td data-label="CAT FR">{{a.cat_fr }}</td>
+    				<td data-label="CAT ENG">{{a.cat_ang }}</td>
+    				<td data-label="PHOTO">{{a.photo}}</td>
+            <td data-label="DATA">{{a.data2}}</td>
+    				<td data-label="EFFACER"><a href="/delete/article/{{ a.unique }}">effacer</a></td>
+    				<td data-label="MISE A JOUR"><a href="/save/miseajour/{{ a.unique }}">mise à jour</a></td>
     			</tr>
     			{% endfor %}
     	{% endif %}
@@ -56,5 +56,90 @@
 
 
 
+    <style>
+    body {
+      font-family: "Open Sans", sans-serif;
+      line-height: 1.25;
+    }
 
+    table {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table caption {
+      font-size: 1.5em;
+      margin: .5em 0 .75em;
+    }
+
+    table tr {
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      padding: .35em;
+    }
+
+    table th,
+    table td {
+      padding: .625em;
+      text-align: center;
+    }
+
+    table th {
+      font-size: .85em;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 600px) {
+      table {
+        border: 0;
+      }
+
+      table caption {
+        font-size: 1.3em;
+      }
+
+      table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+
+      table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+      }
+
+      table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+      }
+
+      table td::before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      table td:last-child {
+        border-bottom: 0;
+      }
+    }</style>
 {% endblock %}

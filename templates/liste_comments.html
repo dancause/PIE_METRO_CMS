@@ -2,9 +2,9 @@
 <table class="table" id="liste_comments">
         <thead>
     	<tr>
-        <th scope="col">Numéro</th>
-        <th scope="col">usager</th>
-        <th scope="col">article</th>
+      <th scope="col">Numéro</th>
+      <th scope="col">usager</th>
+      <th scope="col">article</th>
     	<th scope="col">comment</th>
     	<th scope="col">date</th>
     	<th scope="col">validate</th>
@@ -20,7 +20,7 @@
     	 {% else %}
 				{% for c in comments %}
 				<tr id="{{c.id}}">
-                    <td data-label="ID">{{c.id}}</td>
+            <td data-label="ID">{{c.id}}</td>
     				<td data-label="ID USER">{{c.id_user}}</td>
     				<td data-label="ID ACTICLE"><a href ="/article/{{c.id_article}}">{{c.id_article}}</a></td>
     				<td data-label="COMMENTS">{{c.comments }}</td>
@@ -33,7 +33,7 @@
 </table>
 
 <style>
-    body {
+body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.25;
 }
@@ -78,7 +78,7 @@ table th {
   table caption {
     font-size: 1.3em;
   }
-  
+
   table thead {
     border: none;
     clip: rect(0 0 0 0);
@@ -89,20 +89,20 @@ table th {
     position: absolute;
     width: 1px;
   }
-  
+
   table tr {
     border-bottom: 3px solid #ddd;
     display: block;
     margin-bottom: .625em;
   }
-  
+
   table td {
     border-bottom: 1px solid #ddd;
     display: block;
     font-size: .8em;
     text-align: right;
   }
-  
+
   table td::before {
     /*
     * aria-label has no advantage, it won't be read inside a table
@@ -113,7 +113,7 @@ table th {
     font-weight: bold;
     text-transform: uppercase;
   }
-  
+
   table td:last-child {
     border-bottom: 0;
   }
